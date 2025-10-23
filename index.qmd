@@ -1,0 +1,31 @@
+---
+title: Customer Segmentation Model
+authors:
+  - name: Utkarsh Tripathi
+    affiliation:
+    - ref: bits
+    roles: writing
+    corresponding: true
+  - name: Juwaria Qadri
+    affiliation:
+    - ref: bits
+    roles: writing
+    corresponding: true
+  - name: Mohammed Omar
+    affiliation:
+    - ref: bits
+    roles: writing
+    corresponding: true
+  - name: Merian-Ann
+    affiliation:
+    - ref: bits
+    roles: writing
+    corresponding: true
+affiliations: 
+  - id: bits
+    name: BITS Pilani Digital
+bibliography: references.bib
+---
+
+## Section
+This is a simple placeholder for the manuscript's main document [@knuth84].
