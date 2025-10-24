@@ -6,15 +6,15 @@ manuscript:
   article: index.qmd
   notebooks:
     - notebook: notebook/customer_segmentation_model.ipynb
-      title: Data Processing
+      title: Customer Segmentation Notebook 
   resources: 
     - resources/Data_Dictionary.html
 toc-location: right
 
 format:
   html:
-    comments:
-      hypothesis: true
+    # comments:
+     # hypothesis: true
   # docx: default
   # jats: default
 
