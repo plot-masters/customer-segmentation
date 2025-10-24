@@ -1,239 +1,208 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="generator" content="quarto-1.8.25">
 
-<meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-
-
-<title>Customer Segmentation Model</title>
-<style>
-code{white-space: pre-wrap;}
-span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
-div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-ul.task-list{list-style: none;}
-ul.task-list li input[type="checkbox"] {
-  width: 0.8em;
-  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
-  vertical-align: middle;
-}
-/* CSS for citations */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-  margin-bottom: 0em;
-}
-.hanging-indent div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}</style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-html/quarto.js" type="module"></script>
-<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-4641926b3bc8bedce65da3f18f26838d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
-<script async="" src="https://hypothes.is/embed.js"></script>
+    <title>customer_segmentation_model</title>
+    <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.columns{display: flex; gap: min(4vw, 1.5em);}
+      div.column{flex: auto; overflow-x: auto;}
+      div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+      ul.task-list{list-style: none;}
+      ul.task-list li input[type="checkbox"] {
+        width: 0.8em;
+        margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+        vertical-align: middle;
+      }
+      /* CSS for syntax highlighting */
+      html { -webkit-text-size-adjust: 100%; }
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+        }
+      pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+    </style>
+
+    <style>
+      body.hypothesis-enabled #quarto-embed-header {
+        padding-right: 36px;
+      }
+
+      #quarto-embed-header {
+        height: 3em;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: solid 1px;
+      }
+
+      #quarto-embed-header h6 {
+        font-size: 1.1em;
+        padding-top: 0.6em;
+        margin-left: 1em;
+        margin-right: 1em;
+        font-weight: 400;
+      }
+
+      #quarto-embed-header a.quarto-back-link,
+      #quarto-embed-header a.quarto-download-embed {
+        font-size: 0.8em;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        margin-left: 1em;
+        margin-right: 1em;
+      }
+
+      .quarto-back-container {
+        padding-left: 0.5em;
+        display: flex;
+      }
+
+      .headroom {
+          will-change: transform;
+          transition: transform 200ms linear;
+      }
+
+      .headroom--pinned {
+          transform: translateY(0%);
+      }
+
+      .headroom--unpinned {
+          transform: translateY(-100%);
+      }      
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script>
+    window.document.addEventListener("DOMContentLoaded", function () {
+
+      var header = window.document.querySelector("#quarto-embed-header");
+      const titleBannerEl = window.document.querySelector("body > #title-block-header");
+      if (titleBannerEl) {
+        titleBannerEl.style.paddingTop = header.clientHeight + "px";
+      }
+      const contentEl = window.document.getElementById('quarto-content');
+      for (const child of contentEl.children) {
+        child.style.paddingTop = header.clientHeight + "px";
+        child.style.marginTop = "1em";
+      }
+
+      // Use the article root if the `back` call doesn't work. This isn't perfect
+      // but should typically work
+      window.quartoBackToArticle = () => {
+        var currentUrl = window.location.href;
+        window.history.back();
+        setTimeout(() => {
+            // if location was not changed in 100 ms, then there is no history back
+            if(currentUrl === window.location.href){              
+                // redirect to site root
+                window.location.href = "../index.html";
+            }
+        }, 100);
+      }
+
+      const headroom = new window.Headroom(header, {
+        tolerance: 5,
+        onPin: function () {
+        },
+        onUnpin: function () {
+        },
+      });
+      headroom.init();
+    });
+    </script>
+
+    
+<script src="../site_libs/manuscript-notebook/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-4641926b3bc8bedce65da3f18f26838d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+     <script async="" src="https://hypothes.is/embed.js"></script>
 <script>
   window.document.addEventListener("DOMContentLoaded", function (_event) {
     document.body.classList.add('hypothesis-enabled');
   });
-</script>
-<script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
+</script>  <script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
-<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>  
+      </head>
 
+  <body class="quarto-notebook quarto-light">
+    <div id="quarto-embed-header" class="headroom fixed-top bg-primary">
+      
+      <a onclick="window.quartoBackToArticle(); return false;" class="btn btn-primary quarto-back-link" href=""><i class="bi bi-caret-left"></i> Back to Article</a>
+      <h6><i class="bi bi-journal-code"></i> Data Processing</h6>
 
-<meta name="citation_title" content="Customer Segmentation Model">
-<meta name="citation_author" content="Utkarsh Tripathi (2025EM1100146)
-">
-<meta name="citation_author" content="Juwaria Qadri (2025EM1100132)">
-<meta name="citation_author" content="Mohammed Omar (2025EM1100235)">
-<meta name="citation_author" content="Merin Ann Cherian (2025EM1100211)">
-<meta name="citation_language" content="en">
-<meta name="citation_reference" content="citation_title=Blinkit Sales Dataset;,citation_abstract=Blinkit Sales Data: Analyzing Trends and Consumer Behavior;,citation_author=Akshit Vaghasiya;,citation_publication_date=2025-02;,citation_cover_date=2025-02;,citation_year=2025;,citation_fulltext_html_url=https://www.kaggle.com/datasets/akxiit/blinkit-sales-dataset;">
-</head>
-
-<body class="quarto-light">
-
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body">
-      <h1 class="title">Customer Segmentation Model</h1>
+            <a href="../notebook/customer_segmentation_model.ipynb" class="btn btn-primary quarto-download-embed" download="customer_segmentation_model.ipynb">Download Notebook</a>
           </div>
 
-    
-    <div class="quarto-title-meta-container">
-      <div class="quarto-title-meta-column-start">
-            <div class="quarto-title-meta-author">
-          <div class="quarto-title-meta-heading">Authors</div>
-          <div class="quarto-title-meta-heading">Affiliation</div>
-          
-                <div class="quarto-title-meta-contents">
-            <p class="author"></p><p>Utkarsh Tripathi (2025EM1100146)</p> <a href="mailto:2025em1100146@bitspilani-digital.edu.in" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> <p></p>
-          </div>
-                <div class="quarto-title-meta-contents">
-                    <p class="affiliation">
-                        BITS Pilani Digital
-                      </p>
-                  </div>
-                      <div class="quarto-title-meta-contents">
-            <p class="author">Juwaria Qadri (2025EM1100132) <a href="mailto:2025EM1100132@bitspilani-digital.edu.in" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-          </div>
-                <div class="quarto-title-meta-contents">
-                    <p class="affiliation">
-                        BITS Pilani Digital
-                      </p>
-                  </div>
-                      <div class="quarto-title-meta-contents">
-            <p class="author">Mohammed Omar (2025EM1100235) <a href="mailto:2025EM1100235@bitspilani-digital.edu.in" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-          </div>
-                <div class="quarto-title-meta-contents">
-                    <p class="affiliation">
-                        BITS Pilani Digital
-                      </p>
-                  </div>
-                      <div class="quarto-title-meta-contents">
-            <p class="author">Merin Ann Cherian (2025EM1100211) <a href="mailto:2025EM1100211@bitspilani-digital.edu.in" class="quarto-title-author-email"><i class="bi bi-envelope"></i></a> </p>
-          </div>
-                <div class="quarto-title-meta-contents">
-                    <p class="affiliation">
-                        BITS Pilani Digital
-                      </p>
-                  </div>
-                    </div>
-        
-        <div class="quarto-title-meta">
-
-                      
-          
-                
-              </div>
-      </div>
-      <div class="quarto-title-meta-column-end quarto-other-formats-target">
-      <div class="quarto-alternate-formats"><div class="quarto-title-meta-heading">Other Formats</div><div class="quarto-title-meta-contents"><p><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></p></div></div></div>
-    </div>
-
-
-
-    <div class="quarto-other-links-text-target">
-    </div>  </div>
-</header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
-   
-  <ul>
-  <li><a href="#phase-1" id="toc-phase-1" class="nav-link active" data-scroll-target="#phase-1">Phase 1</a>
-  <ul class="collapse">
-  <li><a href="#proposal" id="toc-proposal" class="nav-link" data-scroll-target="#proposal">Proposal</a></li>
-  </ul></li>
-  <li><a href="#phase-2" id="toc-phase-2" class="nav-link" data-scroll-target="#phase-2">Phase 2</a>
-  <ul class="collapse">
-  <li><a href="#data-extraction" id="toc-data-extraction" class="nav-link" data-scroll-target="#data-extraction">Data Extraction</a></li>
-  </ul></li>
-  </ul>
-<div class="quarto-alternate-notebooks"><h2>Notebooks</h2><ul><li><a href="notebook/customer_segmentation_model-preview.html"><i class="bi bi-journal-code"></i>Data Processing</a></li></ul></div></nav>
-</div>
-<main class="content quarto-banner-title-block" id="quarto-document-content">
-
-
-
+     <div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
   
-
-
-<section id="phase-1" class="level1">
-<h1>Phase 1</h1>
-<p>Segmenting Blinkit customers based on their spending behaviour and delivery experience to identify distinct customer clusters (high, medium, and low spending) for targeted marketing strategies and increasing sales</p>
-<section id="proposal" class="level2">
-<h2 class="anchored" data-anchor-id="proposal">Proposal</h2>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">    <div id="cell-0" class="cell markdown">
+<p>Apex Project: Team Plotmasters</p>
 <ol type="1">
-<li><p><strong>Project Statement</strong><br>
-Across customer-centric businesses, one of the major goals for the organization is being able to predict the needs of its customers and how to best cater to their needs while maintaining high profitability. However, to make the solution feasible, the way forward would be to create groups of consumers that share similar spending patterns, allowing the businesses to create targeted marketing campaigns, improve customer satisfaction, demand-oriented product development, and therefore improve <em>profitability</em>.</p></li>
-<li><p><strong>Business Goal</strong><br>
-The objective of this project is to develop a machine learning model that can create suitable and usable clusters/segments given the profile and purchases of the customer. The model should then be able to predict, within bounds of acceptable error, which segment a customer is likely to belong to. The model should allow stakeholders to make informed and data-backed decisions on product demand, campaign successes and customer retention.</p></li>
-<li><p><strong>Data Source</strong><br>
-We will use the “Blinkit Sales Dataset” for this project. This dataset provides detailed information on product sales, visibility, item types, and outlet performance, making it ideal for performing sales data analysis and gaining insights into business trends. The dataset is well-structured and suitable for data preprocessing, exploratory data analysis, and predictive modeling tasks.</p>
-<ul>
-<li><strong>Source Platform:</strong> <strong>Kaggle</strong></li>
-<li><strong>Dataset</strong>: Blinkit Sales Data <span class="citation" data-cites="blinkit_2025">(<a href="#ref-blinkit_2025" role="doc-biblioref">Vaghasiya 2025</a>)</span></li>
-</ul></li>
-<li><p><strong>Tools and Technology</strong><br>
-Following languages and libraries are planned to be used for this project. More libraries may be used and every non trivial library shall be updated.</p>
-<ul>
-<li>Python
-<ul>
-<li>Core Libraries
-<ul>
-<li>Data Manipulation: Pandas, NumPy<br>
-</li>
-<li>ML: scikit-learn<br>
-</li>
-<li>Data Visualization &amp; Storytelling: Matplotlib, Seaborn<br>
-</li>
-</ul></li>
-<li>Development Environment: VS Code, Google Colab, GitHub<br>
-</li>
-</ul></li>
-<li>Dashboard: Power BI</li>
-</ul></li>
-<li><p><strong>Project Workflow</strong><br>
-The project is to follow a standard data science development lifecycle,</p>
-<ol type="1">
-<li>Data Acquisition: Fetch the dataset from <strong>Kaggle</strong> using its API.<br>
-</li>
-<li>Preprocessing: Handle missing values (if any), encode categorical variables, and<br>
-check for data inconsistencies.<br>
-</li>
-<li>EDA: Analyze features to understand their relationship with attrition using statistical summaries and visualizations.<br>
-</li>
-<li>Feature Engineering: Create new features from existing ones if necessary to improve model performance.<br>
-</li>
-<li>Modeling: Train several clustering models (e.g., K Means Clustering, PCA, Decision Trees).<br>
-</li>
-<li>Evaluation: Assess model performance using metrics like Accuracy, Precision, Recall, and F1-Score. Select the best-performing model.<br>
-</li>
-<li>Visualization: Create an interactive dashboard in Power BI to present the key findings and predictions to stakeholders.</li>
-</ol></li>
-<li><p><strong>Data Extraction</strong><br>
-The “<em>Blinkit Sales Dataset</em>” is acquired directly from the Kaggle repository. To ensure a professional and reproducible workflow, manually downloading the files is not done.<br>
-Instead, we will perform the following steps:</p>
-<ul>
-<li>Automate the Process: We will write a Python script that utilizes the official Kaggle API to connect to the source and download the dataset.<br>
-</li>
-<li>Ensure Reproducibility: This scripted approach guarantees that the data extraction process is consistent and can be easily re-run by any team member or reviewer.<br>
-</li>
-<li>Prepare for Analysis: The script will handle the unzipping of the downloaded files and load the data directly into a Pandas DataFrame, making it immediately available for the next phase of our project.<br>
-</li>
-<li>Notebook: <a href="./notebook/customer_segmentation_model-preview.html">Customer Segmentation Notebook</a></li>
-</ul></li>
-<li><p><strong>Schema / Data Dictionary</strong><br>
-This data dictionary was created after inspecting the dataset.</p></li>
+<li>Utkarsh Tripathi (2025EM1100146)</li>
+<li>Juwaria Qadri (2025EM1100132)</li>
+<li>Mohammed Omar (2025EM1100235)</li>
+<li>Merin Ann Cherian (2025EM1100211)</li>
 </ol>
-<div class="quarto-embed-nb-cell">
-<div id="cell-2" class="cell" data-tags="[&quot;data_dictionary&quot;]" data-execution_count="6">
+</div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div id="cell-1" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>df<span class="op">=</span>pd.read_csv(<span class="st">'../resources/data/blinkit_orders.csv'</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [6]:</pre></div><div id="cell-2" class="cell" data-tags="[&quot;data_dictionary&quot;]" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Data Dictionary</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>df_dictionary <span class="op">=</span> pd.read_csv(<span class="st">'../resources/Data_Dictionary.csv'</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>display(df_dictionary)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 
@@ -324,25 +293,116 @@ This data dictionary was created after inspecting the dataset.</p></li>
 
 </div>
 </div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div id="cell-3" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="42426013-f126-484b-90d1-7d1f813cdb5b">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>head_row<span class="op">=</span>df.head(<span class="dv">10</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>df_info<span class="op">=</span>df.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 5000 entries, 0 to 4999
+Data columns (total 10 columns):
+ #   Column                  Non-Null Count  Dtype  
+---  ------                  --------------  -----  
+ 0   order_id                5000 non-null   int64  
+ 1   customer_id             5000 non-null   int64  
+ 2   order_date              5000 non-null   object 
+ 3   promised_delivery_time  5000 non-null   object 
+ 4   actual_delivery_time    5000 non-null   object 
+ 5   delivery_status         5000 non-null   object 
+ 6   order_total             5000 non-null   float64
+ 7   payment_method          5000 non-null   object 
+ 8   delivery_partner_id     5000 non-null   int64  
+ 9   store_id                5000 non-null   int64  
+dtypes: float64(1), int64(4), object(5)
+memory usage: 390.8+ KB</code></pre>
 </div>
+</div></div>
+<div id="cell-4" class="cell markdown">
+
 </div>
-</section>
-</section>
-<section id="phase-2" class="level1">
-<h1>Phase 2</h1>
-<section id="data-extraction" class="level2 unnumbered">
+<div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div id="cell-5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="6fd8b385-765c-4f72-e033-27489bc50d77">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.isnull().<span class="bu">sum</span>())</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>order_id                  0
+customer_id               0
+order_date                0
+promised_delivery_time    0
+actual_delivery_time      0
+delivery_status           0
+order_total               0
+payment_method            0
+delivery_partner_id       0
+store_id                  0
+dtype: int64</code></pre>
+</div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [5]:</pre></div><div id="cell-6" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#descriptive stats of the dataset</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>descriptive_stats<span class="op">=</span>df.describe()</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(descriptive_stats)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [6]:</pre></div><div id="cell-7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:397}}" data-outputid="e8f89ffd-39d2-4a77-e326-11719f199f91">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df.dtypes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<div>
 
 
-</section>
-</section>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">order_id</th>
+<td>int64</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">customer_id</th>
+<td>int64</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">order_date</th>
+<td>object</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">promised_delivery_time</th>
+<td>object</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">actual_delivery_time</th>
+<td>object</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">delivery_status</th>
+<td>object</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">order_total</th>
+<td>float64</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">payment_method</th>
+<td>object</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">delivery_partner_id</th>
+<td>int64</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">store_id</th>
+<td>int64</td>
+</tr>
+</tbody>
+</table>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Data Extraction</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
-<div id="ref-blinkit_2025" class="csl-entry" role="listitem">
-Vaghasiya, Akshit. 2025. <span>“Blinkit <span>Sales</span> <span>Dataset</span>.”</span> <a href="https://www.kaggle.com/datasets/akxiit/blinkit-sales-dataset">https://www.kaggle.com/datasets/akxiit/blinkit-sales-dataset</a>.
+</div><br><label><b>dtype:</b> object</label>
 </div>
-</div></section></div></main>
-<!-- /main column -->
-<script id="quarto-html-after-body" type="application/javascript">
+</div></div>
+     </main>
+<!-- /main column -->  <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
     const anchorJS = new window.AnchorJS();
@@ -741,10 +801,6 @@ Vaghasiya, Akshit. 2025. <span>“Blinkit <span>Sales</span> <span>Dataset</span
       }
     }
   });
-  </script>
-</div> <!-- /content -->
-
-
-
-
+  </script>  </div> <!-- /content --> 
+  
 </body></html>

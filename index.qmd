@@ -1,22 +1,27 @@
 ---
 title: Customer Segmentation Model
 authors:
-  - name: Utkarsh Tripathi
+  - name: |
+      Utkarsh Tripathi (2025EM1100146)
+    email: 2025em1100146@bitspilani-digital.edu.in
     affiliation:
     - ref: bits
     roles: writing
     corresponding: true
-  - name: Juwaria Qadri
+  - name: Juwaria Qadri (2025EM1100132)
+    email: 2025EM1100132@bitspilani-digital.edu.in
     affiliation:
     - ref: bits
     roles: writing
     corresponding: true
-  - name: Mohammed Omar
+  - name: Mohammed Omar (2025EM1100235)
+    email: 2025EM1100235@bitspilani-digital.edu.in
     affiliation:
     - ref: bits
     roles: writing
     corresponding: true
-  - name: Merian-Ann
+  - name: Merin Ann Cherian (2025EM1100211)
+    email: 2025EM1100211@bitspilani-digital.edu.in
     affiliation:
     - ref: bits
     roles: writing
@@ -27,5 +32,58 @@ affiliations:
 bibliography: references.bib
 ---
 
-## Section
-This is a simple placeholder for the manuscript's main document [@knuth84].
+# Phase 1
+
+Segmenting Blinkit customers based on their spending behaviour and delivery experience to identify distinct customer clusters (high, medium, and low spending) for targeted marketing strategies and increasing sales
+
+## Proposal
+
+1. **Project Statement**  
+  Across customer-centric businesses, one of the major goals for the organization is being able to predict the needs of its customers and how to best cater to their needs while maintaining high profitability. However, to make the solution feasible, the way forward would be to create groups of consumers that share similar spending patterns, allowing the businesses to create targeted marketing campaigns, improve customer satisfaction, demand-oriented product development, and therefore improve *profitability*.  
+     
+2. **Business Goal**  
+   The objective of this project is to develop a machine learning model that can create suitable and usable clusters/segments given the profile and purchases of the customer. The model should then be able to predict, within bounds of acceptable error, which segment a customer is likely to belong to. The model should allow stakeholders to make informed and data-backed decisions on product demand, campaign successes and customer retention.  
+     
+3. **Data Source**     
+  We will use the "Blinkit Sales Dataset" for this project. This dataset provides detailed information on product sales, visibility, item types, and outlet performance, making it ideal for performing sales data analysis and gaining insights into business trends. The dataset is well-structured and suitable for data preprocessing, exploratory data analysis, and predictive modeling tasks.  
+   - **Source Platform:** **Kaggle**
+   - **Dataset**: Blinkit Sales Data [@blinkit_2025]  
+
+4. **Tools and Technology**  
+  Following languages and libraries are planned to be used for this project. More libraries may be used and every non trivial library shall be updated.  
+    - Python  
+      - Core Libraries  
+        - Data Manipulation: Pandas, NumPy  
+        - ML: scikit-learn  
+        - Data Visualization & Storytelling: Matplotlib, Seaborn  
+      - Development Environment: VS Code, Google Colab, GitHub  
+    - Dashboard: Power BI   
+
+5. **Project Workflow**  
+  The project is to follow a standard data science development lifecycle,  
+   1. Data Acquisition: Fetch the dataset from **Kaggle** using its API.  
+   2. Preprocessing: Handle missing values (if any), encode categorical variables, and  
+       check for data inconsistencies.  
+   3. EDA: Analyze features to understand their relationship with attrition using statistical summaries and visualizations.  
+   4. Feature Engineering: Create new features from existing ones if necessary to improve model performance.  
+   5. Modeling: Train several clustering models (e.g., K Means Clustering, PCA, Decision Trees).  
+   6. Evaluation: Assess model performance using metrics like Accuracy, Precision, Recall, and F1-Score. Select the best-performing model.  
+   7. Visualization: Create an interactive dashboard in Power BI to present the key findings and predictions to stakeholders.  
+
+6. **Data Extraction**   
+  The "*Blinkit Sales Dataset*"  is acquired directly from the Kaggle repository. To ensure a professional and reproducible workflow, manually downloading the files is not done.  
+  Instead, we will perform the following steps:  
+   - Automate the Process: We will write a Python script that utilizes the official Kaggle API to connect to the source and download the dataset.  
+   - Ensure Reproducibility: This scripted approach guarantees that the data extraction process is consistent and can be easily re-run by any team member or reviewer.  
+   - Prepare for Analysis: The script will handle the unzipping of the downloaded files and load the data directly into a Pandas DataFrame, making it immediately available for the next phase of our project.  
+   - Notebook: [Customer Segmentation Notebook](notebook/customer_segmentation_model.ipynb)
+     
+7. **Schema / Data Dictionary**   
+  This data dictionary was created after inspecting the dataset.  
+  {{< embed notebook/customer_segmentation_model.ipynb#data_dictionary >}}
+
+
+
+# Phase 2
+
+## Data Extraction

@@ -1,0 +1,11 @@
+Feature Name,Data Type,Description,PK (Yes/No)
+order_id,int64,Unique identifier for each order,Yes
+customer_id,int64,Unique identifier for each customer,No
+order_date,object,The timestamp when the order was placed,No
+promised_delivery_time,object,The time informed to the customer for completing the delivery,No
+actual_delivery_time,object,The actual time when the order was delivered ,No
+delivery_status,object,The  delivery status of the order,No
+order_total,float64,The total price of the order (in Rupees),No
+payment_method,object,The payment method used by the customer,No
+delivery_partner_id,int64,Unique identifier representing the delivery partner,No
+store_id,int64,Unique identifier for the store that fulfilled the order,No
