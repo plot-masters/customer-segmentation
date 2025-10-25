@@ -54,7 +54,7 @@ div.csl-indent {
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-4641926b3bc8bedce65da3f18f26838d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-0a61af393cc41664e89a7addda21b354.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
@@ -127,7 +127,7 @@ div.csl-indent {
               </div>
       </div>
       <div class="quarto-title-meta-column-end quarto-other-formats-target">
-      <div class="quarto-alternate-formats"><div class="quarto-title-meta-heading">Other Formats</div><div class="quarto-title-meta-contents"><p><a href="index.pdf"><i class="bi bi-file-pdf"></i>PDF</a></p></div></div></div>
+      </div>
     </div>
 
 
@@ -149,7 +149,7 @@ div.csl-indent {
   <li><a href="#data-extraction" id="toc-data-extraction" class="nav-link" data-scroll-target="#data-extraction">Data Extraction</a></li>
   </ul></li>
   </ul>
-<div class="quarto-alternate-notebooks"><h2>Notebooks</h2><ul><li><a href="notebook/data_dictionary-preview.html"><i class="bi bi-journal-code"></i>Data Dictionary</a></li><li><a href="notebook/customer_segmentation_model-preview.html"><i class="bi bi-journal-code"></i>Data Processing</a></li></ul></div></nav>
+<div class="quarto-alternate-notebooks"><h2>Notebooks</h2><ul><li><a href="notebook/customer_segmentation_model-preview.html"><i class="bi bi-journal-code"></i>Customer Segmentation Notebook</a></li><li><a href="notebook/data_dictionary-preview.html"><i class="bi bi-journal-code"></i>Data Dictionary</a></li></ul></div></nav>
 </div>
 <main class="content quarto-banner-title-block" id="quarto-document-content">
 
@@ -361,6 +361,29 @@ payment_method            0
 delivery_partner_id       0
 store_id                  0
 dtype: int64</code></pre>
+</div>
+</div>
+<div id="cell-4" class="cell" data-execution_count="7">
+<div class="cell-output cell-output-stdout">
+<pre><code>           order_id   customer_id  order_total  delivery_partner_id  \
+count  5.000000e+03  5.000000e+03   5000.00000          5000.000000   
+mean   5.029129e+09  5.009685e+07   2201.86170         50050.318200   
+std    2.863533e+09  2.919082e+07   1303.02438         28802.276922   
+min    6.046500e+04  3.181300e+04     13.25000            43.000000   
+25%    2.531421e+09  2.404314e+07   1086.21500         24928.500000   
+50%    5.074378e+09  4.997808e+07   2100.69000         50262.500000   
+75%    7.488579e+09  7.621215e+07   3156.88250         74478.250000   
+max    9.998298e+09  9.989390e+07   6721.46000         99968.000000   
+
+          store_id  
+count  5000.000000  
+mean   4999.689000  
+std    2886.089242  
+min       1.000000  
+25%    2509.250000  
+50%    4987.000000  
+75%    7500.750000  
+max    9995.000000  </code></pre>
 </div>
 </div>
 <div id="cell-5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:397}}" data-outputid="e8f89ffd-39d2-4a77-e326-11719f199f91">
