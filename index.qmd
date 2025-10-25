@@ -86,6 +86,4 @@ Segmenting Blinkit customers based on their spending behaviour and delivery expe
 
 # Phase 2
 
-## Data Extraction
-
 {{< embed notebook/customer_segmentation_model.ipynb >}}
