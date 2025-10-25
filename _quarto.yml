@@ -17,7 +17,7 @@ format:
   # jats: default
 
   # (other formats)
-  pdf: default
+  # pdf: default
 
 execute:
   freeze: true
