@@ -3,25 +3,25 @@ title: Customer Segmentation Model
 authors:
   - name: |
       Utkarsh Tripathi (2025EM1100146)
-    email: 2025em1100146@bitspilani-digital.edu.in
+    # email: 2025em1100146@bitspilani-digital.edu.in
     affiliation:
     - ref: bits
     roles: writing
     corresponding: true
   - name: Juwaria Qadri (2025EM1100132)
-    email: 2025EM1100132@bitspilani-digital.edu.in
+    # email: 2025EM1100132@bitspilani-digital.edu.in
     affiliation:
     - ref: bits
     roles: writing
     corresponding: true
   - name: Mohammed Omar (2025EM1100235)
-    email: 2025EM1100235@bitspilani-digital.edu.in
+    # email: 2025EM1100235@bitspilani-digital.edu.in
     affiliation:
     - ref: bits
     roles: writing
     corresponding: true
   - name: Merin Ann Cherian (2025EM1100211)
-    email: 2025EM1100211@bitspilani-digital.edu.in
+    # email: 2025EM1100211@bitspilani-digital.edu.in
     affiliation:
     - ref: bits
     roles: writing
@@ -80,10 +80,12 @@ Segmenting Blinkit customers based on their spending behaviour and delivery expe
      
 7. **Schema / Data Dictionary**   
   This data dictionary was created after inspecting the dataset.  
-  {{< embed notebook/customer_segmentation_model.ipynb#data_dictionary >}}
+  {{< embed notebook/data_dictionary.ipynb >}}
 
 
 
 # Phase 2
 
 ## Data Extraction
+
+{{< embed notebook/customer_segmentation_model.ipynb >}}

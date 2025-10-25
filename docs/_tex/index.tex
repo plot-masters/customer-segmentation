@@ -368,13 +368,68 @@ fulfilled... & No \\
 \end{longtable}
 
 \textsubscript{Source:
-\href{https://plot-masters.github.io/customer-segmentation/notebook/customer_segmentation_model-preview.html\#cell-2}{Data
+\href{https://plot-masters.github.io/customer-segmentation/notebook/data_dictionary.ipynb.html\#cff88bb5}{Data
 Dictionary}}
 
 \section{Phase 2}\label{phase-2}
 
-\subsection*{Data Extraction}\label{data-extraction}
-\addcontentsline{toc}{subsection}{Data Extraction}
+\subsection{Data Extraction}\label{data-extraction}
+
+\begin{verbatim}
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 5000 entries, 0 to 4999
+Data columns (total 10 columns):
+ #   Column                  Non-Null Count  Dtype  
+---  ------                  --------------  -----  
+ 0   order_id                5000 non-null   int64  
+ 1   customer_id             5000 non-null   int64  
+ 2   order_date              5000 non-null   object 
+ 3   promised_delivery_time  5000 non-null   object 
+ 4   actual_delivery_time    5000 non-null   object 
+ 5   delivery_status         5000 non-null   object 
+ 6   order_total             5000 non-null   float64
+ 7   payment_method          5000 non-null   object 
+ 8   delivery_partner_id     5000 non-null   int64  
+ 9   store_id                5000 non-null   int64  
+dtypes: float64(1), int64(4), object(5)
+memory usage: 390.8+ KB
+\end{verbatim}
+
+\begin{verbatim}
+order_id                  0
+customer_id               0
+order_date                0
+promised_delivery_time    0
+actual_delivery_time      0
+delivery_status           0
+order_total               0
+payment_method            0
+delivery_partner_id       0
+store_id                  0
+dtype: int64
+\end{verbatim}
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule\noalign{}
+& 0 \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+order\_id & int64 \\
+customer\_id & int64 \\
+order\_date & object \\
+promised\_delivery\_time & object \\
+actual\_delivery\_time & object \\
+delivery\_status & object \\
+order\_total & float64 \\
+payment\_method & object \\
+delivery\_partner\_id & int64 \\
+store\_id & int64 \\
+\end{longtable}
+
+\textsubscript{Source:
+\href{https://plot-masters.github.io/customer-segmentation/notebook/customer_segmentation_model-preview.html\#cell-0}{customer\_segmentation\_model.ipynb}}
 
 \phantomsection\label{refs}
 \begin{CSLReferences}{1}{0}

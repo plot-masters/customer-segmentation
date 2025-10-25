@@ -12,9 +12,7 @@ manuscript:
 toc-location: right
 
 format:
-  html:
-    # comments:
-     # hypothesis: true
+  html: default
   # docx: default
   # jats: default
 
