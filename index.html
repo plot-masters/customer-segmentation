@@ -12,7 +12,7 @@
 <meta name="author" content="Merin Ann Cherian">
 <meta name="dcterms.date" content="2025-12-12">
 
-<title>Customer Segmentation Analysis – Apex Project: Team Plotmasters</title>
+<title>Customer Segmentation Analysis</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -152,7 +152,7 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Apex Project: Team Plotmasters</span>
+    <span class="navbar-title">Customer Segmentation Analysis</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
@@ -235,7 +235,7 @@ window.Quarto = {
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <div class="quarto-title-block"><div><h1 class="title">Customer Segmentation Analysis</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
-<p class="subtitle lead">Apex Project 1: Team Plotmasters</p>
+<p class="subtitle lead">The Cost of a Minute: How Delivery Delays Define Customer Value</p>
 </div>
 
 
@@ -307,7 +307,7 @@ window.Quarto = {
 <li><strong>Cluster Modelling</strong>: Applying K-Means clustering.</li>
 <li><strong>Basic Inferences</strong>: Deriving insights from the clusters.</li>
 </ul>
-<div id="1d1da8e9" class="cell" data-execution_count="1">
+<div id="aad696f1" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Library imports</span></span>
@@ -328,7 +328,7 @@ window.Quarto = {
 <section id="data-loading" class="level1">
 <h1>2. Data Loading</h1>
 <p>Loading a CSV dataset into the Pandas DataFrame.</p>
-<div id="b6e58c7c" class="cell" data-execution_count="2">
+<div id="9d7c34c5" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Dataset loading</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>input_path <span class="op">=</span> <span class="st">"./blinkit_orders.csv"</span></span>
@@ -340,7 +340,7 @@ window.Quarto = {
 <section id="basic-data-exploration-summary" class="level3">
 <h3 class="anchored" data-anchor-id="basic-data-exploration-summary">Basic Data Exploration &amp; Summary</h3>
 <p>The following functions are used to inspect the dataset structure and summary statistics: - <code>basic_exploration(df)</code>: Prints shape, top rows, info, null counts, unique values, and duplicates. - <code>summarize_df(df)</code>: Provides descriptive statistics and checks for anomalies (e.g., negative order totals).</p>
-<div id="d5a28060" class="cell" data-execution_count="3">
+<div id="a4f76740" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Click to see Data Validation Functions</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> basic_exploration(df):</span>
@@ -792,7 +792,7 @@ Number of Duplicated Rows: 0</code></pre>
 <li><strong>Feature Creation</strong>: Calculating <code>delivery_delay_minutes</code>.</li>
 <li><strong>Type Conversion</strong>: Converting object columns to categorical types for efficiency.</li>
 </ol>
-<div id="bfba794c" class="cell" data-execution_count="4">
+<div id="f069de71" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Click to see Data Cleaning Functions</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> drop_irrelevant_columns(df, irrelevant_cols):</span>
@@ -862,7 +862,7 @@ Number of Duplicated Rows: 0</code></pre>
 <section id="execution-of-data-cleaning" class="level3">
 <h3 class="anchored" data-anchor-id="execution-of-data-cleaning">Execution of Data Cleaning</h3>
 <p>We apply the defined cleaning pipeline to our dataframe.</p>
-<div id="b94d7870" class="cell" data-execution_count="5">
+<div id="55973705" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># List of irrelevant columns (example placeholder)</span></span>
@@ -920,7 +920,7 @@ dtype: object</code></pre>
 <li><strong>Store Performance</strong>: Comparing delivery performance across stores.</li>
 <li><strong>Daily Trends</strong>: Aggregating sales over time.</li>
 </ul>
-<div id="19602501" class="cell" data-execution_count="6">
+<div id="2cdc5a10" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Click to see EDA Helper Functions</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> print_numerical_columns(df):</span>
@@ -1000,7 +1000,7 @@ dtype: object</code></pre>
 <span id="cb10-75"><a href="#cb10-75" aria-hidden="true" tabindex="-1"></a>    display(daily_sales_df.head(<span class="dv">10</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="bffc3396" class="cell" data-execution_count="7">
+<div id="95a47426" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>print_numerical_columns(df_cleaned)</span>
@@ -1467,7 +1467,7 @@ Significantly delayed orders:</code></pre>
 <li><strong>Bivariate &amp; Multivariate</strong>: Scatter plots to explore interaction effects (e.g., <em>Order Total vs Delivery Delay</em>).</li>
 <li><strong>Outlier Detection</strong>: Visualizing and removing extensive outliers in delivery delays.</li>
 </ul>
-<div id="90df566a" class="cell" data-execution_count="8">
+<div id="8ad2d401" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Click to see Visualization Functions</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> univariate_numeric_features(df):</span>
@@ -1626,7 +1626,7 @@ Significantly delayed orders:</code></pre>
 <span id="cb18-154"><a href="#cb18-154" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df_cleaned</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="2890098b" class="cell" data-execution_count="9">
+<div id="d62f552f" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>univariate_numeric_features(df_cleaned)</span>
@@ -1741,7 +1741,7 @@ Repeat customers: 1492</code></pre>
 </div>
 </div>
 <p>The delivery delay data shows significant outliers. We apply IQR filtering to clean this distribution.</p>
-<div id="9307c9be" class="cell" data-execution_count="10">
+<div id="f15f4f4c" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>df_cleaned <span class="op">=</span> remove_outliers_delivery_delays(df_cleaned)</span>
@@ -1759,7 +1759,7 @@ Repeat customers: 1492</code></pre>
 </div>
 <section id="final-data-inspection" class="level3">
 <h3 class="anchored" data-anchor-id="final-data-inspection">Final Data Inspection</h3>
-<div id="e20e350f" class="cell" data-execution_count="11">
+<div id="aed65166" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>df_cleaned.head(<span class="dv">5</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1862,7 +1862,7 @@ Repeat customers: 1492</code></pre>
 </div>
 </div>
 </div>
-<div id="7d1b71a6" class="cell" data-execution_count="12">
+<div id="4cde8125" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>df_cleaned[<span class="st">'delivery_delay_minutes'</span>].describe()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
@@ -1906,7 +1906,7 @@ Name: delivery_delay_minutes, dtype: float64</code></pre>
 <li><strong>MinMax Scaler</strong>: For <code>num_orders</code> to range (-1, 1).</li>
 </ul></li>
 </ol>
-<div id="3e874f05" class="cell" data-execution_count="13">
+<div id="7efea643" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Click to see Feature Engineering Functions</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> aggregate_customer_data(df_cleaned):</span>
@@ -1984,7 +1984,7 @@ Name: delivery_delay_minutes, dtype: float64</code></pre>
 <section id="execution" class="level3">
 <h3 class="anchored" data-anchor-id="execution">Execution</h3>
 <p>We process the data and visualize the distribution of updated features.</p>
-<div id="970b1faa" class="cell" data-execution_count="14">
+<div id="e45b6fd4" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>customer_df, customer_df_original <span class="op">=</span> process_customer_data(df_cleaned)</span>
@@ -2038,7 +2038,7 @@ Name: delivery_delay_minutes, dtype: float64</code></pre>
 <section id="dataset-finalization" class="level2">
 <h2 class="anchored" data-anchor-id="dataset-finalization">Dataset Finalization</h2>
 <p>We remove identifiers and perform a final standard scaling on the entire dataset to ensure uniformity for the clustering algorithm.</p>
-<div id="1bc5e618" class="cell" data-execution_count="15">
+<div id="a89a52e2" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>customer_df <span class="op">=</span> customer_df.drop([<span class="st">'customer_id'</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
@@ -2175,7 +2175,7 @@ Name: delivery_delay_minutes, dtype: float64</code></pre>
 </ul></li>
 </ul></li>
 </ol>
-<div id="a27247c9" class="cell" data-execution_count="16">
+<div id="1f8104c7" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>Click to see Clustering Functions</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> perform_kmeans_clustering(X_scaled, k_values):</span>
@@ -2234,7 +2234,7 @@ Name: delivery_delay_minutes, dtype: float64</code></pre>
 <section id="hyperparameter-tuning-finding-optimal-k" class="level3">
 <h3 class="anchored" data-anchor-id="hyperparameter-tuning-finding-optimal-k">Hyperparameter Tuning (Finding optimal k)</h3>
 <p>We test <em>k</em> values from 2 to 6 to find the “elbow” or best performing configuration.</p>
-<div id="b59e5d85" class="cell" data-execution_count="17">
+<div id="16948c8d" class="cell" data-execution_count="17">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>k_values <span class="op">=</span> <span class="bu">list</span>(<span class="bu">range</span>(<span class="dv">2</span>, <span class="dv">6</span>))</span>
@@ -2274,7 +2274,7 @@ Name: delivery_delay_minutes, dtype: float64</code></pre>
 <section id="performance-evaluation" class="level3">
 <h3 class="anchored" data-anchor-id="performance-evaluation">Performance Evaluation</h3>
 <p>We analyse the change in metrics as <em>k</em> increases.</p>
-<div id="16d04d50" class="cell" data-execution_count="18">
+<div id="5d613286" class="cell" data-execution_count="18">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting scores</span></span>
@@ -2330,7 +2330,7 @@ Name: delivery_delay_minutes, dtype: float64</code></pre>
 <section id="basic-inferences-k2" class="level1">
 <h1>8. Basic Inferences (K=2)</h1>
 <p>We now finalize the model with 2 clusters and analyze the characteristics of each customer segment.</p>
-<div id="5a4ea1c4" class="cell" data-execution_count="19">
+<div id="72e87fcf" class="cell" data-execution_count="19">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Final Model Execution</span></span>
@@ -2363,7 +2363,7 @@ Name: delivery_delay_minutes, dtype: float64</code></pre>
 <section id="cluster-profiling" class="level3">
 <h3 class="anchored" data-anchor-id="cluster-profiling">Cluster Profiling</h3>
 <p>We examine the profile of the two clusters.</p>
-<div id="917c4a78" class="cell" data-execution_count="20">
+<div id="f3f96917" class="cell" data-execution_count="20">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Cluster Counts:"</span>)</span>
@@ -2378,7 +2378,7 @@ Name: count, dtype: int64</code></pre>
 </div>
 </div>
 <p><strong>Numeric Feature Summary</strong></p>
-<div id="f33c2ec5" class="cell" data-execution_count="21">
+<div id="3d7c2e61" class="cell" data-execution_count="21">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>numeric_cols <span class="op">=</span> [<span class="st">'avg_order_total'</span>, <span class="st">'total_spent'</span>, <span class="st">'num_orders'</span>, <span class="st">'avg_delay'</span>]</span>
@@ -2393,7 +2393,7 @@ cluster
 </div>
 </div>
 <p><strong>Categorical Feature Summary</strong></p>
-<div id="e1d77903" class="cell" data-execution_count="22">
+<div id="7923ee56" class="cell" data-execution_count="22">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>categorical_cols <span class="op">=</span> [<span class="st">'most_used_payment'</span>, <span class="st">'most_delivery_status'</span>]</span>
@@ -2438,7 +2438,7 @@ Name: percentage, dtype: float64
 <li><strong>Cluster 0</strong>: “On-Time High-Value” - High spending, frequent orders, reliable delivery.</li>
 <li><strong>Cluster 1</strong>: “Delay-Affected Low-Value” - Low spending, infrequent orders, frequent delays.</li>
 </ul>
-<div id="cae5fc73" class="cell" data-execution_count="23">
+<div id="4712351b" class="cell" data-execution_count="23">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mapping cluster names</span></span>
@@ -2932,7 +2932,7 @@ Name: percentage, dtype: float64
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> 'Customer Segmentation Analysis'</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> 'Apex Project 1: Team Plotmasters'</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="an">subtitle:</span><span class="co"> 'The Cost of a Minute: How Delivery Delays Define Customer Value'</span></span>
 <span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span></span>
 <span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co">    - name: Utkarsh Tripathi </span></span>
 <span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co">      affiliation: BITS Pilani</span></span>
