@@ -1,0 +1,14 @@
+---
+title: "About"
+---
+
+### About the Project
+
+This project, **Apex Project: Team Plotmasters**, focuses on Customer Segmentation analysis using the Blinkit Orders dataset for the fulfillment of partial credit requirements.
+
+### The notebook
+The analysis includes:  
+- Data Cleaning and Validation  
+- Exploratory Data Analysis (EDA)  
+- Feature Engineering  
+- Clustering and Modelling  
