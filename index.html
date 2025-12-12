@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.25">
+<meta name="generator" content="quarto-1.8.26">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Customer Segmentation Model</title>
+<title>Customer Segmentation Model – PlotMasters: Customer Segmentation</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,41 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 /* CSS for citations */
 div.csl-bib-body { }
@@ -43,7 +78,13 @@ div.csl-indent {
 }</style>
 
 
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
@@ -51,93 +92,83 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-0a61af393cc41664e89a7addda21b354.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-0b37c64f34216b628666a8dac638b53b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
 <script src="https://cdn.jsdelivr.net/npm/requirejs@2.3.6/require.min.js" integrity="sha384-c9c+LnTbwQ3aujuU7ULEPVvgLs+Fn6fJUvIGTsuu1ZcCf11fiEubah0ttpca4ntM sha384-6V1/AdqZRWk1KAlWbKBlGhN7VG4iE/yAZcO6NZPMF8od0vukrvr0tg4qY6NSrItx" crossorigin="anonymous"></script>
 
 <script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
 
-<meta name="citation_title" content="Customer Segmentation Model">
-<meta name="citation_author" content="Utkarsh Tripathi (2025EM1100146)
-">
-<meta name="citation_author" content="Juwaria Qadri (2025EM1100132)">
-<meta name="citation_author" content="Mohammed Omar (2025EM1100235)">
-<meta name="citation_author" content="Merin Ann Cherian (2025EM1100211)">
-<meta name="citation_language" content="en">
-<meta name="citation_reference" content="citation_title=Blinkit Sales Dataset;,citation_abstract=Blinkit Sales Data: Analyzing Trends and Consumer Behavior;,citation_author=Akshit Vaghasiya;,citation_publication_date=2025-02;,citation_cover_date=2025-02;,citation_year=2025;,citation_fulltext_html_url=https://www.kaggle.com/datasets/akxiit/blinkit-sales-dataset;">
 </head>
 
-<body class="quarto-light">
+<body class="nav-fixed quarto-light">
 
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body">
-      <h1 class="title">Customer Segmentation Model</h1>
-          </div>
-
-    
-    <div class="quarto-title-meta-container">
-      <div class="quarto-title-meta-column-start">
-            <div class="quarto-title-meta-author">
-          <div class="quarto-title-meta-heading">Authors</div>
-          <div class="quarto-title-meta-heading">Affiliation</div>
-          
-                <div class="quarto-title-meta-contents">
-            <p class="author"></p><p>Utkarsh Tripathi (2025EM1100146)</p> <p></p>
-          </div>
-                <div class="quarto-title-meta-contents">
-                    <p class="affiliation">
-                        BITS Pilani Digital
-                      </p>
-                  </div>
-                      <div class="quarto-title-meta-contents">
-            <p class="author">Juwaria Qadri (2025EM1100132) </p>
-          </div>
-                <div class="quarto-title-meta-contents">
-                    <p class="affiliation">
-                        BITS Pilani Digital
-                      </p>
-                  </div>
-                      <div class="quarto-title-meta-contents">
-            <p class="author">Mohammed Omar (2025EM1100235) </p>
-          </div>
-                <div class="quarto-title-meta-contents">
-                    <p class="affiliation">
-                        BITS Pilani Digital
-                      </p>
-                  </div>
-                      <div class="quarto-title-meta-contents">
-            <p class="author">Merin Ann Cherian (2025EM1100211) </p>
-          </div>
-                <div class="quarto-title-meta-contents">
-                    <p class="affiliation">
-                        BITS Pilani Digital
-                      </p>
-                  </div>
-                    </div>
-        
-        <div class="quarto-title-meta">
-
-                      
-          
-                
-              </div>
-      </div>
-      <div class="quarto-title-meta-column-end quarto-other-formats-target">
-      </div>
-    </div>
-
-
-
-    <div class="quarto-other-links-text-target">
-    </div>  </div>
-</header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
-<div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-  <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Table of contents</h2>
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">PlotMasters: Customer Segmentation</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./notebooks/presentation.html"> 
+<span class="menu-text">Analysis</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
    
   <ul>
   <li><a href="#phase-1" id="toc-phase-1" class="nav-link active" data-scroll-target="#phase-1">Phase 1</a>
@@ -146,13 +177,65 @@ div.csl-indent {
   </ul></li>
   <li><a href="#phase-2" id="toc-phase-2" class="nav-link" data-scroll-target="#phase-2">Phase 2</a></li>
   </ul>
-<div class="quarto-alternate-notebooks"><h2>Notebooks</h2><ul><li><a href="notebook/customer_segmentation_model-preview.html"><i class="bi bi-journal-code"></i>Customer Segmentation Notebook</a></li><li><a href="notebook/data_dictionary-preview.html"><i class="bi bi-journal-code"></i>Data Dictionary</a></li></ul></div></nav>
+<div class="quarto-alternate-notebooks"><h2>Notebooks</h2><ul><li><a href="notebooks/presentation-preview.html"><i class="bi bi-journal-code"></i>Data Loading</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<div class="quarto-title-block"><div><h1 class="title">Customer Segmentation Model</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
 </div>
-<main class="content quarto-banner-title-block" id="quarto-document-content">
 
 
-
+<div class="quarto-title-meta-author">
+  <div class="quarto-title-meta-heading">Authors</div>
+  <div class="quarto-title-meta-heading">Affiliation</div>
   
+    <div class="quarto-title-meta-contents">
+    <p class="author">Utkarsh Tripathi </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            BITS Pilani Digital
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Juwaria Qadri </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            BITS Pilani Digital
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Mohammed Omar </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            BITS Pilani Digital
+          </p>
+      </div>
+    <div class="quarto-title-meta-contents">
+    <p class="author">Merin Ann Cherian </p>
+  </div>
+  <div class="quarto-title-meta-contents">
+        <p class="affiliation">
+            BITS Pilani Digital
+          </p>
+      </div>
+  </div>
+
+<div class="quarto-title-meta">
+
+      
+  
+    
+  </div>
+  
+
+
+</header>
 
 
 <section id="phase-1" class="level1">
@@ -218,114 +301,40 @@ Instead, we will perform the following steps:</p>
 </li>
 <li>Prepare for Analysis: The script will handle the unzipping of the downloaded files and load the data directly into a Pandas DataFrame, making it immediately available for the next phase of our project.<br>
 </li>
-<li>Notebook: <a href="./notebook/customer_segmentation_model-preview.html">Customer Segmentation Notebook</a></li>
+<li>Notebook: <a href="./notebooks/presentation.html">Analysis Notebook</a></li>
 </ul></li>
 <li><p><strong>Schema / Data Dictionary</strong><br>
 This data dictionary was created after inspecting the dataset.</p></li>
 </ol>
 <div class="quarto-embed-nb-cell">
-<div id="cff88bb5" class="cell" data-execution_count="1">
-<div class="cell-output cell-output-display">
-<div>
-
-
-<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
-<thead>
-<tr class="header">
-<th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">Feature Name</th>
-<th data-quarto-table-cell-role="th">Data Type</th>
-<th data-quarto-table-cell-role="th">Description</th>
-<th data-quarto-table-cell-role="th">PK (Yes/No)</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">0</th>
-<td>order_id</td>
-<td>int64</td>
-<td>Unique identifier for each order</td>
-<td>Yes</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">1</th>
-<td>customer_id</td>
-<td>int64</td>
-<td>Unique identifier for each customer</td>
-<td>No</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">2</th>
-<td>order_date</td>
-<td>object</td>
-<td>The timestamp when the order was placed</td>
-<td>No</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">3</th>
-<td>promised_delivery_time</td>
-<td>object</td>
-<td>The time informed to the customer for completi...</td>
-<td>No</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">4</th>
-<td>actual_delivery_time</td>
-<td>object</td>
-<td>The actual time when the order was delivered</td>
-<td>No</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">5</th>
-<td>delivery_status</td>
-<td>object</td>
-<td>The delivery status of the order</td>
-<td>No</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">6</th>
-<td>order_total</td>
-<td>float64</td>
-<td>The total price of the order (in Rupees)</td>
-<td>No</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">7</th>
-<td>payment_method</td>
-<td>object</td>
-<td>The payment method used by the customer</td>
-<td>No</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">8</th>
-<td>delivery_partner_id</td>
-<td>int64</td>
-<td>Unique identifier representing the delivery pa...</td>
-<td>No</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">9</th>
-<td>store_id</td>
-<td>int64</td>
-<td>Unique identifier for the store that fulfilled...</td>
-<td>No</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-<a class="quarto-notebook-link" id="nblink-1" href="notebook/data_dictionary-preview.html#cff88bb5">Source: Data Dictionary</a></div>
+<p>The notebook is divided into the following components</p>
+<ul>
+<li>Data Loading</li>
+<li>Data Validation</li>
+<li>Data Cleaning</li>
+<li>EDA</li>
+<li>Feature Engineering</li>
+<li>Cluster Modelling</li>
+<li>Basic Inferences</li>
+</ul>
+<section id="data-loading" class="level1">
+<h1>Data Loading</h1>
 </section>
+<section id="data-validation" class="level1">
+<h1>Data Validation</h1>
+<section id="basic-data-exploration" class="level3">
+<h3 class="anchored" data-anchor-id="basic-data-exploration">Basic Data Exploration</h3>
+<p>The <code>basic_exploration</code> function provides an initial overview of the dataset. It prints key structural details and highlights potential data quality issues. This function is intended for a first pass at understanding the shape, completeness, and uniqueness of the data.</p>
 </section>
-<section id="phase-2" class="level1">
-<h1>Phase 2</h1>
-<div class="quarto-embed-nb-cell">
-<p><a href="https://colab.research.google.com/github/plot-masters/customer-segmentation/blob/main/notebook/customer_segmentation_model.ipynb" target="_parent"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></p>
-<section id="customer-segmentation-modelling" class="level2">
-<h2 class="anchored" data-anchor-id="customer-segmentation-modelling">Customer Segmentation Modelling</h2>
-<div id="cell-3" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="b769b182-f591-4d04-8fee-b17e3adb161f" data-execution_count="8">
+<section id="summary-and-anomaly-checks" class="level3">
+<h3 class="anchored" data-anchor-id="summary-and-anomaly-checks">Summary and Anomaly Checks</h3>
+<p>The <code>summarize_df</code> function provides descriptive statistics for all columns and more detailed summaries for categorical variables. It also performs a targeted anomaly check on the order_total column, if present.</p>
+<div id="cell-6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}}" data-outputid="702904bf-5372-446a-d1bc-0501c262ed1e" data-execution_count="182">
+<div class="cell-output cell-output-stdout">
+<pre><code>Shape of DataFrame:
+(5000, 10)
+Top 5 Rows:</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div>
 
@@ -412,80 +421,14 @@ This data dictionary was created after inspecting the dataset.</p></li>
 <td>84315</td>
 <td>2741</td>
 </tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">5</th>
-<td>3265154092</td>
-<td>43367112</td>
-<td>2023-03-18 16:29:51</td>
-<td>2023-03-18 16:49:51</td>
-<td>2023-03-18 16:48:51</td>
-<td>On Time</td>
-<td>3161.43</td>
-<td>UPI</td>
-<td>554</td>
-<td>3442</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">6</th>
-<td>4898355547</td>
-<td>13284996</td>
-<td>2023-04-16 18:50:37</td>
-<td>2023-04-16 19:01:37</td>
-<td>2023-04-16 19:02:37</td>
-<td>On Time</td>
-<td>956.40</td>
-<td>Card</td>
-<td>14630</td>
-<td>1318</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">7</th>
-<td>6568151549</td>
-<td>88866835</td>
-<td>2024-03-31 06:26:48</td>
-<td>2024-03-31 06:37:48</td>
-<td>2024-03-31 06:39:48</td>
-<td>On Time</td>
-<td>905.47</td>
-<td>Cash</td>
-<td>67714</td>
-<td>115</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">8</th>
-<td>6006693867</td>
-<td>24496983</td>
-<td>2023-07-13 23:49:36</td>
-<td>2023-07-14 00:02:36</td>
-<td>2023-07-14 00:05:36</td>
-<td>On Time</td>
-<td>1371.17</td>
-<td>Card</td>
-<td>91362</td>
-<td>9021</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">9</th>
-<td>374186990</td>
-<td>52215833</td>
-<td>2023-08-09 01:17:30</td>
-<td>2023-08-09 01:37:30</td>
-<td>2023-08-09 01:44:30</td>
-<td>Slightly Delayed</td>
-<td>1601.19</td>
-<td>Wallet</td>
-<td>77203</td>
-<td>7955</td>
-</tr>
 </tbody>
 </table>
 
 </div>
 </div>
-</div>
-<div id="cell-4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="da862376-3a1e-4655-e44a-e3d015f95435" data-execution_count="24">
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;class 'pandas.core.frame.DataFrame'&gt;
+<pre><code>Basic Information:
+&lt;class 'pandas.core.frame.DataFrame'&gt;
 RangeIndex: 5000 entries, 0 to 4999
 Data columns (total 10 columns):
  #   Column                  Non-Null Count  Dtype  
@@ -501,12 +444,10 @@ Data columns (total 10 columns):
  8   delivery_partner_id     5000 non-null   int64  
  9   store_id                5000 non-null   int64  
 dtypes: float64(1), int64(4), object(5)
-memory usage: 390.8+ KB</code></pre>
-</div>
-</div>
-<div id="cell-5" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="a22dd6d4-f8dc-4af6-8264-cbe35a838d72" data-execution_count="27">
-<div class="cell-output cell-output-display">
-<pre><code>order_id                  0
+memory usage: 390.8+ KB
+None
+Count of Null Values:
+order_id                  0
 customer_id               0
 order_date                0
 promised_delivery_time    0
@@ -516,10 +457,21 @@ order_total               0
 payment_method            0
 delivery_partner_id       0
 store_id                  0
-dtype: int64</code></pre>
+dtype: int64
+Unique Value Counts per Column:
+order_id                  5000
+customer_id               2172
+order_date                5000
+promised_delivery_time    4999
+actual_delivery_time      5000
+delivery_status              3
+order_total               4550
+payment_method               4
+delivery_partner_id       5000
+store_id                  5000
+dtype: int64
+Number of Duplicated Rows: 0</code></pre>
 </div>
-</div>
-<div id="cell-6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="71444e70-48d9-4406-d4ce-70f693b168c4" data-execution_count="26">
 <div class="cell-output cell-output-display">
 <div>
 
@@ -530,7 +482,12 @@ dtype: int64</code></pre>
 <th data-quarto-table-cell-role="th"></th>
 <th data-quarto-table-cell-role="th">order_id</th>
 <th data-quarto-table-cell-role="th">customer_id</th>
+<th data-quarto-table-cell-role="th">order_date</th>
+<th data-quarto-table-cell-role="th">promised_delivery_time</th>
+<th data-quarto-table-cell-role="th">actual_delivery_time</th>
+<th data-quarto-table-cell-role="th">delivery_status</th>
 <th data-quarto-table-cell-role="th">order_total</th>
+<th data-quarto-table-cell-role="th">payment_method</th>
 <th data-quarto-table-cell-role="th">delivery_partner_id</th>
 <th data-quarto-table-cell-role="th">store_id</th>
 </tr>
@@ -540,63 +497,142 @@ dtype: int64</code></pre>
 <th data-quarto-table-cell-role="th">count</th>
 <td>5.000000e+03</td>
 <td>5.000000e+03</td>
+<td>5000</td>
+<td>5000</td>
+<td>5000</td>
+<td>5000</td>
 <td>5000.00000</td>
+<td>5000</td>
 <td>5000.000000</td>
 <td>5000.000000</td>
 </tr>
 <tr class="even">
+<th data-quarto-table-cell-role="th">unique</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>5000</td>
+<td>4999</td>
+<td>5000</td>
+<td>3</td>
+<td>NaN</td>
+<td>4</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">top</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>2023-08-23 12:04:18</td>
+<td>2024-10-13 14:06:50</td>
+<td>2023-08-23 12:21:18</td>
+<td>On Time</td>
+<td>NaN</td>
+<td>Card</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">freq</th>
+<td>NaN</td>
+<td>NaN</td>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>3470</td>
+<td>NaN</td>
+<td>1285</td>
+<td>NaN</td>
+<td>NaN</td>
+</tr>
+<tr class="odd">
 <th data-quarto-table-cell-role="th">mean</th>
 <td>5.029129e+09</td>
 <td>5.009685e+07</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
 <td>2201.86170</td>
+<td>NaN</td>
 <td>50050.318200</td>
 <td>4999.689000</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <th data-quarto-table-cell-role="th">std</th>
 <td>2.863533e+09</td>
 <td>2.919082e+07</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
 <td>1303.02438</td>
+<td>NaN</td>
 <td>28802.276922</td>
 <td>2886.089242</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <th data-quarto-table-cell-role="th">min</th>
 <td>6.046500e+04</td>
 <td>3.181300e+04</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
 <td>13.25000</td>
+<td>NaN</td>
 <td>43.000000</td>
 <td>1.000000</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <th data-quarto-table-cell-role="th">25%</th>
 <td>2.531421e+09</td>
 <td>2.404314e+07</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
 <td>1086.21500</td>
+<td>NaN</td>
 <td>24928.500000</td>
 <td>2509.250000</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <th data-quarto-table-cell-role="th">50%</th>
 <td>5.074378e+09</td>
 <td>4.997808e+07</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
 <td>2100.69000</td>
+<td>NaN</td>
 <td>50262.500000</td>
 <td>4987.000000</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <th data-quarto-table-cell-role="th">75%</th>
 <td>7.488579e+09</td>
 <td>7.621215e+07</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
 <td>3156.88250</td>
+<td>NaN</td>
 <td>74478.250000</td>
 <td>7500.750000</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <th data-quarto-table-cell-role="th">max</th>
 <td>9.998298e+09</td>
 <td>9.989390e+07</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
+<td>NaN</td>
 <td>6721.46000</td>
+<td>NaN</td>
 <td>99968.000000</td>
 <td>9995.000000</td>
 </tr>
@@ -605,9 +641,7 @@ dtype: int64</code></pre>
 
 </div>
 </div>
-</div>
-<div id="cell-7" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:397}}" data-outputid="30ee3661-644c-437c-8627-fddfb147b4f3">
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display">
 <div>
 
 
@@ -615,81 +649,1759 @@ dtype: int64</code></pre>
 <thead>
 <tr class="header">
 <th data-quarto-table-cell-role="th"></th>
-<th data-quarto-table-cell-role="th">0</th>
+<th data-quarto-table-cell-role="th">order_date</th>
+<th data-quarto-table-cell-role="th">promised_delivery_time</th>
+<th data-quarto-table-cell-role="th">actual_delivery_time</th>
+<th data-quarto-table-cell-role="th">delivery_status</th>
+<th data-quarto-table-cell-role="th">payment_method</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">order_id</th>
-<td>int64</td>
+<th data-quarto-table-cell-role="th">count</th>
+<td>5000</td>
+<td>5000</td>
+<td>5000</td>
+<td>5000</td>
+<td>5000</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">customer_id</th>
-<td>int64</td>
+<th data-quarto-table-cell-role="th">unique</th>
+<td>5000</td>
+<td>4999</td>
+<td>5000</td>
+<td>3</td>
+<td>4</td>
 </tr>
 <tr class="odd">
-<th data-quarto-table-cell-role="th">order_date</th>
-<td>object</td>
+<th data-quarto-table-cell-role="th">top</th>
+<td>2023-08-23 12:04:18</td>
+<td>2024-10-13 14:06:50</td>
+<td>2023-08-23 12:21:18</td>
+<td>On Time</td>
+<td>Card</td>
 </tr>
 <tr class="even">
-<th data-quarto-table-cell-role="th">promised_delivery_time</th>
-<td>object</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">actual_delivery_time</th>
-<td>object</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">delivery_status</th>
-<td>object</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">order_total</th>
-<td>float64</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">payment_method</th>
-<td>object</td>
-</tr>
-<tr class="odd">
-<th data-quarto-table-cell-role="th">delivery_partner_id</th>
-<td>int64</td>
-</tr>
-<tr class="even">
-<th data-quarto-table-cell-role="th">store_id</th>
-<td>int64</td>
+<th data-quarto-table-cell-role="th">freq</th>
+<td>1</td>
+<td>2</td>
+<td>1</td>
+<td>3470</td>
+<td>1285</td>
 </tr>
 </tbody>
 </table>
 
-</div><br><label><b>dtype:</b> object</label>
 </div>
 </div>
-<div id="cell-8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="b1f99bbe-a498-45ba-82bd-0ce1afed6d26" data-execution_count="31">
-<div class="cell-output cell-output-display">
-<pre><code>'Shape of DataFrame:'</code></pre>
+<div class="cell-output cell-output-stdout">
+<pre><code>Rows with Invalid (≤0) Order Total:</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<pre><code>(5000, 10)</code></pre>
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">order_id</th>
+<th data-quarto-table-cell-role="th">customer_id</th>
+<th data-quarto-table-cell-role="th">order_date</th>
+<th data-quarto-table-cell-role="th">promised_delivery_time</th>
+<th data-quarto-table-cell-role="th">actual_delivery_time</th>
+<th data-quarto-table-cell-role="th">delivery_status</th>
+<th data-quarto-table-cell-role="th">order_total</th>
+<th data-quarto-table-cell-role="th">payment_method</th>
+<th data-quarto-table-cell-role="th">delivery_partner_id</th>
+<th data-quarto-table-cell-role="th">store_id</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
 </div>
-<div class="cell-output cell-output-display">
-<pre><code>'Data Types:'</code></pre>
 </div>
-<div class="cell-output cell-output-display">
-<pre><code>order_id                    int64
-customer_id                 int64
-order_date                 object
-promised_delivery_time     object
-actual_delivery_time       object
-delivery_status            object
-order_total               float64
-payment_method             object
-delivery_partner_id         int64
-store_id                    int64
+</div>
+</section>
+</section>
+<section id="data-cleaning" class="level1">
+<h1>Data Cleaning</h1>
+<section id="dropping-irrelevant-columns" class="level3">
+<h3 class="anchored" data-anchor-id="dropping-irrelevant-columns">Dropping Irrelevant Columns</h3>
+<p>The <code>drop_irrelevant_columns</code> function removes columns that have no analytical value. This ensures the dataset remains focused on variables that contribute to downstream modeling or insights.</p>
+</section>
+<section id="removing-high-missing-value-columns" class="level3">
+<h3 class="anchored" data-anchor-id="removing-high-missing-value-columns">Removing High-Missing-Value Columns</h3>
+<p>The <code>drop_high_missing_value_columns</code> function eliminates columns where the proportion of missing values exceeds a specified threshold. This prevents sparsely populated fields from skewing analysis or requiring excessive imputation.</p>
+</section>
+<section id="imputing-missing-values" class="level3">
+<h3 class="anchored" data-anchor-id="imputing-missing-values">Imputing Missing Values</h3>
+<p>The <code>impute_missing_values</code> function fills missing entries based on column data types. Numerical fields use median imputation, categorical fields use mode, and all other types default to forward-fill. This maintains data consistency while preserving distribution characteristics.</p>
+</section>
+<section id="removing-duplicates" class="level3">
+<h3 class="anchored" data-anchor-id="removing-duplicates">Removing Duplicates</h3>
+<p>The <code>remove_duplicates</code> function removes duplicate rows and reports how many were dropped. This ensures data integrity and prevents inflated counts or biased analysis.</p>
+</section>
+<section id="handling-outliers" class="level3">
+<h3 class="anchored" data-anchor-id="handling-outliers">Handling Outliers</h3>
+<p>The <code>handle_outliers</code> function caps outlier values using the Interquartile Range method. Values below the lower bound or above the upper bound are replaced with the respective caps, reducing the influence of extreme values without complete removal.</p>
+</section>
+<section id="converting-to-datetime" class="level3">
+<h3 class="anchored" data-anchor-id="converting-to-datetime">Converting to Datetime</h3>
+<p>The <code>convert_to_datetime</code> function converts specified columns into datetime format. Invalid formats are coerced into missing values. This enables time-based operations and calculations.</p>
+</section>
+<section id="calculating-delivery-delay" class="level3">
+<h3 class="anchored" data-anchor-id="calculating-delivery-delay">Calculating Delivery Delay</h3>
+<p>The <code>calculate_delivery_delay</code> function computes the delay between promised and actual delivery times in minutes. It expects both fields to be datetime objects and adds a new column representing the delay duration.</p>
+</section>
+<section id="converting-categorical-like-columns" class="level3">
+<h3 class="anchored" data-anchor-id="converting-categorical-like-columns">Converting Categorical-Like Columns</h3>
+<p>The <code>convert_categorical_like_columns</code> function casts selected columns into the pandas <code>category</code> data type. This optimizes memory usage and clarifies the column’s semantic meaning.</p>
+</section>
+<section id="saving-the-cleaned-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="saving-the-cleaned-dataset">Saving the Cleaned Dataset</h3>
+<p>The <code>save_cleaned_dataset</code> function writes the cleaned DataFrame to disk as a CSV file, prints final dataset characteristics, and returns the cleaned DataFrame for further use.</p>
+<div id="cell-9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="9d5fefe3-60b2-4ccd-b222-e93ff5764376" data-execution_count="184">
+<div class="cell-output cell-output-stdout">
+<pre><code>Removed 0 duplicate rows
+Data cleaning completed successfully!
+Final Data Shape: (5000, 11)
+Data Types:
+order_id                           int64
+customer_id                        int64
+order_date                datetime64[ns]
+promised_delivery_time    datetime64[ns]
+actual_delivery_time      datetime64[ns]
+delivery_status                 category
+order_total                      float64
+payment_method                  category
+delivery_partner_id                int64
+store_id                           int64
+delivery_delay_minutes           float64
 dtype: object</code></pre>
 </div>
+</div>
+</section>
+</section>
+<section id="exploratory-data-analysis" class="level1">
+<h1>Exploratory Data Analysis</h1>
+<section id="numerical-column-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="numerical-column-analysis">Numerical Column Analysis</h3>
+<p>The <code>print_numerical_columns</code> function provides descriptive statistics for key numerical fields. It displays summary statistics for <code>order_total</code> and <code>delivery_delay_minutes</code>, along with distribution quantiles for spending. This helps assess central tendency, variability, and skewness in customer spending and delivery performance.</p>
+</section>
+<section id="correlation-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="correlation-analysis">Correlation Analysis</h3>
+<p>The <code>print_correlation</code> function computes and prints the correlation matrix between <code>order_total</code> and <code>delivery_delay_minutes</code>. This indicates whether higher spending correlates with delivery delays, offering insight into operational or customer-behavior patterns.</p>
+</section>
+<section id="categorical-column-overview" class="level3">
+<h3 class="anchored" data-anchor-id="categorical-column-overview">Categorical Column Overview</h3>
+<p>The <code>print_categorical_columns</code> function outputs distribution summaries for key categorical fields. It reports counts for payment methods and normalized percentages for delivery status categories, enabling an understanding of categorical balance and operational trends.</p>
+</section>
+<section id="filtering-significant-delivery-delays" class="level3">
+<h3 class="anchored" data-anchor-id="filtering-significant-delivery-delays">Filtering Significant Delivery Delays</h3>
+<p>The <code>filter_significantly_delayed_orders</code> function isolates orders labeled as “Significantly Delayed” and displays the first few examples along with a total count. This aids in identifying patterns or clusters that may require operational review.</p>
+</section>
+<section id="customer-level-summary" class="level3">
+<h3 class="anchored" data-anchor-id="customer-level-summary">Customer-Level Summary</h3>
+<p>The <code>generate_customer_summary</code> function constructs an aggregate table of customer activity, including total spending, number of orders, and average delivery delay. This enables segmentation, customer value analysis, and service-level evaluation.</p>
+</section>
+<section id="payment-method-summary" class="level3">
+<h3 class="anchored" data-anchor-id="payment-method-summary">Payment Method Summary</h3>
+<p>The <code>generate_payment_method_summary</code> function summarizes performance by payment method, computing the average order value and number of orders per method. This supports understanding of payment preference patterns and financial behavior.</p>
+</section>
+<section id="store-level-delivery-status-summary" class="level3">
+<h3 class="anchored" data-anchor-id="store-level-delivery-status-summary">Store-Level Delivery Status Summary</h3>
+<p>The <code>store_wise_order_total_by_delivery_status</code> function builds a pivot table summarizing total order values per store across different delivery status categories. This highlights store-level operational patterns and relative performance.</p>
+</section>
+<section id="daily-sales-patterns" class="level3">
+<h3 class="anchored" data-anchor-id="daily-sales-patterns">Daily Sales Patterns</h3>
+<p>The <code>daily_sales_patterns</code> function aggregates sales and order counts by day, producing a time-indexed summary table. This supports trend analysis, seasonality detection, and operational planning based on daily volume patterns.</p>
+<div id="cell-13" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}}" data-outputid="9c0c8a16-cb80-43ce-f946-b6266a60e791" data-execution_count="186">
+<div class="cell-output cell-output-stdout">
+<pre><code>Numerical Columns
+Descriptive stats
+       order_total  delivery_delay_minutes
+count  5000.000000             5000.000000
+mean   2201.674720                4.443000
+std    1302.416242                8.063929
+min      13.250000               -5.000000
+25%    1086.215000               -1.000000
+50%    2100.690000                2.000000
+75%    3156.882500                8.000000
+max    6262.883750               30.000000
+\Distribution of Spending
+      order_total
+0.25    1086.2150
+0.50    2100.6900
+0.75    3156.8825
+0.95    4452.7910
+Correlation between order total and delivery delay in minutes
+                        order_total  delivery_delay_minutes
+order_total                1.000000               -0.002591
+delivery_delay_minutes    -0.002591                1.000000
+
+Categorical Columns
+Payment Methods Distribution
+payment_method
+Card      1285
+Cash      1257
+Wallet    1244
+UPI       1214
+Name: count, dtype: int64
+Delivery Status Distribution
+delivery_status
+On Time                  69.40
+Slightly Delayed         20.74
+Significantly Delayed     9.86
+Name: proportion, dtype: float64
+Significantly delayed orders:</code></pre>
+</div>
 <div class="cell-output cell-output-display">
-<pre><code>'First 5 Rows:'</code></pre>
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">order_id</th>
+<th data-quarto-table-cell-role="th">customer_id</th>
+<th data-quarto-table-cell-role="th">order_date</th>
+<th data-quarto-table-cell-role="th">promised_delivery_time</th>
+<th data-quarto-table-cell-role="th">actual_delivery_time</th>
+<th data-quarto-table-cell-role="th">delivery_status</th>
+<th data-quarto-table-cell-role="th">order_total</th>
+<th data-quarto-table-cell-role="th">payment_method</th>
+<th data-quarto-table-cell-role="th">delivery_partner_id</th>
+<th data-quarto-table-cell-role="th">store_id</th>
+<th data-quarto-table-cell-role="th">delivery_delay_minutes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">23</th>
+<td>6905293278</td>
+<td>97259564</td>
+<td>2024-06-16 10:23:23</td>
+<td>2024-06-16 10:36:23</td>
+<td>2024-06-16 11:02:23</td>
+<td>Significantly Delayed</td>
+<td>1404.68</td>
+<td>Cash</td>
+<td>53868</td>
+<td>4187</td>
+<td>26.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">31</th>
+<td>9073572548</td>
+<td>97111069</td>
+<td>2023-05-02 23:13:42</td>
+<td>2023-05-02 23:25:42</td>
+<td>2023-05-02 23:47:42</td>
+<td>Significantly Delayed</td>
+<td>1091.89</td>
+<td>Card</td>
+<td>28575</td>
+<td>6542</td>
+<td>22.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">62</th>
+<td>2149289255</td>
+<td>57579640</td>
+<td>2024-11-01 15:00:29</td>
+<td>2024-11-01 15:20:29</td>
+<td>2024-11-01 15:39:29</td>
+<td>Significantly Delayed</td>
+<td>2687.31</td>
+<td>Cash</td>
+<td>25251</td>
+<td>7315</td>
+<td>19.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">70</th>
+<td>2122832513</td>
+<td>55028958</td>
+<td>2024-02-17 19:48:14</td>
+<td>2024-02-17 19:58:14</td>
+<td>2024-02-17 20:18:14</td>
+<td>Significantly Delayed</td>
+<td>2037.94</td>
+<td>UPI</td>
+<td>39396</td>
+<td>5245</td>
+<td>20.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">76</th>
+<td>5127172657</td>
+<td>32293017</td>
+<td>2024-06-11 18:11:31</td>
+<td>2024-06-11 18:30:31</td>
+<td>2024-06-11 18:50:31</td>
+<td>Significantly Delayed</td>
+<td>2185.50</td>
+<td>Cash</td>
+<td>80034</td>
+<td>288</td>
+<td>20.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>493</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Summary Table for Each Customer:</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">total_spent</th>
+<th data-quarto-table-cell-role="th">order_count</th>
+<th data-quarto-table-cell-role="th">avg_delivery_delay</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">customer_id</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">77869660</th>
+<td>19052.94</td>
+<td>9</td>
+<td>5.666667</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">17805991</th>
+<td>18409.90</td>
+<td>8</td>
+<td>4.625000</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">8791577</th>
+<td>19028.36</td>
+<td>8</td>
+<td>7.750000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">93018527</th>
+<td>9521.09</td>
+<td>7</td>
+<td>0.142857</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">12832151</th>
+<td>17178.65</td>
+<td>7</td>
+<td>6.000000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">75213636</th>
+<td>10038.08</td>
+<td>7</td>
+<td>1.142857</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">10562528</th>
+<td>11050.11</td>
+<td>7</td>
+<td>2.714286</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">13604883</th>
+<td>14002.59</td>
+<td>7</td>
+<td>3.000000</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">21701991</th>
+<td>11648.60</td>
+<td>7</td>
+<td>5.571429</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">25128143</th>
+<td>17638.83</td>
+<td>7</td>
+<td>5.428571</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Payment Method Summary:</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">avg_order_value</th>
+<th data-quarto-table-cell-role="th">num_orders</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">payment_method</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Card</th>
+<td>2229.496449</td>
+<td>1285</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Cash</th>
+<td>2204.028632</td>
+<td>1257</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">UPI</th>
+<td>2189.458323</td>
+<td>1214</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Wallet</th>
+<td>2182.479317</td>
+<td>1244</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Store-Wise Order Total by Delivery Status:</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">delivery_status</th>
+<th data-quarto-table-cell-role="th">On Time</th>
+<th data-quarto-table-cell-role="th">Significantly Delayed</th>
+<th data-quarto-table-cell-role="th">Slightly Delayed</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">store_id</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1</th>
+<td>1172.69</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2</th>
+<td>22.14</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">9</th>
+<td>1599.11</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">12</th>
+<td>1639.04</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">14</th>
+<td>0.00</td>
+<td>704.19</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">9984</th>
+<td>3327.67</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">9987</th>
+<td>1052.23</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">9989</th>
+<td>0.00</td>
+<td>3706.10</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">9991</th>
+<td>2650.68</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">9995</th>
+<td>0.00</td>
+<td>0.00</td>
+<td>2989.97</td>
+</tr>
+</tbody>
+</table>
+
+<p>5000 rows × 3 columns</p>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Daily Sales Patterns:</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">total_sales</th>
+<th data-quarto-table-cell-role="th">num_orders</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">order_date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-11-04</th>
+<td>13820.12</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-11-03</th>
+<td>28761.95</td>
+<td>12</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-11-02</th>
+<td>10794.55</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-11-01</th>
+<td>14781.03</td>
+<td>9</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-10-31</th>
+<td>25689.95</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-10-30</th>
+<td>23835.14</td>
+<td>13</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-10-29</th>
+<td>11223.88</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-10-28</th>
+<td>17221.29</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-10-27</th>
+<td>11797.07</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-10-26</th>
+<td>23652.49</td>
+<td>11</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="visualisation" class="level1">
+<h1>Visualisation</h1>
+<section id="univariate-analysis-of-numerical-features" class="level3">
+<h3 class="anchored" data-anchor-id="univariate-analysis-of-numerical-features">Univariate Analysis of Numerical Features</h3>
+<p>The <code>univariate_numeric_features</code> function visualises distributions of key numerical fields. It produces histograms for <code>order_total</code> and <code>delivery_delay_minutes</code>, allowing quick identification of skewness, spread, and dominant value ranges.</p>
+</section>
+<section id="univariate-analysis-of-categorical-features" class="level3">
+<h3 class="anchored" data-anchor-id="univariate-analysis-of-categorical-features">Univariate Analysis of Categorical Features</h3>
+<p>The <code>univariate_categorical_features</code> function visualises frequency distributions for categorical fields. It generates a pie chart for <code>delivery_status</code> and a count plot for <code>payment_method</code>, helping assess category balance and operational patterns.</p>
+</section>
+<section id="univariate-customer-metrics" class="level3">
+<h3 class="anchored" data-anchor-id="univariate-customer-metrics">Univariate Customer Metrics</h3>
+<p>The <code>univariate_customer_metrics</code> function analyses customer-level behaviour by computing order frequencies per customer and visualising their distribution. This highlights patterns such as how many customers place few orders versus many.</p>
+</section>
+<section id="one-time-vs-repeat-customers" class="level3">
+<h3 class="anchored" data-anchor-id="one-time-vs-repeat-customers">One-Time vs Repeat Customers</h3>
+<p>The <code>univariate_one_time_vs_repeat_customers</code> function reports counts of customers who have placed exactly one order versus those who have placed multiple orders. This provides a clear segmentation of customer loyalty behaviour.</p>
+</section>
+<section id="bivariate-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="bivariate-analysis">Bivariate Analysis</h3>
+<p>The <code>bivariate_analysis</code> function explores relationships between pairs of variables. It compares order totals across delivery statuses, examines the relationship between total orders and average order value, and visualises total customer spending through boxplots and histograms.</p>
+</section>
+<section id="multivariate-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="multivariate-analysis">Multivariate Analysis</h3>
+<p>The <code>multivariate_analysis</code> function investigates relationships among three or more variables. It plots order totals against delivery delay while colouring points by payment method, highlighting interaction effects and potential payment-method-driven behavioural differences.</p>
+</section>
+<section id="delivery-delay-boxplot" class="level3">
+<h3 class="anchored" data-anchor-id="delivery-delay-boxplot">Delivery Delay Boxplot</h3>
+<p>The <code>boxplot_delivery_delays</code> function provides a boxplot of <code>delivery_delay_minutes</code>, offering a clear view of central tendency and variability, including potential outliers.</p>
+</section>
+<section id="delivery-delay-violin-plot" class="level3">
+<h3 class="anchored" data-anchor-id="delivery-delay-violin-plot">Delivery Delay Violin Plot</h3>
+<p>The <code>violin_plot_delivery_delays</code> function produces a violin plot to visualise the full distribution shape of delivery delays, indicating density across value ranges.</p>
+</section>
+<section id="removing-outliers-from-delivery-delays" class="level3">
+<h3 class="anchored" data-anchor-id="removing-outliers-from-delivery-delays">Removing Outliers from Delivery Delays</h3>
+<p>The <code>remove_outliers_delivery_delays</code> function filters out extreme delivery delays using the IQR method, then visualises the cleaned distribution with a boxplot. It returns the filtered dataset for further use.</p>
+<div id="cell-16" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}}" data-outputid="5e227591-150c-40a5-ffc5-13fe4b62ce0d" data-execution_count="188">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-4.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>total_orders
+1    680
+2    686
+3    451
+4    234
+5     82
+6     28
+7      8
+8      2
+9      1
+Name: count, dtype: int64</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-6.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>One-time customers: 680
+Repeat customers: 1492</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-8.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-9.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-10.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-11.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-12.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-13.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-14.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-15.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Data cleaning completed successfully!
+Final Data Shape: (4703, 11)
+Data Types:
+order_id                           int64
+customer_id                        int64
+order_date                datetime64[ns]
+promised_delivery_time    datetime64[ns]
+actual_delivery_time      datetime64[ns]
+delivery_status                 category
+order_total                      float64
+payment_method                  category
+delivery_partner_id                int64
+store_id                           int64
+delivery_delay_minutes           float64
+dtype: object</code></pre>
+</div>
+</div>
+<div id="cell-17" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:313}}" data-outputid="f73901b8-2e59-47ab-9296-81b22e23becb" data-execution_count="189">
+<div class="cell-output cell-output-display" data-execution_count="189">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">order_id</th>
+<th data-quarto-table-cell-role="th">customer_id</th>
+<th data-quarto-table-cell-role="th">order_date</th>
+<th data-quarto-table-cell-role="th">promised_delivery_time</th>
+<th data-quarto-table-cell-role="th">actual_delivery_time</th>
+<th data-quarto-table-cell-role="th">delivery_status</th>
+<th data-quarto-table-cell-role="th">order_total</th>
+<th data-quarto-table-cell-role="th">payment_method</th>
+<th data-quarto-table-cell-role="th">delivery_partner_id</th>
+<th data-quarto-table-cell-role="th">store_id</th>
+<th data-quarto-table-cell-role="th">delivery_delay_minutes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>1961864118</td>
+<td>30065862</td>
+<td>2024-07-17 08:34:01</td>
+<td>2024-07-17 08:52:01</td>
+<td>2024-07-17 08:47:01</td>
+<td>On Time</td>
+<td>3197.07</td>
+<td>Cash</td>
+<td>63230</td>
+<td>4771</td>
+<td>-5.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>1549769649</td>
+<td>9573071</td>
+<td>2024-05-28 13:14:29</td>
+<td>2024-05-28 13:25:29</td>
+<td>2024-05-28 13:27:29</td>
+<td>On Time</td>
+<td>976.55</td>
+<td>Cash</td>
+<td>14983</td>
+<td>7534</td>
+<td>2.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>9185164487</td>
+<td>45477575</td>
+<td>2024-09-23 13:07:12</td>
+<td>2024-09-23 13:25:12</td>
+<td>2024-09-23 13:29:12</td>
+<td>On Time</td>
+<td>839.05</td>
+<td>UPI</td>
+<td>39859</td>
+<td>9886</td>
+<td>4.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>9644738826</td>
+<td>88067569</td>
+<td>2023-11-24 16:16:56</td>
+<td>2023-11-24 16:34:56</td>
+<td>2023-11-24 16:33:56</td>
+<td>On Time</td>
+<td>440.23</td>
+<td>Card</td>
+<td>61497</td>
+<td>7917</td>
+<td>-1.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>5427684290</td>
+<td>83298567</td>
+<td>2023-11-20 05:00:39</td>
+<td>2023-11-20 05:17:39</td>
+<td>2023-11-20 05:18:39</td>
+<td>On Time</td>
+<td>2526.68</td>
+<td>Cash</td>
+<td>84315</td>
+<td>2741</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-18" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:335}}" data-outputid="1777088f-2e19-43e4-b564-cd8778f42038" data-execution_count="190">
+<div class="cell-output cell-output-display" data-execution_count="190">
+<pre><code>count    4703.000000
+mean        3.099086
+std         6.188961
+min        -5.000000
+25%        -2.000000
+50%         2.000000
+75%         6.000000
+max        21.000000
+Name: delivery_delay_minutes, dtype: float64</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="feature-engineering" class="level1">
+<h1>Feature Engineering</h1>
+<section id="aggregating-customer-data" class="level3">
+<h3 class="anchored" data-anchor-id="aggregating-customer-data">Aggregating Customer Data</h3>
+<p>The <code>aggregate_customer_data</code> function generates a customer-level dataset by aggregating order and delivery information. It computes mean order value, total spend, order count, average delivery delay, and identifies the most frequently used payment method and most common delivery status. This transforms transactional data into customer-centric metrics suitable for modelling.</p>
+</section>
+<section id="one-hot-encoding-categorical-features" class="level3">
+<h3 class="anchored" data-anchor-id="one-hot-encoding-categorical-features">One-Hot Encoding Categorical Features</h3>
+<p>The <code>one_hot_encode_categorical_features</code> function converts categorical attributes (<code>most_used_payment</code> and <code>most_delivery_status</code>) into one-hot encoded variables. This prepares these fields for machine learning models that require numerical inputs while preserving categorical distinctions.</p>
+</section>
+<section id="handling-numerical-features" class="level3">
+<h3 class="anchored" data-anchor-id="handling-numerical-features">Handling Numerical Features</h3>
+<p>The <code>handle_numerical_features</code> function applies appropriate transformations to numeric customer-level fields:</p>
+<ul>
+<li>Standardization of <code>avg_order_total</code></li>
+<li>Log transformation and standardization of <code>total_spent</code> to reduce skew</li>
+<li>Robust scaling of <code>avg_delay</code> to limit the influence of outliers</li>
+<li>Min-max scaling of <code>num_orders</code> to normalize range</li>
+</ul>
+<p>These transformations enhance model performance by improving feature distribution and comparability.</p>
+</section>
+<section id="end-to-end-customer-data-processing" class="level3">
+<h3 class="anchored" data-anchor-id="end-to-end-customer-data-processing">End-to-End Customer Data Processing</h3>
+<p>The <code>process_customer_data</code> function orchestrates the complete feature engineering pipeline. It aggregates customer metrics, encodes categorical fields, applies numerical transformations, and generates diagnostic visualisations including a correlation matrix and histograms for major engineered features. It returns both the processed dataset and the untransformed customer-level dataset.</p>
+</section>
+<section id="correlation-matrix-plot" class="level3">
+<h3 class="anchored" data-anchor-id="correlation-matrix-plot">Correlation Matrix Plot</h3>
+<p>The <code>plot_correlation_matrix</code> function visualises the correlation structure across engineered features. The heatmap highlights relationships, multicollinearity, and potential feature redundancy.</p>
+</section>
+<section id="feature-level-histograms" class="level3">
+<h3 class="anchored" data-anchor-id="feature-level-histograms">Feature-Level Histograms</h3>
+<p>The <code>plot_histogram</code> function produces histograms for individual transformed features. This aids in evaluating distributional characteristics after scaling and transformation.</p>
+</section>
+<section id="robust-scaling-for-average-delay" class="level3">
+<h3 class="anchored" data-anchor-id="robust-scaling-for-average-delay">Robust Scaling for Average Delay</h3>
+<p>The code applies a <strong>RobustScaler</strong> to the <code>avg_delay</code> feature. Robust scaling subtracts the median and scales by the interquartile range, which reduces the influence of extreme outliers. This is appropriate for delivery delay data, which often contains long-tail values.</p>
+</section>
+<section id="descriptive-summary-of-order-counts" class="level3">
+<h3 class="anchored" data-anchor-id="descriptive-summary-of-order-counts">Descriptive Summary of Order Counts</h3>
+<p>The line <code>customer_df['num_orders'].describe()</code> outputs summary statistics for the <code>num_orders</code> column. This provides insight into distribution, central tendency, and spread before further transformations are applied.</p>
+</section>
+<section id="min-max-scaling-for-order-counts" class="level3">
+<h3 class="anchored" data-anchor-id="min-max-scaling-for-order-counts">Min-Max Scaling for Order Counts</h3>
+<p>A <strong>MinMaxScaler</strong> with a feature range of <strong>(−1, 1)</strong> is applied to <code>num_orders</code>. This transformation rescales the values into a consistent numerical range, improving model convergence and comparability across features.</p>
+</section>
+<section id="converting-boolean-columns-to-integer-format" class="level3">
+<h3 class="anchored" data-anchor-id="converting-boolean-columns-to-integer-format">Converting Boolean Columns to Integer Format</h3>
+<p>The final line converts all boolean columns into integer values (<code>True =&gt; 1</code>, <code>False =&gt; 0</code>). This ensures full compatibility with machine learning algorithms that do not accept boolean dtype and provides a uniform numerical representation for modelling.</p>
+<div id="cell-22" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}}" data-outputid="fc23a76d-73d9-436e-a5ba-51e326d59d71" data-execution_count="192">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-15-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-15-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-15-output-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-15-output-4.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-15-output-5.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="dropping-identifier-columns" class="level3">
+<h3 class="anchored" data-anchor-id="dropping-identifier-columns">Dropping Identifier Columns</h3>
+<p>The code removes the <code>customer_id</code> column from the dataset prior to model preparation. Identifier fields carry no predictive value and can distort scaling or model fitting, so they are excluded from feature matrices.</p>
+</section>
+<section id="standardizing-all-features" class="level3">
+<h3 class="anchored" data-anchor-id="standardizing-all-features">Standardizing All Features</h3>
+<p>A <strong>StandardScaler</strong> is applied to the full feature set. This transformation centers each feature to mean zero and scales to unit variance, ensuring:</p>
+<ul>
+<li>All features contribute proportionally</li>
+<li>Gradient-based models converge more reliably</li>
+<li>Distance-based models (k-NN, clustering) behave consistently</li>
+</ul>
+<p>The result is stored in <code>X_scaled</code>, which becomes the fully standardized numerical feature matrix.</p>
+</section>
+<section id="saving-the-processed-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="saving-the-processed-dataset">Saving the Processed Dataset</h3>
+<p>The final processed customer DataFrame is saved to disk as <code>customer_df_processed.csv</code>. This preserves the engineered feature set for downstream modelling, validation, and reproducibility.</p>
+<div id="cell-24" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:244}}" data-outputid="36e13735-3246-4abb-90b5-e71829e7a022" data-execution_count="193">
+<div class="cell-output cell-output-display" data-execution_count="193">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">avg_order_total</th>
+<th data-quarto-table-cell-role="th">total_spent</th>
+<th data-quarto-table-cell-role="th">num_orders</th>
+<th data-quarto-table-cell-role="th">avg_delay</th>
+<th data-quarto-table-cell-role="th">payment_Card</th>
+<th data-quarto-table-cell-role="th">payment_Cash</th>
+<th data-quarto-table-cell-role="th">payment_UPI</th>
+<th data-quarto-table-cell-role="th">payment_Wallet</th>
+<th data-quarto-table-cell-role="th">status_On Time</th>
+<th data-quarto-table-cell-role="th">status_Significantly Delayed</th>
+<th data-quarto-table-cell-role="th">status_Slightly Delayed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0.663119</td>
+<td>0.513699</td>
+<td>-0.714286</td>
+<td>0.909091</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>0.418142</td>
+<td>0.865678</td>
+<td>-0.428571</td>
+<td>0.515152</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>1.482011</td>
+<td>1.572998</td>
+<td>-0.142857</td>
+<td>0.954545</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>0.394492</td>
+<td>0.402101</td>
+<td>-0.714286</td>
+<td>0.454545</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>-0.144778</td>
+<td>0.137538</td>
+<td>-0.714286</td>
+<td>2.181818</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="cluster-modelling" class="level1">
+<h1>Cluster Modelling</h1>
+<section id="executing-k-means-clustering" class="level3">
+<h3 class="anchored" data-anchor-id="executing-k-means-clustering">Executing K-Means Clustering</h3>
+<p>The <code>perform_kmeans_clustering</code> function runs the K-Means algorithm across multiple values of <em>k</em> and evaluates clustering quality. It applies PCA to reduce dimensionality for visualisation and uses three standard clustering metrics to assess performance:</p>
+<ul>
+<li><strong>Silhouette Score</strong> – Measures cohesion and separation of clusters.</li>
+<li><strong>Davies–Bouldin Index</strong> – Lower values indicate better-defined clusters.</li>
+<li><strong>Calinski–Harabasz Score</strong> – Higher values indicate better separation.</li>
+</ul>
+<p>For each <em>k</em>, the function:</p>
+<ol type="1">
+<li>Fits the K-Means model on PCA-reduced data.</li>
+<li>Visualises clusters in two principal components.</li>
+<li>Records performance metrics.</li>
+<li>Consolidates PCA coordinates and cluster labels for export or further analysis.</li>
+</ol>
+<p>The function returns a dictionary of clustering scores and a combined DataFrame containing PCA-transformed coordinates, cluster assignments, and their corresponding <em>k</em> values.</p>
+</section>
+<section id="exporting-model-data" class="level3">
+<h3 class="anchored" data-anchor-id="exporting-model-data">Exporting Model Data</h3>
+<p>The <code>export_model_data</code> function saves the full cluster assignment dataset, including PCA dimensions and cluster labels, to a CSV file. This preserves the clustering output for reporting, validation, and downstream modelling workflows.</p>
+<div id="cell-27" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="1a815651-8f33-496e-f1bb-054f89d6b876" data-execution_count="195">
+<div class="cell-output cell-output-display" data-execution_count="195">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">avg_order_total</th>
+<th data-quarto-table-cell-role="th">total_spent</th>
+<th data-quarto-table-cell-role="th">num_orders</th>
+<th data-quarto-table-cell-role="th">avg_delay</th>
+<th data-quarto-table-cell-role="th">payment_Card</th>
+<th data-quarto-table-cell-role="th">payment_Cash</th>
+<th data-quarto-table-cell-role="th">payment_UPI</th>
+<th data-quarto-table-cell-role="th">payment_Wallet</th>
+<th data-quarto-table-cell-role="th">status_On Time</th>
+<th data-quarto-table-cell-role="th">status_Significantly Delayed</th>
+<th data-quarto-table-cell-role="th">status_Slightly Delayed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0.663119</td>
+<td>0.513699</td>
+<td>-0.714286</td>
+<td>0.909091</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>0.418142</td>
+<td>0.865678</td>
+<td>-0.428571</td>
+<td>0.515152</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>1.482011</td>
+<td>1.572998</td>
+<td>-0.142857</td>
+<td>0.954545</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>0.394492</td>
+<td>0.402101</td>
+<td>-0.714286</td>
+<td>0.454545</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>-0.144778</td>
+<td>0.137538</td>
+<td>-0.714286</td>
+<td>2.181818</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2125</th>
+<td>0.657467</td>
+<td>0.964760</td>
+<td>-0.428571</td>
+<td>-0.212121</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2126</th>
+<td>-0.101605</td>
+<td>0.161182</td>
+<td>-0.714286</td>
+<td>-0.909091</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2127</th>
+<td>0.331404</td>
+<td>-0.400615</td>
+<td>-1.000000</td>
+<td>-0.636364</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2128</th>
+<td>0.065443</td>
+<td>0.248230</td>
+<td>-0.714286</td>
+<td>1.272727</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2129</th>
+<td>0.418122</td>
+<td>0.865669</td>
+<td>-0.428571</td>
+<td>1.545455</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+
+<p>2130 rows × 11 columns</p>
+</div>
+</div>
+</div>
+<div id="cell-28" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}}" data-outputid="3b970f59-8ac0-41f7-a72a-01ba3aabefde" data-execution_count="196">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-19-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-19-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-19-output-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-19-output-4.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model data exported successfully to kmeans_clusters.csv</code></pre>
+</div>
+</div>
+<div id="cell-29" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}}" data-outputid="159373fb-eaed-467f-d2f5-8cff52fad94c" data-execution_count="209">
+<div class="cell-output cell-output-stdout">
+<pre><code>Silhouette Scores (k=2): 0.39699679095287344
+Silhouette Scores (k=3): 0.17954912694724576
+Silhouette Scores (k=4): 0.11896633549870021
+Silhouette Scores (k=5): 0.09246414275772817</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-20-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Davies Bouldin scores (k=2): 1.404001773348831
+Davies Bouldin scores (k=3): 1.8596360490486983
+Davies Bouldin scores (k=4): 2.3457448428503933
+Davies Bouldin scores (k=5): 2.7792826260072916</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-20-output-4.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Calinski Harabasz Scores (k=2): 626.2205053434145
+Calinski Harabasz Scores (k=3): 500.37982576964356
+Calinski Harabasz Scores (k=4): 381.77729919088125
+Calinski Harabasz Scores (k=5): 303.6849794545046</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-20-output-6.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="basic-inference" class="level1">
+<h1>Basic Inference</h1>
+<section id="silhouette-score-vs-number-of-clusters" class="level3">
+<h3 class="anchored" data-anchor-id="silhouette-score-vs-number-of-clusters">Silhouette Score vs Number of Clusters</h3>
+<p>The silhouette score decreases sharply as <em>k</em> increases, with the highest score at <strong>k = 2</strong>. This indicates that the two-cluster solution yields the most cohesive and well-separated clusters, while additional clusters lead to overlap and poorer structure.</p>
+</section>
+<section id="daviesbouldin-score-vs-number-of-clusters" class="level3">
+<h3 class="anchored" data-anchor-id="daviesbouldin-score-vs-number-of-clusters">Davies–Bouldin Score vs Number of Clusters</h3>
+<p>The Davies–Bouldin index increases steadily with higher <em>k</em>, meaning cluster separation becomes worse as more clusters are introduced. The lowest score at <strong>k = 2</strong> again suggests this is the most distinct and compact clustering.</p>
+</section>
+<section id="calinskiharabasz-score-vs-number-of-clusters" class="level3">
+<h3 class="anchored" data-anchor-id="calinskiharabasz-score-vs-number-of-clusters">Calinski–Harabasz Score vs Number of Clusters</h3>
+<p>The Calinski–Harabasz score decreases consistently as <em>k</em> increases, showing reduced between-cluster separation relative to within-cluster dispersion. The highest score at <strong>k = 2</strong> confirms that the two-cluster model achieves the strongest overall partition.</p>
+<p><strong>Overall Conclusion:</strong> All three metrics consistently indicate that <strong>k = 2</strong> provides the best clustering configuration for this dataset.</p>
+</section>
+</section>
+<section id="k2" class="level1">
+<h1>K=2</h1>
+<div id="cell-33" class="cell" data-execution_count="198">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-21-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-34" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:226}}" data-outputid="b45ab3c9-0e07-498c-9ba8-e55b10bb811e" data-execution_count="199">
+<div class="cell-output cell-output-display" data-execution_count="199">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">customer_id</th>
+<th data-quarto-table-cell-role="th">avg_order_total</th>
+<th data-quarto-table-cell-role="th">total_spent</th>
+<th data-quarto-table-cell-role="th">num_orders</th>
+<th data-quarto-table-cell-role="th">avg_delay</th>
+<th data-quarto-table-cell-role="th">most_used_payment</th>
+<th data-quarto-table-cell-role="th">most_delivery_status</th>
+<th data-quarto-table-cell-role="th">cluster</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>31813</td>
+<td>2863.020000</td>
+<td>5726.04</td>
+<td>2</td>
+<td>7.500000</td>
+<td>UPI</td>
+<td>On Time</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>61020</td>
+<td>2614.966667</td>
+<td>7844.90</td>
+<td>3</td>
+<td>5.333333</td>
+<td>Card</td>
+<td>On Time</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>119099</td>
+<td>3692.192500</td>
+<td>14768.77</td>
+<td>4</td>
+<td>7.750000</td>
+<td>UPI</td>
+<td>Slightly Delayed</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>188838</td>
+<td>2591.020000</td>
+<td>5182.04</td>
+<td>2</td>
+<td>5.000000</td>
+<td>Cash</td>
+<td>On Time</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>191616</td>
+<td>2044.980000</td>
+<td>4089.96</td>
+<td>2</td>
+<td>14.500000</td>
+<td>Card</td>
+<td>Slightly Delayed</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-35" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="1bf1b70a-b72f-4994-c3ff-ae137b43d74f" data-execution_count="200">
+<div class="cell-output cell-output-stdout">
+<pre><code>Cluster Counts:
+cluster
+0    1808
+1     322
+Name: count, dtype: int64 
+</code></pre>
+</div>
+</div>
+<div id="cell-36" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="6d352ae5-fc31-43cc-89a6-d694640712db" data-execution_count="201">
+<div class="cell-output cell-output-stdout">
+<pre><code>Cluster Summary (Numeric Features):
+         avg_order_total  total_spent  num_orders  avg_delay
+cluster                                                     
+0            2200.114610  5083.045111    2.308628   1.749954
+1            2143.628181  3620.306277    1.642857  10.994306 
+</code></pre>
+</div>
+</div>
+<div id="cell-37" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="c0f8d2e3-5993-4c3a-f89b-375113da20d7" data-execution_count="202">
+<div class="cell-output cell-output-stdout">
+<pre><code>Distribution of most_used_payment by cluster:
+cluster  most_used_payment
+0        Card                 39.159292
+         Cash                 26.327434
+         UPI                  19.081858
+         Wallet               15.431416
+1        Card                 32.919255
+         Cash                 24.844720
+         UPI                  21.739130
+         Wallet               20.496894
+Name: percentage, dtype: float64
+
+
+Distribution of most_delivery_status by cluster:
+cluster  most_delivery_status 
+0        On Time                  100.000000
+         Significantly Delayed      0.000000
+         Slightly Delayed           0.000000
+1        Slightly Delayed          85.403727
+         Significantly Delayed     14.596273
+         On Time                    0.000000
+Name: percentage, dtype: float64
+
+</code></pre>
+</div>
+</div>
+<div id="cell-38" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="6097aaf7-ba0f-4d41-db60-4b19fb65505f" data-execution_count="203">
+<div class="cell-output cell-output-stdout">
+<pre><code>Full Cluster Profile:
+         avg_order_total  total_spent  num_orders  avg_delay  \
+cluster                                                        
+0            2200.114610  5083.045111    2.308628   1.749954   
+1            2143.628181  3620.306277    1.642857  10.994306   
+
+        most_used_payment most_delivery_status  
+cluster                                         
+0                    Card              On Time  
+1                    Card     Slightly Delayed  </code></pre>
+</div>
+</div>
+<div id="cell-39" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:486}}" data-outputid="a6e8e81a-2501-47e0-978d-bc23e7be5be7" data-execution_count="204">
+<div class="cell-output cell-output-display" data-execution_count="204">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">customer_id</th>
+<th data-quarto-table-cell-role="th">avg_order_total</th>
+<th data-quarto-table-cell-role="th">total_spent</th>
+<th data-quarto-table-cell-role="th">num_orders</th>
+<th data-quarto-table-cell-role="th">avg_delay</th>
+<th data-quarto-table-cell-role="th">most_used_payment</th>
+<th data-quarto-table-cell-role="th">most_delivery_status</th>
+<th data-quarto-table-cell-role="th">cluster</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>31813</td>
+<td>2863.020000</td>
+<td>5726.04</td>
+<td>2</td>
+<td>7.500000</td>
+<td>UPI</td>
+<td>On Time</td>
+<td>On-Time High-Value Customers</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>61020</td>
+<td>2614.966667</td>
+<td>7844.90</td>
+<td>3</td>
+<td>5.333333</td>
+<td>Card</td>
+<td>On Time</td>
+<td>On-Time High-Value Customers</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>119099</td>
+<td>3692.192500</td>
+<td>14768.77</td>
+<td>4</td>
+<td>7.750000</td>
+<td>UPI</td>
+<td>Slightly Delayed</td>
+<td>Delay-Affected Low-Value Customers</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>188838</td>
+<td>2591.020000</td>
+<td>5182.04</td>
+<td>2</td>
+<td>5.000000</td>
+<td>Cash</td>
+<td>On Time</td>
+<td>On-Time High-Value Customers</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>191616</td>
+<td>2044.980000</td>
+<td>4089.96</td>
+<td>2</td>
+<td>14.500000</td>
+<td>Card</td>
+<td>Slightly Delayed</td>
+<td>Delay-Affected Low-Value Customers</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-40" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="c0af589c-78c7-4e27-c56d-8e2719042032" data-execution_count="205">
+<div class="cell-output cell-output-stdout">
+<pre><code>Model data exported successfully</code></pre>
+</div>
+</div>
+<div id="cell-41" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:206}}" data-outputid="a2c6f919-0ba7-4967-b530-a1346e078ba9" data-execution_count="206">
+<div class="cell-output cell-output-display" data-execution_count="206">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">PC1</th>
+<th data-quarto-table-cell-role="th">PC2</th>
+<th data-quarto-table-cell-role="th">cluster</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0.138459</td>
+<td>0.445794</td>
+<td>On-Time High-Value Customers</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>0.876183</td>
+<td>1.311828</td>
+<td>On-Time High-Value Customers</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>-2.080492</td>
+<td>3.261872</td>
+<td>Delay-Affected Low-Value Customers</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>0.439205</td>
+<td>0.238163</td>
+<td>On-Time High-Value Customers</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>-3.495795</td>
+<td>1.956702</td>
+<td>Delay-Affected Low-Value Customers</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-42" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:418}}" data-outputid="0c3f374b-ec96-4fbe-dbfb-3db8eaa40014" data-execution_count="207">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-30-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="cluster-overview" class="level3">
+<h3 class="anchored" data-anchor-id="cluster-overview">Cluster Overview</h3>
+<p>The K=2 clustering solution separates customers into one large group and one smaller group. Cluster 0 contains the majority of customers, while Cluster 1 represents a smaller segment with distinct behavioural patterns.</p>
+</section>
+<section id="cluster-characteristics" class="level3">
+<h3 class="anchored" data-anchor-id="cluster-characteristics">Cluster Characteristics</h3>
+<p><strong>Cluster 0</strong> Customers in this cluster place slightly more orders, spend more overall, and experience very low delivery delays. Their orders are almost always delivered on time, and the most common payment method is Card.</p>
+<p><strong>Cluster 1</strong> Customers in this group make fewer purchases, spend less overall, and face significantly higher delivery delays. Most of their orders are classified as slightly delayed, and they also commonly use Card as the preferred payment method.</p>
+</section>
+<section id="behavioural-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="behavioural-distribution">Behavioural Distribution</h3>
+<p>Payment method usage is similar across clusters, though Cluster 0 shows a slightly higher proportion of Card payments. Delivery performance is the strongest separator: Cluster 0 is entirely on time, whereas Cluster 1 is dominated by delayed deliveries.</p>
+</section>
+<section id="segment-interpretation" class="level3">
+<h3 class="anchored" data-anchor-id="segment-interpretation">Segment Interpretation</h3>
+<p>The clusters can be interpreted as:</p>
+<ul>
+<li><strong>On-Time High-Value Customers (Cluster 0):</strong> Higher spending, more frequent orders, consistently timely deliveries.</li>
+<li><strong>Delay-Affected Low-Value Customers (Cluster 1):</strong> Lower spending, fewer orders, and substantially higher delivery delays.</li>
+</ul>
+<p>This segmentation highlights operational differences in delivery performance and their association with customer value.</p>
+</section>
+</section>
+<a class="quarto-notebook-link" id="nblink-1" href="notebooks/presentation-preview.html#cell-0">Source: Data Loading</a></div>
+</section>
+</section>
+<section id="phase-2" class="level1">
+<h1>Phase 2</h1>
+<div class="quarto-embed-nb-cell">
+<p>The notebook is divided into the following components</p>
+<ul>
+<li>Data Loading</li>
+<li>Data Validation</li>
+<li>Data Cleaning</li>
+<li>EDA</li>
+<li>Feature Engineering</li>
+<li>Cluster Modelling</li>
+<li>Basic Inferences</li>
+</ul>
+<section id="data-loading-1" class="level1">
+<h1>Data Loading</h1>
+</section>
+<section id="data-validation-1" class="level1">
+<h1>Data Validation</h1>
+<section id="basic-data-exploration-1" class="level3">
+<h3 class="anchored" data-anchor-id="basic-data-exploration-1">Basic Data Exploration</h3>
+<p>The <code>basic_exploration</code> function provides an initial overview of the dataset. It prints key structural details and highlights potential data quality issues. This function is intended for a first pass at understanding the shape, completeness, and uniqueness of the data.</p>
+</section>
+<section id="summary-and-anomaly-checks-1" class="level3">
+<h3 class="anchored" data-anchor-id="summary-and-anomaly-checks-1">Summary and Anomaly Checks</h3>
+<p>The <code>summarize_df</code> function provides descriptive statistics for all columns and more detailed summaries for categorical variables. It also performs a targeted anomaly check on the order_total column, if present.</p>
+<div id="cell-6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}}" data-outputid="702904bf-5372-446a-d1bc-0501c262ed1e" data-execution_count="182">
+<div class="cell-output cell-output-stdout">
+<pre><code>Shape of DataFrame:
+(5000, 10)
+Top 5 Rows:</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -782,10 +2494,27 @@ dtype: object</code></pre>
 
 </div>
 </div>
-</div>
-<div id="cell-9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="05bd1a6d-00fb-4d66-e46c-355f18d24c57">
 <div class="cell-output cell-output-stdout">
-<pre><code>Missing Values:
+<pre><code>Basic Information:
+&lt;class 'pandas.core.frame.DataFrame'&gt;
+RangeIndex: 5000 entries, 0 to 4999
+Data columns (total 10 columns):
+ #   Column                  Non-Null Count  Dtype  
+---  ------                  --------------  -----  
+ 0   order_id                5000 non-null   int64  
+ 1   customer_id             5000 non-null   int64  
+ 2   order_date              5000 non-null   object 
+ 3   promised_delivery_time  5000 non-null   object 
+ 4   actual_delivery_time    5000 non-null   object 
+ 5   delivery_status         5000 non-null   object 
+ 6   order_total             5000 non-null   float64
+ 7   payment_method          5000 non-null   object 
+ 8   delivery_partner_id     5000 non-null   int64  
+ 9   store_id                5000 non-null   int64  
+dtypes: float64(1), int64(4), object(5)
+memory usage: 390.8+ KB
+None
+Count of Null Values:
 order_id                  0
 customer_id               0
 order_date                0
@@ -796,31 +2525,20 @@ order_total               0
 payment_method            0
 delivery_partner_id       0
 store_id                  0
-dtype: int64</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<pre><code>order_id                  0
-customer_id               0
-order_date                0
-promised_delivery_time    0
-actual_delivery_time      0
-delivery_status           0
-order_total               0
-payment_method            0
-delivery_partner_id       0
-store_id                  0
-dtype: int64</code></pre>
-</div>
-</div>
-<div id="cell-10" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="d2fadb98-0591-485c-d715-c946f14a2e75" data-execution_count="38">
-<div class="cell-output cell-output-stdout">
-<pre><code>Number of Duplicated Rows: 0</code></pre>
-</div>
-</div>
-<div id="cell-11" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="97ad4ddb-d073-466d-fd39-c45faa90d6fd" data-execution_count="41">
-<div class="cell-output cell-output-stdout">
-<pre><code>Descriptive Statistics:
-</code></pre>
+dtype: int64
+Unique Value Counts per Column:
+order_id                  5000
+customer_id               2172
+order_date                5000
+promised_delivery_time    4999
+actual_delivery_time      5000
+delivery_status              3
+order_total               4550
+payment_method               4
+delivery_partner_id       5000
+store_id                  5000
+dtype: int64
+Number of Duplicated Rows: 0</code></pre>
 </div>
 <div class="cell-output cell-output-display">
 <div>
@@ -873,9 +2591,9 @@ dtype: int64</code></pre>
 <th data-quarto-table-cell-role="th">top</th>
 <td>NaN</td>
 <td>NaN</td>
-<td>2024-07-17 08:34:01</td>
+<td>2023-08-23 12:04:18</td>
 <td>2024-10-13 14:06:50</td>
-<td>2024-07-17 08:47:01</td>
+<td>2023-08-23 12:21:18</td>
 <td>On Time</td>
 <td>NaN</td>
 <td>Card</td>
@@ -991,12 +2709,6 @@ dtype: int64</code></pre>
 
 </div>
 </div>
-</div>
-<div id="cell-12" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="b1226ff7-310e-4f7b-fd33-486dae9c1f69" data-execution_count="44">
-<div class="cell-output cell-output-stdout">
-<pre><code>Categorical Column Summary:
-</code></pre>
-</div>
 <div class="cell-output cell-output-display">
 <div>
 
@@ -1031,9 +2743,9 @@ dtype: int64</code></pre>
 </tr>
 <tr class="odd">
 <th data-quarto-table-cell-role="th">top</th>
-<td>2024-07-17 08:34:01</td>
+<td>2023-08-23 12:04:18</td>
 <td>2024-10-13 14:06:50</td>
-<td>2024-07-17 08:47:01</td>
+<td>2023-08-23 12:21:18</td>
 <td>On Time</td>
 <td>Card</td>
 </tr>
@@ -1050,54 +2762,1686 @@ dtype: int64</code></pre>
 
 </div>
 </div>
-</div>
-<div id="cell-13" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="f5e4a541-9c4d-451f-90c1-a65577632978">
 <div class="cell-output cell-output-stdout">
-<pre><code>
- Rows with Invalid (≤0) Order Total:
- Empty DataFrame
-Columns: [order_id, customer_id, order_date, promised_delivery_time, actual_delivery_time, delivery_status, order_total, payment_method, delivery_partner_id, store_id]
-Index: []</code></pre>
+<pre><code>Rows with Invalid (≤0) Order Total:</code></pre>
 </div>
-</div>
-<div id="cell-14" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="0a8c8a51-372d-4317-af4f-682363519174">
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Rows with Invalid Delivery Times (Before Order Date):
-         order_id  customer_id      order_date promised_delivery_time  \
-1281  2148242015     39093069  30-04-23 23:48    2023-01-05 00:04:00   
-1563  7821942520     84468124  12-02-24 23:57    2024-02-13 00:12:00   
-2933  3368317718     70867736  31-05-24 23:59    2024-01-06 00:17:00   
+<div class="cell-output cell-output-display">
+<div>
 
-     actual_delivery_time        delivery_status  order_total payment_method  \
-1281  2023-01-05 00:33:00  Significantly Delayed      3239.66            UPI   
-1563  2024-02-13 00:13:00                On Time      2732.91         Wallet   
-2933  2024-01-06 00:12:00                On Time       914.88            UPI   
 
-      delivery_partner_id  store_id  
-1281                13676      9904  
-1563                11136      5805  
-2933                96055       522  </code></pre>
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">order_id</th>
+<th data-quarto-table-cell-role="th">customer_id</th>
+<th data-quarto-table-cell-role="th">order_date</th>
+<th data-quarto-table-cell-role="th">promised_delivery_time</th>
+<th data-quarto-table-cell-role="th">actual_delivery_time</th>
+<th data-quarto-table-cell-role="th">delivery_status</th>
+<th data-quarto-table-cell-role="th">order_total</th>
+<th data-quarto-table-cell-role="th">payment_method</th>
+<th data-quarto-table-cell-role="th">delivery_partner_id</th>
+<th data-quarto-table-cell-role="th">store_id</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
 </div>
-</div>
-<div id="cell-15" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="99fd582d-1ef0-4d1b-91d2-e055f2b89c81" data-execution_count="43">
-<div class="cell-output cell-output-stdout">
-<pre><code>Unique Value Counts per Column:
-order_id                  5000
-customer_id               2172
-order_date                5000
-promised_delivery_time    4999
-actual_delivery_time      5000
-delivery_status              3
-order_total               4550
-payment_method               4
-delivery_partner_id       5000
-store_id                  5000
-dtype: int64</code></pre>
 </div>
 </div>
 </section>
+</section>
+<section id="data-cleaning-1" class="level1">
+<h1>Data Cleaning</h1>
+<section id="dropping-irrelevant-columns-1" class="level3">
+<h3 class="anchored" data-anchor-id="dropping-irrelevant-columns-1">Dropping Irrelevant Columns</h3>
+<p>The <code>drop_irrelevant_columns</code> function removes columns that have no analytical value. This ensures the dataset remains focused on variables that contribute to downstream modeling or insights.</p>
+</section>
+<section id="removing-high-missing-value-columns-1" class="level3">
+<h3 class="anchored" data-anchor-id="removing-high-missing-value-columns-1">Removing High-Missing-Value Columns</h3>
+<p>The <code>drop_high_missing_value_columns</code> function eliminates columns where the proportion of missing values exceeds a specified threshold. This prevents sparsely populated fields from skewing analysis or requiring excessive imputation.</p>
+</section>
+<section id="imputing-missing-values-1" class="level3">
+<h3 class="anchored" data-anchor-id="imputing-missing-values-1">Imputing Missing Values</h3>
+<p>The <code>impute_missing_values</code> function fills missing entries based on column data types. Numerical fields use median imputation, categorical fields use mode, and all other types default to forward-fill. This maintains data consistency while preserving distribution characteristics.</p>
+</section>
+<section id="removing-duplicates-1" class="level3">
+<h3 class="anchored" data-anchor-id="removing-duplicates-1">Removing Duplicates</h3>
+<p>The <code>remove_duplicates</code> function removes duplicate rows and reports how many were dropped. This ensures data integrity and prevents inflated counts or biased analysis.</p>
+</section>
+<section id="handling-outliers-1" class="level3">
+<h3 class="anchored" data-anchor-id="handling-outliers-1">Handling Outliers</h3>
+<p>The <code>handle_outliers</code> function caps outlier values using the Interquartile Range method. Values below the lower bound or above the upper bound are replaced with the respective caps, reducing the influence of extreme values without complete removal.</p>
+</section>
+<section id="converting-to-datetime-1" class="level3">
+<h3 class="anchored" data-anchor-id="converting-to-datetime-1">Converting to Datetime</h3>
+<p>The <code>convert_to_datetime</code> function converts specified columns into datetime format. Invalid formats are coerced into missing values. This enables time-based operations and calculations.</p>
+</section>
+<section id="calculating-delivery-delay-1" class="level3">
+<h3 class="anchored" data-anchor-id="calculating-delivery-delay-1">Calculating Delivery Delay</h3>
+<p>The <code>calculate_delivery_delay</code> function computes the delay between promised and actual delivery times in minutes. It expects both fields to be datetime objects and adds a new column representing the delay duration.</p>
+</section>
+<section id="converting-categorical-like-columns-1" class="level3">
+<h3 class="anchored" data-anchor-id="converting-categorical-like-columns-1">Converting Categorical-Like Columns</h3>
+<p>The <code>convert_categorical_like_columns</code> function casts selected columns into the pandas <code>category</code> data type. This optimizes memory usage and clarifies the column’s semantic meaning.</p>
+</section>
+<section id="saving-the-cleaned-dataset-1" class="level3">
+<h3 class="anchored" data-anchor-id="saving-the-cleaned-dataset-1">Saving the Cleaned Dataset</h3>
+<p>The <code>save_cleaned_dataset</code> function writes the cleaned DataFrame to disk as a CSV file, prints final dataset characteristics, and returns the cleaned DataFrame for further use.</p>
+<div id="cell-9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="9d5fefe3-60b2-4ccd-b222-e93ff5764376" data-execution_count="184">
+<div class="cell-output cell-output-stdout">
+<pre><code>Removed 0 duplicate rows
+Data cleaning completed successfully!
+Final Data Shape: (5000, 11)
+Data Types:
+order_id                           int64
+customer_id                        int64
+order_date                datetime64[ns]
+promised_delivery_time    datetime64[ns]
+actual_delivery_time      datetime64[ns]
+delivery_status                 category
+order_total                      float64
+payment_method                  category
+delivery_partner_id                int64
+store_id                           int64
+delivery_delay_minutes           float64
+dtype: object</code></pre>
 </div>
+</div>
+</section>
+</section>
+<section id="exploratory-data-analysis-1" class="level1">
+<h1>Exploratory Data Analysis</h1>
+<section id="numerical-column-analysis-1" class="level3">
+<h3 class="anchored" data-anchor-id="numerical-column-analysis-1">Numerical Column Analysis</h3>
+<p>The <code>print_numerical_columns</code> function provides descriptive statistics for key numerical fields. It displays summary statistics for <code>order_total</code> and <code>delivery_delay_minutes</code>, along with distribution quantiles for spending. This helps assess central tendency, variability, and skewness in customer spending and delivery performance.</p>
+</section>
+<section id="correlation-analysis-1" class="level3">
+<h3 class="anchored" data-anchor-id="correlation-analysis-1">Correlation Analysis</h3>
+<p>The <code>print_correlation</code> function computes and prints the correlation matrix between <code>order_total</code> and <code>delivery_delay_minutes</code>. This indicates whether higher spending correlates with delivery delays, offering insight into operational or customer-behavior patterns.</p>
+</section>
+<section id="categorical-column-overview-1" class="level3">
+<h3 class="anchored" data-anchor-id="categorical-column-overview-1">Categorical Column Overview</h3>
+<p>The <code>print_categorical_columns</code> function outputs distribution summaries for key categorical fields. It reports counts for payment methods and normalized percentages for delivery status categories, enabling an understanding of categorical balance and operational trends.</p>
+</section>
+<section id="filtering-significant-delivery-delays-1" class="level3">
+<h3 class="anchored" data-anchor-id="filtering-significant-delivery-delays-1">Filtering Significant Delivery Delays</h3>
+<p>The <code>filter_significantly_delayed_orders</code> function isolates orders labeled as “Significantly Delayed” and displays the first few examples along with a total count. This aids in identifying patterns or clusters that may require operational review.</p>
+</section>
+<section id="customer-level-summary-1" class="level3">
+<h3 class="anchored" data-anchor-id="customer-level-summary-1">Customer-Level Summary</h3>
+<p>The <code>generate_customer_summary</code> function constructs an aggregate table of customer activity, including total spending, number of orders, and average delivery delay. This enables segmentation, customer value analysis, and service-level evaluation.</p>
+</section>
+<section id="payment-method-summary-1" class="level3">
+<h3 class="anchored" data-anchor-id="payment-method-summary-1">Payment Method Summary</h3>
+<p>The <code>generate_payment_method_summary</code> function summarizes performance by payment method, computing the average order value and number of orders per method. This supports understanding of payment preference patterns and financial behavior.</p>
+</section>
+<section id="store-level-delivery-status-summary-1" class="level3">
+<h3 class="anchored" data-anchor-id="store-level-delivery-status-summary-1">Store-Level Delivery Status Summary</h3>
+<p>The <code>store_wise_order_total_by_delivery_status</code> function builds a pivot table summarizing total order values per store across different delivery status categories. This highlights store-level operational patterns and relative performance.</p>
+</section>
+<section id="daily-sales-patterns-1" class="level3">
+<h3 class="anchored" data-anchor-id="daily-sales-patterns-1">Daily Sales Patterns</h3>
+<p>The <code>daily_sales_patterns</code> function aggregates sales and order counts by day, producing a time-indexed summary table. This supports trend analysis, seasonality detection, and operational planning based on daily volume patterns.</p>
+<div id="cell-13" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}}" data-outputid="9c0c8a16-cb80-43ce-f946-b6266a60e791" data-execution_count="186">
+<div class="cell-output cell-output-stdout">
+<pre><code>Numerical Columns
+Descriptive stats
+       order_total  delivery_delay_minutes
+count  5000.000000             5000.000000
+mean   2201.674720                4.443000
+std    1302.416242                8.063929
+min      13.250000               -5.000000
+25%    1086.215000               -1.000000
+50%    2100.690000                2.000000
+75%    3156.882500                8.000000
+max    6262.883750               30.000000
+\Distribution of Spending
+      order_total
+0.25    1086.2150
+0.50    2100.6900
+0.75    3156.8825
+0.95    4452.7910
+Correlation between order total and delivery delay in minutes
+                        order_total  delivery_delay_minutes
+order_total                1.000000               -0.002591
+delivery_delay_minutes    -0.002591                1.000000
+
+Categorical Columns
+Payment Methods Distribution
+payment_method
+Card      1285
+Cash      1257
+Wallet    1244
+UPI       1214
+Name: count, dtype: int64
+Delivery Status Distribution
+delivery_status
+On Time                  69.40
+Slightly Delayed         20.74
+Significantly Delayed     9.86
+Name: proportion, dtype: float64
+Significantly delayed orders:</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">order_id</th>
+<th data-quarto-table-cell-role="th">customer_id</th>
+<th data-quarto-table-cell-role="th">order_date</th>
+<th data-quarto-table-cell-role="th">promised_delivery_time</th>
+<th data-quarto-table-cell-role="th">actual_delivery_time</th>
+<th data-quarto-table-cell-role="th">delivery_status</th>
+<th data-quarto-table-cell-role="th">order_total</th>
+<th data-quarto-table-cell-role="th">payment_method</th>
+<th data-quarto-table-cell-role="th">delivery_partner_id</th>
+<th data-quarto-table-cell-role="th">store_id</th>
+<th data-quarto-table-cell-role="th">delivery_delay_minutes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">23</th>
+<td>6905293278</td>
+<td>97259564</td>
+<td>2024-06-16 10:23:23</td>
+<td>2024-06-16 10:36:23</td>
+<td>2024-06-16 11:02:23</td>
+<td>Significantly Delayed</td>
+<td>1404.68</td>
+<td>Cash</td>
+<td>53868</td>
+<td>4187</td>
+<td>26.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">31</th>
+<td>9073572548</td>
+<td>97111069</td>
+<td>2023-05-02 23:13:42</td>
+<td>2023-05-02 23:25:42</td>
+<td>2023-05-02 23:47:42</td>
+<td>Significantly Delayed</td>
+<td>1091.89</td>
+<td>Card</td>
+<td>28575</td>
+<td>6542</td>
+<td>22.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">62</th>
+<td>2149289255</td>
+<td>57579640</td>
+<td>2024-11-01 15:00:29</td>
+<td>2024-11-01 15:20:29</td>
+<td>2024-11-01 15:39:29</td>
+<td>Significantly Delayed</td>
+<td>2687.31</td>
+<td>Cash</td>
+<td>25251</td>
+<td>7315</td>
+<td>19.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">70</th>
+<td>2122832513</td>
+<td>55028958</td>
+<td>2024-02-17 19:48:14</td>
+<td>2024-02-17 19:58:14</td>
+<td>2024-02-17 20:18:14</td>
+<td>Significantly Delayed</td>
+<td>2037.94</td>
+<td>UPI</td>
+<td>39396</td>
+<td>5245</td>
+<td>20.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">76</th>
+<td>5127172657</td>
+<td>32293017</td>
+<td>2024-06-11 18:11:31</td>
+<td>2024-06-11 18:30:31</td>
+<td>2024-06-11 18:50:31</td>
+<td>Significantly Delayed</td>
+<td>2185.50</td>
+<td>Cash</td>
+<td>80034</td>
+<td>288</td>
+<td>20.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<pre><code>493</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Summary Table for Each Customer:</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">total_spent</th>
+<th data-quarto-table-cell-role="th">order_count</th>
+<th data-quarto-table-cell-role="th">avg_delivery_delay</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">customer_id</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">77869660</th>
+<td>19052.94</td>
+<td>9</td>
+<td>5.666667</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">17805991</th>
+<td>18409.90</td>
+<td>8</td>
+<td>4.625000</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">8791577</th>
+<td>19028.36</td>
+<td>8</td>
+<td>7.750000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">93018527</th>
+<td>9521.09</td>
+<td>7</td>
+<td>0.142857</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">12832151</th>
+<td>17178.65</td>
+<td>7</td>
+<td>6.000000</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">75213636</th>
+<td>10038.08</td>
+<td>7</td>
+<td>1.142857</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">10562528</th>
+<td>11050.11</td>
+<td>7</td>
+<td>2.714286</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">13604883</th>
+<td>14002.59</td>
+<td>7</td>
+<td>3.000000</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">21701991</th>
+<td>11648.60</td>
+<td>7</td>
+<td>5.571429</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">25128143</th>
+<td>17638.83</td>
+<td>7</td>
+<td>5.428571</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Payment Method Summary:</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">avg_order_value</th>
+<th data-quarto-table-cell-role="th">num_orders</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">payment_method</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">Card</th>
+<td>2229.496449</td>
+<td>1285</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Cash</th>
+<td>2204.028632</td>
+<td>1257</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">UPI</th>
+<td>2189.458323</td>
+<td>1214</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">Wallet</th>
+<td>2182.479317</td>
+<td>1244</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Store-Wise Order Total by Delivery Status:</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th">delivery_status</th>
+<th data-quarto-table-cell-role="th">On Time</th>
+<th data-quarto-table-cell-role="th">Significantly Delayed</th>
+<th data-quarto-table-cell-role="th">Slightly Delayed</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">store_id</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">1</th>
+<td>1172.69</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2</th>
+<td>22.14</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">9</th>
+<td>1599.11</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">12</th>
+<td>1639.04</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">14</th>
+<td>0.00</td>
+<td>704.19</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">9984</th>
+<td>3327.67</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">9987</th>
+<td>1052.23</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">9989</th>
+<td>0.00</td>
+<td>3706.10</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">9991</th>
+<td>2650.68</td>
+<td>0.00</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">9995</th>
+<td>0.00</td>
+<td>0.00</td>
+<td>2989.97</td>
+</tr>
+</tbody>
+</table>
+
+<p>5000 rows × 3 columns</p>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Daily Sales Patterns:</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">total_sales</th>
+<th data-quarto-table-cell-role="th">num_orders</th>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">order_date</th>
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-11-04</th>
+<td>13820.12</td>
+<td>4</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-11-03</th>
+<td>28761.95</td>
+<td>12</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-11-02</th>
+<td>10794.55</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-11-01</th>
+<td>14781.03</td>
+<td>9</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-10-31</th>
+<td>25689.95</td>
+<td>8</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-10-30</th>
+<td>23835.14</td>
+<td>13</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-10-29</th>
+<td>11223.88</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-10-28</th>
+<td>17221.29</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2024-10-27</th>
+<td>11797.07</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2024-10-26</th>
+<td>23652.49</td>
+<td>11</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="visualisation-1" class="level1">
+<h1>Visualisation</h1>
+<section id="univariate-analysis-of-numerical-features-1" class="level3">
+<h3 class="anchored" data-anchor-id="univariate-analysis-of-numerical-features-1">Univariate Analysis of Numerical Features</h3>
+<p>The <code>univariate_numeric_features</code> function visualises distributions of key numerical fields. It produces histograms for <code>order_total</code> and <code>delivery_delay_minutes</code>, allowing quick identification of skewness, spread, and dominant value ranges.</p>
+</section>
+<section id="univariate-analysis-of-categorical-features-1" class="level3">
+<h3 class="anchored" data-anchor-id="univariate-analysis-of-categorical-features-1">Univariate Analysis of Categorical Features</h3>
+<p>The <code>univariate_categorical_features</code> function visualises frequency distributions for categorical fields. It generates a pie chart for <code>delivery_status</code> and a count plot for <code>payment_method</code>, helping assess category balance and operational patterns.</p>
+</section>
+<section id="univariate-customer-metrics-1" class="level3">
+<h3 class="anchored" data-anchor-id="univariate-customer-metrics-1">Univariate Customer Metrics</h3>
+<p>The <code>univariate_customer_metrics</code> function analyses customer-level behaviour by computing order frequencies per customer and visualising their distribution. This highlights patterns such as how many customers place few orders versus many.</p>
+</section>
+<section id="one-time-vs-repeat-customers-1" class="level3">
+<h3 class="anchored" data-anchor-id="one-time-vs-repeat-customers-1">One-Time vs Repeat Customers</h3>
+<p>The <code>univariate_one_time_vs_repeat_customers</code> function reports counts of customers who have placed exactly one order versus those who have placed multiple orders. This provides a clear segmentation of customer loyalty behaviour.</p>
+</section>
+<section id="bivariate-analysis-1" class="level3">
+<h3 class="anchored" data-anchor-id="bivariate-analysis-1">Bivariate Analysis</h3>
+<p>The <code>bivariate_analysis</code> function explores relationships between pairs of variables. It compares order totals across delivery statuses, examines the relationship between total orders and average order value, and visualises total customer spending through boxplots and histograms.</p>
+</section>
+<section id="multivariate-analysis-1" class="level3">
+<h3 class="anchored" data-anchor-id="multivariate-analysis-1">Multivariate Analysis</h3>
+<p>The <code>multivariate_analysis</code> function investigates relationships among three or more variables. It plots order totals against delivery delay while colouring points by payment method, highlighting interaction effects and potential payment-method-driven behavioural differences.</p>
+</section>
+<section id="delivery-delay-boxplot-1" class="level3">
+<h3 class="anchored" data-anchor-id="delivery-delay-boxplot-1">Delivery Delay Boxplot</h3>
+<p>The <code>boxplot_delivery_delays</code> function provides a boxplot of <code>delivery_delay_minutes</code>, offering a clear view of central tendency and variability, including potential outliers.</p>
+</section>
+<section id="delivery-delay-violin-plot-1" class="level3">
+<h3 class="anchored" data-anchor-id="delivery-delay-violin-plot-1">Delivery Delay Violin Plot</h3>
+<p>The <code>violin_plot_delivery_delays</code> function produces a violin plot to visualise the full distribution shape of delivery delays, indicating density across value ranges.</p>
+</section>
+<section id="removing-outliers-from-delivery-delays-1" class="level3">
+<h3 class="anchored" data-anchor-id="removing-outliers-from-delivery-delays-1">Removing Outliers from Delivery Delays</h3>
+<p>The <code>remove_outliers_delivery_delays</code> function filters out extreme delivery delays using the IQR method, then visualises the cleaned distribution with a boxplot. It returns the filtered dataset for further use.</p>
+<div id="cell-16" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}}" data-outputid="5e227591-150c-40a5-ffc5-13fe4b62ce0d" data-execution_count="188">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-4.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>total_orders
+1    680
+2    686
+3    451
+4    234
+5     82
+6     28
+7      8
+8      2
+9      1
+Name: count, dtype: int64</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-6.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>One-time customers: 680
+Repeat customers: 1492</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-8.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-9.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-10.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-11.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-12.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-13.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-14.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-11-output-15.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Data cleaning completed successfully!
+Final Data Shape: (4703, 11)
+Data Types:
+order_id                           int64
+customer_id                        int64
+order_date                datetime64[ns]
+promised_delivery_time    datetime64[ns]
+actual_delivery_time      datetime64[ns]
+delivery_status                 category
+order_total                      float64
+payment_method                  category
+delivery_partner_id                int64
+store_id                           int64
+delivery_delay_minutes           float64
+dtype: object</code></pre>
+</div>
+</div>
+<div id="cell-17" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:313}}" data-outputid="f73901b8-2e59-47ab-9296-81b22e23becb" data-execution_count="189">
+<div class="cell-output cell-output-display" data-execution_count="189">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">order_id</th>
+<th data-quarto-table-cell-role="th">customer_id</th>
+<th data-quarto-table-cell-role="th">order_date</th>
+<th data-quarto-table-cell-role="th">promised_delivery_time</th>
+<th data-quarto-table-cell-role="th">actual_delivery_time</th>
+<th data-quarto-table-cell-role="th">delivery_status</th>
+<th data-quarto-table-cell-role="th">order_total</th>
+<th data-quarto-table-cell-role="th">payment_method</th>
+<th data-quarto-table-cell-role="th">delivery_partner_id</th>
+<th data-quarto-table-cell-role="th">store_id</th>
+<th data-quarto-table-cell-role="th">delivery_delay_minutes</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>1961864118</td>
+<td>30065862</td>
+<td>2024-07-17 08:34:01</td>
+<td>2024-07-17 08:52:01</td>
+<td>2024-07-17 08:47:01</td>
+<td>On Time</td>
+<td>3197.07</td>
+<td>Cash</td>
+<td>63230</td>
+<td>4771</td>
+<td>-5.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>1549769649</td>
+<td>9573071</td>
+<td>2024-05-28 13:14:29</td>
+<td>2024-05-28 13:25:29</td>
+<td>2024-05-28 13:27:29</td>
+<td>On Time</td>
+<td>976.55</td>
+<td>Cash</td>
+<td>14983</td>
+<td>7534</td>
+<td>2.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>9185164487</td>
+<td>45477575</td>
+<td>2024-09-23 13:07:12</td>
+<td>2024-09-23 13:25:12</td>
+<td>2024-09-23 13:29:12</td>
+<td>On Time</td>
+<td>839.05</td>
+<td>UPI</td>
+<td>39859</td>
+<td>9886</td>
+<td>4.0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>9644738826</td>
+<td>88067569</td>
+<td>2023-11-24 16:16:56</td>
+<td>2023-11-24 16:34:56</td>
+<td>2023-11-24 16:33:56</td>
+<td>On Time</td>
+<td>440.23</td>
+<td>Card</td>
+<td>61497</td>
+<td>7917</td>
+<td>-1.0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>5427684290</td>
+<td>83298567</td>
+<td>2023-11-20 05:00:39</td>
+<td>2023-11-20 05:17:39</td>
+<td>2023-11-20 05:18:39</td>
+<td>On Time</td>
+<td>2526.68</td>
+<td>Cash</td>
+<td>84315</td>
+<td>2741</td>
+<td>1.0</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-18" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:335}}" data-outputid="1777088f-2e19-43e4-b564-cd8778f42038" data-execution_count="190">
+<div class="cell-output cell-output-display" data-execution_count="190">
+<pre><code>count    4703.000000
+mean        3.099086
+std         6.188961
+min        -5.000000
+25%        -2.000000
+50%         2.000000
+75%         6.000000
+max        21.000000
+Name: delivery_delay_minutes, dtype: float64</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="feature-engineering-1" class="level1">
+<h1>Feature Engineering</h1>
+<section id="aggregating-customer-data-1" class="level3">
+<h3 class="anchored" data-anchor-id="aggregating-customer-data-1">Aggregating Customer Data</h3>
+<p>The <code>aggregate_customer_data</code> function generates a customer-level dataset by aggregating order and delivery information. It computes mean order value, total spend, order count, average delivery delay, and identifies the most frequently used payment method and most common delivery status. This transforms transactional data into customer-centric metrics suitable for modelling.</p>
+</section>
+<section id="one-hot-encoding-categorical-features-1" class="level3">
+<h3 class="anchored" data-anchor-id="one-hot-encoding-categorical-features-1">One-Hot Encoding Categorical Features</h3>
+<p>The <code>one_hot_encode_categorical_features</code> function converts categorical attributes (<code>most_used_payment</code> and <code>most_delivery_status</code>) into one-hot encoded variables. This prepares these fields for machine learning models that require numerical inputs while preserving categorical distinctions.</p>
+</section>
+<section id="handling-numerical-features-1" class="level3">
+<h3 class="anchored" data-anchor-id="handling-numerical-features-1">Handling Numerical Features</h3>
+<p>The <code>handle_numerical_features</code> function applies appropriate transformations to numeric customer-level fields:</p>
+<ul>
+<li>Standardization of <code>avg_order_total</code></li>
+<li>Log transformation and standardization of <code>total_spent</code> to reduce skew</li>
+<li>Robust scaling of <code>avg_delay</code> to limit the influence of outliers</li>
+<li>Min-max scaling of <code>num_orders</code> to normalize range</li>
+</ul>
+<p>These transformations enhance model performance by improving feature distribution and comparability.</p>
+</section>
+<section id="end-to-end-customer-data-processing-1" class="level3">
+<h3 class="anchored" data-anchor-id="end-to-end-customer-data-processing-1">End-to-End Customer Data Processing</h3>
+<p>The <code>process_customer_data</code> function orchestrates the complete feature engineering pipeline. It aggregates customer metrics, encodes categorical fields, applies numerical transformations, and generates diagnostic visualisations including a correlation matrix and histograms for major engineered features. It returns both the processed dataset and the untransformed customer-level dataset.</p>
+</section>
+<section id="correlation-matrix-plot-1" class="level3">
+<h3 class="anchored" data-anchor-id="correlation-matrix-plot-1">Correlation Matrix Plot</h3>
+<p>The <code>plot_correlation_matrix</code> function visualises the correlation structure across engineered features. The heatmap highlights relationships, multicollinearity, and potential feature redundancy.</p>
+</section>
+<section id="feature-level-histograms-1" class="level3">
+<h3 class="anchored" data-anchor-id="feature-level-histograms-1">Feature-Level Histograms</h3>
+<p>The <code>plot_histogram</code> function produces histograms for individual transformed features. This aids in evaluating distributional characteristics after scaling and transformation.</p>
+</section>
+<section id="robust-scaling-for-average-delay-1" class="level3">
+<h3 class="anchored" data-anchor-id="robust-scaling-for-average-delay-1">Robust Scaling for Average Delay</h3>
+<p>The code applies a <strong>RobustScaler</strong> to the <code>avg_delay</code> feature. Robust scaling subtracts the median and scales by the interquartile range, which reduces the influence of extreme outliers. This is appropriate for delivery delay data, which often contains long-tail values.</p>
+</section>
+<section id="descriptive-summary-of-order-counts-1" class="level3">
+<h3 class="anchored" data-anchor-id="descriptive-summary-of-order-counts-1">Descriptive Summary of Order Counts</h3>
+<p>The line <code>customer_df['num_orders'].describe()</code> outputs summary statistics for the <code>num_orders</code> column. This provides insight into distribution, central tendency, and spread before further transformations are applied.</p>
+</section>
+<section id="min-max-scaling-for-order-counts-1" class="level3">
+<h3 class="anchored" data-anchor-id="min-max-scaling-for-order-counts-1">Min-Max Scaling for Order Counts</h3>
+<p>A <strong>MinMaxScaler</strong> with a feature range of <strong>(−1, 1)</strong> is applied to <code>num_orders</code>. This transformation rescales the values into a consistent numerical range, improving model convergence and comparability across features.</p>
+</section>
+<section id="converting-boolean-columns-to-integer-format-1" class="level3">
+<h3 class="anchored" data-anchor-id="converting-boolean-columns-to-integer-format-1">Converting Boolean Columns to Integer Format</h3>
+<p>The final line converts all boolean columns into integer values (<code>True =&gt; 1</code>, <code>False =&gt; 0</code>). This ensures full compatibility with machine learning algorithms that do not accept boolean dtype and provides a uniform numerical representation for modelling.</p>
+<div id="cell-22" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}}" data-outputid="fc23a76d-73d9-436e-a5ba-51e326d59d71" data-execution_count="192">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-15-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-15-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-15-output-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-15-output-4.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-15-output-5.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="dropping-identifier-columns-1" class="level3">
+<h3 class="anchored" data-anchor-id="dropping-identifier-columns-1">Dropping Identifier Columns</h3>
+<p>The code removes the <code>customer_id</code> column from the dataset prior to model preparation. Identifier fields carry no predictive value and can distort scaling or model fitting, so they are excluded from feature matrices.</p>
+</section>
+<section id="standardizing-all-features-1" class="level3">
+<h3 class="anchored" data-anchor-id="standardizing-all-features-1">Standardizing All Features</h3>
+<p>A <strong>StandardScaler</strong> is applied to the full feature set. This transformation centers each feature to mean zero and scales to unit variance, ensuring:</p>
+<ul>
+<li>All features contribute proportionally</li>
+<li>Gradient-based models converge more reliably</li>
+<li>Distance-based models (k-NN, clustering) behave consistently</li>
+</ul>
+<p>The result is stored in <code>X_scaled</code>, which becomes the fully standardized numerical feature matrix.</p>
+</section>
+<section id="saving-the-processed-dataset-1" class="level3">
+<h3 class="anchored" data-anchor-id="saving-the-processed-dataset-1">Saving the Processed Dataset</h3>
+<p>The final processed customer DataFrame is saved to disk as <code>customer_df_processed.csv</code>. This preserves the engineered feature set for downstream modelling, validation, and reproducibility.</p>
+<div id="cell-24" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:244}}" data-outputid="36e13735-3246-4abb-90b5-e71829e7a022" data-execution_count="193">
+<div class="cell-output cell-output-display" data-execution_count="193">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">avg_order_total</th>
+<th data-quarto-table-cell-role="th">total_spent</th>
+<th data-quarto-table-cell-role="th">num_orders</th>
+<th data-quarto-table-cell-role="th">avg_delay</th>
+<th data-quarto-table-cell-role="th">payment_Card</th>
+<th data-quarto-table-cell-role="th">payment_Cash</th>
+<th data-quarto-table-cell-role="th">payment_UPI</th>
+<th data-quarto-table-cell-role="th">payment_Wallet</th>
+<th data-quarto-table-cell-role="th">status_On Time</th>
+<th data-quarto-table-cell-role="th">status_Significantly Delayed</th>
+<th data-quarto-table-cell-role="th">status_Slightly Delayed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0.663119</td>
+<td>0.513699</td>
+<td>-0.714286</td>
+<td>0.909091</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>0.418142</td>
+<td>0.865678</td>
+<td>-0.428571</td>
+<td>0.515152</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>1.482011</td>
+<td>1.572998</td>
+<td>-0.142857</td>
+<td>0.954545</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>0.394492</td>
+<td>0.402101</td>
+<td>-0.714286</td>
+<td>0.454545</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>-0.144778</td>
+<td>0.137538</td>
+<td>-0.714286</td>
+<td>2.181818</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="cluster-modelling-1" class="level1">
+<h1>Cluster Modelling</h1>
+<section id="executing-k-means-clustering-1" class="level3">
+<h3 class="anchored" data-anchor-id="executing-k-means-clustering-1">Executing K-Means Clustering</h3>
+<p>The <code>perform_kmeans_clustering</code> function runs the K-Means algorithm across multiple values of <em>k</em> and evaluates clustering quality. It applies PCA to reduce dimensionality for visualisation and uses three standard clustering metrics to assess performance:</p>
+<ul>
+<li><strong>Silhouette Score</strong> – Measures cohesion and separation of clusters.</li>
+<li><strong>Davies–Bouldin Index</strong> – Lower values indicate better-defined clusters.</li>
+<li><strong>Calinski–Harabasz Score</strong> – Higher values indicate better separation.</li>
+</ul>
+<p>For each <em>k</em>, the function:</p>
+<ol type="1">
+<li>Fits the K-Means model on PCA-reduced data.</li>
+<li>Visualises clusters in two principal components.</li>
+<li>Records performance metrics.</li>
+<li>Consolidates PCA coordinates and cluster labels for export or further analysis.</li>
+</ol>
+<p>The function returns a dictionary of clustering scores and a combined DataFrame containing PCA-transformed coordinates, cluster assignments, and their corresponding <em>k</em> values.</p>
+</section>
+<section id="exporting-model-data-1" class="level3">
+<h3 class="anchored" data-anchor-id="exporting-model-data-1">Exporting Model Data</h3>
+<p>The <code>export_model_data</code> function saves the full cluster assignment dataset, including PCA dimensions and cluster labels, to a CSV file. This preserves the clustering output for reporting, validation, and downstream modelling workflows.</p>
+<div id="cell-27" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="1a815651-8f33-496e-f1bb-054f89d6b876" data-execution_count="195">
+<div class="cell-output cell-output-display" data-execution_count="195">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">avg_order_total</th>
+<th data-quarto-table-cell-role="th">total_spent</th>
+<th data-quarto-table-cell-role="th">num_orders</th>
+<th data-quarto-table-cell-role="th">avg_delay</th>
+<th data-quarto-table-cell-role="th">payment_Card</th>
+<th data-quarto-table-cell-role="th">payment_Cash</th>
+<th data-quarto-table-cell-role="th">payment_UPI</th>
+<th data-quarto-table-cell-role="th">payment_Wallet</th>
+<th data-quarto-table-cell-role="th">status_On Time</th>
+<th data-quarto-table-cell-role="th">status_Significantly Delayed</th>
+<th data-quarto-table-cell-role="th">status_Slightly Delayed</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0.663119</td>
+<td>0.513699</td>
+<td>-0.714286</td>
+<td>0.909091</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>0.418142</td>
+<td>0.865678</td>
+<td>-0.428571</td>
+<td>0.515152</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>1.482011</td>
+<td>1.572998</td>
+<td>-0.142857</td>
+<td>0.954545</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>0.394492</td>
+<td>0.402101</td>
+<td>-0.714286</td>
+<td>0.454545</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>-0.144778</td>
+<td>0.137538</td>
+<td>-0.714286</td>
+<td>2.181818</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">...</th>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2125</th>
+<td>0.657467</td>
+<td>0.964760</td>
+<td>-0.428571</td>
+<td>-0.212121</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2126</th>
+<td>-0.101605</td>
+<td>0.161182</td>
+<td>-0.714286</td>
+<td>-0.909091</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2127</th>
+<td>0.331404</td>
+<td>-0.400615</td>
+<td>-1.000000</td>
+<td>-0.636364</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">2128</th>
+<td>0.065443</td>
+<td>0.248230</td>
+<td>-0.714286</td>
+<td>1.272727</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2129</th>
+<td>0.418122</td>
+<td>0.865669</td>
+<td>-0.428571</td>
+<td>1.545455</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+
+<p>2130 rows × 11 columns</p>
+</div>
+</div>
+</div>
+<div id="cell-28" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}}" data-outputid="3b970f59-8ac0-41f7-a72a-01ba3aabefde" data-execution_count="196">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-19-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-19-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-19-output-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-19-output-4.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Model data exported successfully to kmeans_clusters.csv</code></pre>
+</div>
+</div>
+<div id="cell-29" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}}" data-outputid="159373fb-eaed-467f-d2f5-8cff52fad94c" data-execution_count="209">
+<div class="cell-output cell-output-stdout">
+<pre><code>Silhouette Scores (k=2): 0.39699679095287344
+Silhouette Scores (k=3): 0.17954912694724576
+Silhouette Scores (k=4): 0.11896633549870021
+Silhouette Scores (k=5): 0.09246414275772817</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-20-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Davies Bouldin scores (k=2): 1.404001773348831
+Davies Bouldin scores (k=3): 1.8596360490486983
+Davies Bouldin scores (k=4): 2.3457448428503933
+Davies Bouldin scores (k=5): 2.7792826260072916</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-20-output-4.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Calinski Harabasz Scores (k=2): 626.2205053434145
+Calinski Harabasz Scores (k=3): 500.37982576964356
+Calinski Harabasz Scores (k=4): 381.77729919088125
+Calinski Harabasz Scores (k=5): 303.6849794545046</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-20-output-6.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="basic-inference-1" class="level1">
+<h1>Basic Inference</h1>
+<section id="silhouette-score-vs-number-of-clusters-1" class="level3">
+<h3 class="anchored" data-anchor-id="silhouette-score-vs-number-of-clusters-1">Silhouette Score vs Number of Clusters</h3>
+<p>The silhouette score decreases sharply as <em>k</em> increases, with the highest score at <strong>k = 2</strong>. This indicates that the two-cluster solution yields the most cohesive and well-separated clusters, while additional clusters lead to overlap and poorer structure.</p>
+</section>
+<section id="daviesbouldin-score-vs-number-of-clusters-1" class="level3">
+<h3 class="anchored" data-anchor-id="daviesbouldin-score-vs-number-of-clusters-1">Davies–Bouldin Score vs Number of Clusters</h3>
+<p>The Davies–Bouldin index increases steadily with higher <em>k</em>, meaning cluster separation becomes worse as more clusters are introduced. The lowest score at <strong>k = 2</strong> again suggests this is the most distinct and compact clustering.</p>
+</section>
+<section id="calinskiharabasz-score-vs-number-of-clusters-1" class="level3">
+<h3 class="anchored" data-anchor-id="calinskiharabasz-score-vs-number-of-clusters-1">Calinski–Harabasz Score vs Number of Clusters</h3>
+<p>The Calinski–Harabasz score decreases consistently as <em>k</em> increases, showing reduced between-cluster separation relative to within-cluster dispersion. The highest score at <strong>k = 2</strong> confirms that the two-cluster model achieves the strongest overall partition.</p>
+<p><strong>Overall Conclusion:</strong> All three metrics consistently indicate that <strong>k = 2</strong> provides the best clustering configuration for this dataset.</p>
+</section>
+</section>
+<section id="k2-1" class="level1">
+<h1>K=2</h1>
+<div id="cell-33" class="cell" data-execution_count="198">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-21-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="cell-34" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:226}}" data-outputid="b45ab3c9-0e07-498c-9ba8-e55b10bb811e" data-execution_count="199">
+<div class="cell-output cell-output-display" data-execution_count="199">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">customer_id</th>
+<th data-quarto-table-cell-role="th">avg_order_total</th>
+<th data-quarto-table-cell-role="th">total_spent</th>
+<th data-quarto-table-cell-role="th">num_orders</th>
+<th data-quarto-table-cell-role="th">avg_delay</th>
+<th data-quarto-table-cell-role="th">most_used_payment</th>
+<th data-quarto-table-cell-role="th">most_delivery_status</th>
+<th data-quarto-table-cell-role="th">cluster</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>31813</td>
+<td>2863.020000</td>
+<td>5726.04</td>
+<td>2</td>
+<td>7.500000</td>
+<td>UPI</td>
+<td>On Time</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>61020</td>
+<td>2614.966667</td>
+<td>7844.90</td>
+<td>3</td>
+<td>5.333333</td>
+<td>Card</td>
+<td>On Time</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>119099</td>
+<td>3692.192500</td>
+<td>14768.77</td>
+<td>4</td>
+<td>7.750000</td>
+<td>UPI</td>
+<td>Slightly Delayed</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>188838</td>
+<td>2591.020000</td>
+<td>5182.04</td>
+<td>2</td>
+<td>5.000000</td>
+<td>Cash</td>
+<td>On Time</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>191616</td>
+<td>2044.980000</td>
+<td>4089.96</td>
+<td>2</td>
+<td>14.500000</td>
+<td>Card</td>
+<td>Slightly Delayed</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-35" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="1bf1b70a-b72f-4994-c3ff-ae137b43d74f" data-execution_count="200">
+<div class="cell-output cell-output-stdout">
+<pre><code>Cluster Counts:
+cluster
+0    1808
+1     322
+Name: count, dtype: int64 
+</code></pre>
+</div>
+</div>
+<div id="cell-36" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="6d352ae5-fc31-43cc-89a6-d694640712db" data-execution_count="201">
+<div class="cell-output cell-output-stdout">
+<pre><code>Cluster Summary (Numeric Features):
+         avg_order_total  total_spent  num_orders  avg_delay
+cluster                                                     
+0            2200.114610  5083.045111    2.308628   1.749954
+1            2143.628181  3620.306277    1.642857  10.994306 
+</code></pre>
+</div>
+</div>
+<div id="cell-37" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="c0f8d2e3-5993-4c3a-f89b-375113da20d7" data-execution_count="202">
+<div class="cell-output cell-output-stdout">
+<pre><code>Distribution of most_used_payment by cluster:
+cluster  most_used_payment
+0        Card                 39.159292
+         Cash                 26.327434
+         UPI                  19.081858
+         Wallet               15.431416
+1        Card                 32.919255
+         Cash                 24.844720
+         UPI                  21.739130
+         Wallet               20.496894
+Name: percentage, dtype: float64
+
+
+Distribution of most_delivery_status by cluster:
+cluster  most_delivery_status 
+0        On Time                  100.000000
+         Significantly Delayed      0.000000
+         Slightly Delayed           0.000000
+1        Slightly Delayed          85.403727
+         Significantly Delayed     14.596273
+         On Time                    0.000000
+Name: percentage, dtype: float64
+
+</code></pre>
+</div>
+</div>
+<div id="cell-38" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="6097aaf7-ba0f-4d41-db60-4b19fb65505f" data-execution_count="203">
+<div class="cell-output cell-output-stdout">
+<pre><code>Full Cluster Profile:
+         avg_order_total  total_spent  num_orders  avg_delay  \
+cluster                                                        
+0            2200.114610  5083.045111    2.308628   1.749954   
+1            2143.628181  3620.306277    1.642857  10.994306   
+
+        most_used_payment most_delivery_status  
+cluster                                         
+0                    Card              On Time  
+1                    Card     Slightly Delayed  </code></pre>
+</div>
+</div>
+<div id="cell-39" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:486}}" data-outputid="a6e8e81a-2501-47e0-978d-bc23e7be5be7" data-execution_count="204">
+<div class="cell-output cell-output-display" data-execution_count="204">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">customer_id</th>
+<th data-quarto-table-cell-role="th">avg_order_total</th>
+<th data-quarto-table-cell-role="th">total_spent</th>
+<th data-quarto-table-cell-role="th">num_orders</th>
+<th data-quarto-table-cell-role="th">avg_delay</th>
+<th data-quarto-table-cell-role="th">most_used_payment</th>
+<th data-quarto-table-cell-role="th">most_delivery_status</th>
+<th data-quarto-table-cell-role="th">cluster</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>31813</td>
+<td>2863.020000</td>
+<td>5726.04</td>
+<td>2</td>
+<td>7.500000</td>
+<td>UPI</td>
+<td>On Time</td>
+<td>On-Time High-Value Customers</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>61020</td>
+<td>2614.966667</td>
+<td>7844.90</td>
+<td>3</td>
+<td>5.333333</td>
+<td>Card</td>
+<td>On Time</td>
+<td>On-Time High-Value Customers</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>119099</td>
+<td>3692.192500</td>
+<td>14768.77</td>
+<td>4</td>
+<td>7.750000</td>
+<td>UPI</td>
+<td>Slightly Delayed</td>
+<td>Delay-Affected Low-Value Customers</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>188838</td>
+<td>2591.020000</td>
+<td>5182.04</td>
+<td>2</td>
+<td>5.000000</td>
+<td>Cash</td>
+<td>On Time</td>
+<td>On-Time High-Value Customers</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>191616</td>
+<td>2044.980000</td>
+<td>4089.96</td>
+<td>2</td>
+<td>14.500000</td>
+<td>Card</td>
+<td>Slightly Delayed</td>
+<td>Delay-Affected Low-Value Customers</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-40" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="c0af589c-78c7-4e27-c56d-8e2719042032" data-execution_count="205">
+<div class="cell-output cell-output-stdout">
+<pre><code>Model data exported successfully</code></pre>
+</div>
+</div>
+<div id="cell-41" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:206}}" data-outputid="a2c6f919-0ba7-4967-b530-a1346e078ba9" data-execution_count="206">
+<div class="cell-output cell-output-display" data-execution_count="206">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">PC1</th>
+<th data-quarto-table-cell-role="th">PC2</th>
+<th data-quarto-table-cell-role="th">cluster</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">0</th>
+<td>0.138459</td>
+<td>0.445794</td>
+<td>On-Time High-Value Customers</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">1</th>
+<td>0.876183</td>
+<td>1.311828</td>
+<td>On-Time High-Value Customers</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">2</th>
+<td>-2.080492</td>
+<td>3.261872</td>
+<td>Delay-Affected Low-Value Customers</td>
+</tr>
+<tr class="even">
+<th data-quarto-table-cell-role="th">3</th>
+<td>0.439205</td>
+<td>0.238163</td>
+<td>On-Time High-Value Customers</td>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">4</th>
+<td>-3.495795</td>
+<td>1.956702</td>
+<td>Delay-Affected Low-Value Customers</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cell-42" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:418}}" data-outputid="0c3f374b-ec96-4fbe-dbfb-3db8eaa40014" data-execution_count="207">
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/notebooks-presentation-cell-30-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="cluster-overview-1" class="level3">
+<h3 class="anchored" data-anchor-id="cluster-overview-1">Cluster Overview</h3>
+<p>The K=2 clustering solution separates customers into one large group and one smaller group. Cluster 0 contains the majority of customers, while Cluster 1 represents a smaller segment with distinct behavioural patterns.</p>
+</section>
+<section id="cluster-characteristics-1" class="level3">
+<h3 class="anchored" data-anchor-id="cluster-characteristics-1">Cluster Characteristics</h3>
+<p><strong>Cluster 0</strong> Customers in this cluster place slightly more orders, spend more overall, and experience very low delivery delays. Their orders are almost always delivered on time, and the most common payment method is Card.</p>
+<p><strong>Cluster 1</strong> Customers in this group make fewer purchases, spend less overall, and face significantly higher delivery delays. Most of their orders are classified as slightly delayed, and they also commonly use Card as the preferred payment method.</p>
+</section>
+<section id="behavioural-distribution-1" class="level3">
+<h3 class="anchored" data-anchor-id="behavioural-distribution-1">Behavioural Distribution</h3>
+<p>Payment method usage is similar across clusters, though Cluster 0 shows a slightly higher proportion of Card payments. Delivery performance is the strongest separator: Cluster 0 is entirely on time, whereas Cluster 1 is dominated by delayed deliveries.</p>
+</section>
+<section id="segment-interpretation-1" class="level3">
+<h3 class="anchored" data-anchor-id="segment-interpretation-1">Segment Interpretation</h3>
+<p>The clusters can be interpreted as:</p>
+<ul>
+<li><strong>On-Time High-Value Customers (Cluster 0):</strong> Higher spending, more frequent orders, consistently timely deliveries.</li>
+<li><strong>Delay-Affected Low-Value Customers (Cluster 1):</strong> Lower spending, fewer orders, and substantially higher delivery delays.</li>
+</ul>
+<p>This segmentation highlights operational differences in delivery performance and their association with customer value.</p>
+</section>
+</section>
+</div>
+
+
+<!-- -->
+
 
 </section>
 
@@ -1105,8 +4449,7 @@ dtype: int64</code></pre>
 <div id="ref-blinkit_2025" class="csl-entry" role="listitem">
 Vaghasiya, Akshit. 2025. <span>“Blinkit <span>Sales</span> <span>Dataset</span>.”</span> <a href="https://www.kaggle.com/datasets/akxiit/blinkit-sales-dataset">https://www.kaggle.com/datasets/akxiit/blinkit-sales-dataset</a>.
 </div>
-</div></section></div></main>
-<!-- /main column -->
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
@@ -1178,9 +4521,60 @@ Vaghasiya, Akshit. 2025. <span>“Blinkit <span>Sales</span> <span>Dataset</span
       });
       clipboardModal.on('success', onCopySuccess);
     }
+    const viewSource = window.document.getElementById('quarto-view-source') ||
+                       window.document.getElementById('quarto-code-tools-source');
+    if (viewSource) {
+      const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+      viewSource.addEventListener("click", function(e) {
+        if (sourceUrl) {
+          // rstudio viewer pane
+          if (/\bcapabilities=\b/.test(window.location)) {
+            window.open(sourceUrl);
+          } else {
+            window.location.href = sourceUrl;
+          }
+        } else {
+          const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+          modal.show();
+        }
+        return false;
+      });
+    }
+    function toggleCodeHandler(show) {
+      return function(e) {
+        const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+        for (let i=0; i<detailsSrc.length; i++) {
+          const details = detailsSrc[i].parentElement;
+          if (show) {
+            details.open = true;
+          } else {
+            details.removeAttribute("open");
+          }
+        }
+        const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+        const fromCls = show ? "hidden" : "unhidden";
+        const toCls = show ? "unhidden" : "hidden";
+        for (let i=0; i<cellCodeDivs.length; i++) {
+          const codeDiv = cellCodeDivs[i];
+          if (codeDiv.classList.contains(fromCls)) {
+            codeDiv.classList.remove(fromCls);
+            codeDiv.classList.add(toCls);
+          } 
+        }
+        return false;
+      }
+    }
+    const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+    if (hideAllCode) {
+      hideAllCode.addEventListener("click", toggleCodeHandler(false));
+    }
+    const showAllCode = window.document.getElementById("quarto-show-all-code");
+    if (showAllCode) {
+      showAllCode.addEventListener("click", toggleCodeHandler(true));
+    }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp('/' + window.location.host + '/');
+        var filterRegex = new RegExp("https:\/\/plot-masters\.github\.io\/customer-segmentation\/");
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
@@ -1506,7 +4900,92 @@ Vaghasiya, Akshit. 2025. <span>“Blinkit <span>Sales</span> <span>Dataset</span
       }
     }
   });
-  </script>
+  </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> Customer Segmentation Model</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="an">authors:</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co">  - name: Utkarsh Tripathi</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a><span class="co">    affiliation:</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="co">    - ref: bits</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a><span class="co">    roles: writing</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="co">    corresponding: true</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="co">  - name: Juwaria Qadri</span></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a><span class="co">    affiliation:</span></span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a><span class="co">    - ref: bits</span></span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a><span class="co">    roles: writing</span></span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a><span class="co">    corresponding: true</span></span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a><span class="co">  - name: Mohammed Omar</span></span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a><span class="co">    affiliation:</span></span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a><span class="co">    - ref: bits</span></span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a><span class="co">    roles: writing</span></span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a><span class="co">    corresponding: true</span></span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a><span class="co">  - name: Merin Ann Cherian</span></span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a><span class="co">    affiliation:</span></span>
+<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a><span class="co">    - ref: bits</span></span>
+<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a><span class="co">    roles: writing</span></span>
+<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a><span class="co">    corresponding: true</span></span>
+<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a><span class="an">affiliations:</span><span class="co"> </span></span>
+<span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a><span class="co">  - id: bits</span></span>
+<span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a><span class="co">    name: BITS Pilani Digital</span></span>
+<span id="cb47-27"><a href="#cb47-27" aria-hidden="true" tabindex="-1"></a><span class="an">bibliography:</span><span class="co"> references.bib</span></span>
+<span id="cb47-28"><a href="#cb47-28" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb47-29"><a href="#cb47-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-30"><a href="#cb47-30" aria-hidden="true" tabindex="-1"></a><span class="fu"># Phase 1</span></span>
+<span id="cb47-31"><a href="#cb47-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-32"><a href="#cb47-32" aria-hidden="true" tabindex="-1"></a>Segmenting Blinkit customers based on their spending behaviour and delivery experience to identify distinct customer clusters (high, medium, and low spending) for targeted marketing strategies and increasing sales</span>
+<span id="cb47-33"><a href="#cb47-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-34"><a href="#cb47-34" aria-hidden="true" tabindex="-1"></a><span class="fu">## Proposal</span></span>
+<span id="cb47-35"><a href="#cb47-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-36"><a href="#cb47-36" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>**Project Statement**  </span>
+<span id="cb47-37"><a href="#cb47-37" aria-hidden="true" tabindex="-1"></a>  Across customer-centric businesses, one of the major goals for the organization is being able to predict the needs of its customers and how to best cater to their needs while maintaining high profitability. However, to make the solution feasible, the way forward would be to create groups of consumers that share similar spending patterns, allowing the businesses to create targeted marketing campaigns, improve customer satisfaction, demand-oriented product development, and therefore improve *profitability*.  </span>
+<span id="cb47-38"><a href="#cb47-38" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb47-39"><a href="#cb47-39" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>**Business Goal**  </span>
+<span id="cb47-40"><a href="#cb47-40" aria-hidden="true" tabindex="-1"></a>   The objective of this project is to develop a machine learning model that can create suitable and usable clusters/segments given the profile and purchases of the customer. The model should then be able to predict, within bounds of acceptable error, which segment a customer is likely to belong to. The model should allow stakeholders to make informed and data-backed decisions on product demand, campaign successes and customer retention.  </span>
+<span id="cb47-41"><a href="#cb47-41" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb47-42"><a href="#cb47-42" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>**Data Source**     </span>
+<span id="cb47-43"><a href="#cb47-43" aria-hidden="true" tabindex="-1"></a>  We will use the "Blinkit Sales Dataset" for this project. This dataset provides detailed information on product sales, visibility, item types, and outlet performance, making it ideal for performing sales data analysis and gaining insights into business trends. The dataset is well-structured and suitable for data preprocessing, exploratory data analysis, and predictive modeling tasks.  </span>
+<span id="cb47-44"><a href="#cb47-44" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>**Source Platform:** **Kaggle**</span>
+<span id="cb47-45"><a href="#cb47-45" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>**Dataset**: Blinkit Sales Data <span class="co">[</span><span class="ot">@blinkit_2025</span><span class="co">]</span>  </span>
+<span id="cb47-46"><a href="#cb47-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-47"><a href="#cb47-47" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>**Tools and Technology**  </span>
+<span id="cb47-48"><a href="#cb47-48" aria-hidden="true" tabindex="-1"></a>  Following languages and libraries are planned to be used for this project. More libraries may be used and every non trivial library shall be updated.  </span>
+<span id="cb47-49"><a href="#cb47-49" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Python  </span>
+<span id="cb47-50"><a href="#cb47-50" aria-hidden="true" tabindex="-1"></a><span class="ss">      - </span>Core Libraries  </span>
+<span id="cb47-51"><a href="#cb47-51" aria-hidden="true" tabindex="-1"></a><span class="ss">        - </span>Data Manipulation: Pandas, NumPy  </span>
+<span id="cb47-52"><a href="#cb47-52" aria-hidden="true" tabindex="-1"></a><span class="ss">        - </span>ML: scikit-learn  </span>
+<span id="cb47-53"><a href="#cb47-53" aria-hidden="true" tabindex="-1"></a><span class="ss">        - </span>Data Visualization &amp; Storytelling: Matplotlib, Seaborn  </span>
+<span id="cb47-54"><a href="#cb47-54" aria-hidden="true" tabindex="-1"></a><span class="ss">      - </span>Development Environment: VS Code, Google Colab, GitHub  </span>
+<span id="cb47-55"><a href="#cb47-55" aria-hidden="true" tabindex="-1"></a><span class="ss">    - </span>Dashboard: Power BI   </span>
+<span id="cb47-56"><a href="#cb47-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-57"><a href="#cb47-57" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>**Project Workflow**  </span>
+<span id="cb47-58"><a href="#cb47-58" aria-hidden="true" tabindex="-1"></a>  The project is to follow a standard data science development lifecycle,  </span>
+<span id="cb47-59"><a href="#cb47-59" aria-hidden="true" tabindex="-1"></a><span class="ss">   1. </span>Data Acquisition: Fetch the dataset from **Kaggle** using its API.  </span>
+<span id="cb47-60"><a href="#cb47-60" aria-hidden="true" tabindex="-1"></a><span class="ss">   2. </span>Preprocessing: Handle missing values (if any), encode categorical variables, and  </span>
+<span id="cb47-61"><a href="#cb47-61" aria-hidden="true" tabindex="-1"></a>       check for data inconsistencies.  </span>
+<span id="cb47-62"><a href="#cb47-62" aria-hidden="true" tabindex="-1"></a><span class="ss">   3. </span>EDA: Analyze features to understand their relationship with attrition using statistical summaries and visualizations.  </span>
+<span id="cb47-63"><a href="#cb47-63" aria-hidden="true" tabindex="-1"></a><span class="ss">   4. </span>Feature Engineering: Create new features from existing ones if necessary to improve model performance.  </span>
+<span id="cb47-64"><a href="#cb47-64" aria-hidden="true" tabindex="-1"></a><span class="ss">   5. </span>Modeling: Train several clustering models (e.g., K Means Clustering, PCA, Decision Trees).  </span>
+<span id="cb47-65"><a href="#cb47-65" aria-hidden="true" tabindex="-1"></a><span class="ss">   6. </span>Evaluation: Assess model performance using metrics like Accuracy, Precision, Recall, and F1-Score. Select the best-performing model.  </span>
+<span id="cb47-66"><a href="#cb47-66" aria-hidden="true" tabindex="-1"></a><span class="ss">   7. </span>Visualization: Create an interactive dashboard in Power BI to present the key findings and predictions to stakeholders.  </span>
+<span id="cb47-67"><a href="#cb47-67" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-68"><a href="#cb47-68" aria-hidden="true" tabindex="-1"></a><span class="ss">6. </span>**Data Extraction**   </span>
+<span id="cb47-69"><a href="#cb47-69" aria-hidden="true" tabindex="-1"></a>  The "*Blinkit Sales Dataset*"  is acquired directly from the Kaggle repository. To ensure a professional and reproducible workflow, manually downloading the files is not done.  </span>
+<span id="cb47-70"><a href="#cb47-70" aria-hidden="true" tabindex="-1"></a>  Instead, we will perform the following steps:  </span>
+<span id="cb47-71"><a href="#cb47-71" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Automate the Process: We will write a Python script that utilizes the official Kaggle API to connect to the source and download the dataset.  </span>
+<span id="cb47-72"><a href="#cb47-72" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Ensure Reproducibility: This scripted approach guarantees that the data extraction process is consistent and can be easily re-run by any team member or reviewer.  </span>
+<span id="cb47-73"><a href="#cb47-73" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Prepare for Analysis: The script will handle the unzipping of the downloaded files and load the data directly into a Pandas DataFrame, making it immediately available for the next phase of our project.  </span>
+<span id="cb47-74"><a href="#cb47-74" aria-hidden="true" tabindex="-1"></a><span class="ss">   - </span>Notebook: <span class="co">[</span><span class="ot">Analysis Notebook</span><span class="co">](notebooks/presentation.ipynb)</span></span>
+<span id="cb47-75"><a href="#cb47-75" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb47-76"><a href="#cb47-76" aria-hidden="true" tabindex="-1"></a><span class="ss">7. </span>**Schema / Data Dictionary**   </span>
+<span id="cb47-77"><a href="#cb47-77" aria-hidden="true" tabindex="-1"></a>  This data dictionary was created after inspecting the dataset.  </span>
+<span id="cb47-78"><a href="#cb47-78" aria-hidden="true" tabindex="-1"></a>  {{&lt; embed notebooks/presentation.ipynb &gt;}}</span>
+<span id="cb47-79"><a href="#cb47-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-80"><a href="#cb47-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-81"><a href="#cb47-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-82"><a href="#cb47-82" aria-hidden="true" tabindex="-1"></a><span class="fu"># Phase 2</span></span>
+<span id="cb47-83"><a href="#cb47-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-84"><a href="#cb47-84" aria-hidden="true" tabindex="-1"></a>{{&lt; embed notebooks/presentation.ipynb &gt;}}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
+</div></div></div></div></div>
 </div> <!-- /content -->
 
 
