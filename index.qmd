@@ -1,6 +1,6 @@
 ---
 title: 'Customer Segmentation Analysis'
-subtitle: 'Apex Project 1: Team Plotmasters'
+subtitle: 'The Cost of a Minute: How Delivery Delays Define Customer Value'
 author:
     - name: Utkarsh Tripathi 
       affiliation: BITS Pilani

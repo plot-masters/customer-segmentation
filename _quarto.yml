@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "Apex Project: Team Plotmasters"
+  title: "Customer Segmentation Analysis"
   navbar:
     left:
       - href: index.qmd
