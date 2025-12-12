@@ -177,7 +177,7 @@ div.csl-indent {
   </ul></li>
   <li><a href="#phase-2" id="toc-phase-2" class="nav-link" data-scroll-target="#phase-2">Phase 2</a></li>
   </ul>
-<div class="quarto-alternate-notebooks"><h2>Notebooks</h2><ul><li><a href="notebooks/presentation-preview.html"><i class="bi bi-journal-code"></i>Data Loading</a></li></ul></div></nav>
+<div class="quarto-alternate-notebooks"><h2>Notebooks</h2><ul><li><a href="notebooks/presentation-preview.html"><i class="bi bi-journal-code"></i>Customer Segmentation Analysis</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -306,29 +306,35 @@ Instead, we will perform the following steps:</p>
 <li><p><strong>Schema / Data Dictionary</strong><br>
 This data dictionary was created after inspecting the dataset.</p></li>
 </ol>
+</section>
+</section>
 <div class="quarto-embed-nb-cell">
-<p>The notebook is divided into the following components</p>
-<ul>
-<li>Data Loading</li>
-<li>Data Validation</li>
-<li>Data Cleaning</li>
-<li>EDA</li>
-<li>Feature Engineering</li>
-<li>Cluster Modelling</li>
-<li>Basic Inferences</li>
-</ul>
+<section id="customer-segmentation-analysis" class="level1">
+<h1>Customer Segmentation Analysis</h1>
+<p>This notebook performs end-to-end customer segmentation using K-Means clustering on Blinkit order data.</p>
+<section id="table-of-contents" class="level2">
+<h2 class="anchored" data-anchor-id="table-of-contents">Table of Contents</h2>
+<ol type="1">
+<li><strong>Data Loading</strong> - Import and load the dataset</li>
+<li><strong>Data Validation</strong> - Explore structure, check for nulls and anomalies</li>
+<li><strong>Data Cleaning</strong> - Handle missing values, remove irrelevant columns</li>
+<li><strong>Exploratory Data Analysis</strong> - Statistical summaries and visualizations</li>
+<li><strong>Feature Engineering</strong> - Aggregate customer-level features and scale</li>
+<li><strong>Cluster Modeling</strong> - K-Means with silhouette analysis</li>
+<li><strong>Results &amp; Insights</strong> - Cluster profiles and business recommendations</li>
+</ol>
+<hr>
+<hr>
+</section>
+</section>
 <section id="data-loading" class="level1">
-<h1>Data Loading</h1>
+<h1>1. Data Loading</h1>
+<p>Load the Blinkit orders dataset containing customer transaction information.</p>
+<hr>
 </section>
 <section id="data-validation" class="level1">
-<h1>Data Validation</h1>
-<section id="basic-data-exploration" class="level3">
-<h3 class="anchored" data-anchor-id="basic-data-exploration">Basic Data Exploration</h3>
-<p>The <code>basic_exploration</code> function provides an initial overview of the dataset. It prints key structural details and highlights potential data quality issues. This function is intended for a first pass at understanding the shape, completeness, and uniqueness of the data.</p>
-</section>
-<section id="summary-and-anomaly-checks" class="level3">
-<h3 class="anchored" data-anchor-id="summary-and-anomaly-checks">Summary and Anomaly Checks</h3>
-<p>The <code>summarize_df</code> function provides descriptive statistics for all columns and more detailed summaries for categorical variables. It also performs a targeted anomaly check on the order_total column, if present.</p>
+<h1>2. Data Validation</h1>
+<p>Perform initial data quality checks: - Dataset dimensions and data types - Missing value analysis - Duplicate detection - Anomaly checks on key columns</p>
 <div id="cell-6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}}" data-outputid="702904bf-5372-446a-d1bc-0501c262ed1e" data-execution_count="182">
 <div class="cell-output cell-output-stdout">
 <pre><code>Shape of DataFrame:
@@ -724,45 +730,11 @@ Number of Duplicated Rows: 0</code></pre>
 </div>
 </div>
 </div>
-</section>
+<hr>
 </section>
 <section id="data-cleaning" class="level1">
-<h1>Data Cleaning</h1>
-<section id="dropping-irrelevant-columns" class="level3">
-<h3 class="anchored" data-anchor-id="dropping-irrelevant-columns">Dropping Irrelevant Columns</h3>
-<p>The <code>drop_irrelevant_columns</code> function removes columns that have no analytical value. This ensures the dataset remains focused on variables that contribute to downstream modeling or insights.</p>
-</section>
-<section id="removing-high-missing-value-columns" class="level3">
-<h3 class="anchored" data-anchor-id="removing-high-missing-value-columns">Removing High-Missing-Value Columns</h3>
-<p>The <code>drop_high_missing_value_columns</code> function eliminates columns where the proportion of missing values exceeds a specified threshold. This prevents sparsely populated fields from skewing analysis or requiring excessive imputation.</p>
-</section>
-<section id="imputing-missing-values" class="level3">
-<h3 class="anchored" data-anchor-id="imputing-missing-values">Imputing Missing Values</h3>
-<p>The <code>impute_missing_values</code> function fills missing entries based on column data types. Numerical fields use median imputation, categorical fields use mode, and all other types default to forward-fill. This maintains data consistency while preserving distribution characteristics.</p>
-</section>
-<section id="removing-duplicates" class="level3">
-<h3 class="anchored" data-anchor-id="removing-duplicates">Removing Duplicates</h3>
-<p>The <code>remove_duplicates</code> function removes duplicate rows and reports how many were dropped. This ensures data integrity and prevents inflated counts or biased analysis.</p>
-</section>
-<section id="handling-outliers" class="level3">
-<h3 class="anchored" data-anchor-id="handling-outliers">Handling Outliers</h3>
-<p>The <code>handle_outliers</code> function caps outlier values using the Interquartile Range method. Values below the lower bound or above the upper bound are replaced with the respective caps, reducing the influence of extreme values without complete removal.</p>
-</section>
-<section id="converting-to-datetime" class="level3">
-<h3 class="anchored" data-anchor-id="converting-to-datetime">Converting to Datetime</h3>
-<p>The <code>convert_to_datetime</code> function converts specified columns into datetime format. Invalid formats are coerced into missing values. This enables time-based operations and calculations.</p>
-</section>
-<section id="calculating-delivery-delay" class="level3">
-<h3 class="anchored" data-anchor-id="calculating-delivery-delay">Calculating Delivery Delay</h3>
-<p>The <code>calculate_delivery_delay</code> function computes the delay between promised and actual delivery times in minutes. It expects both fields to be datetime objects and adds a new column representing the delay duration.</p>
-</section>
-<section id="converting-categorical-like-columns" class="level3">
-<h3 class="anchored" data-anchor-id="converting-categorical-like-columns">Converting Categorical-Like Columns</h3>
-<p>The <code>convert_categorical_like_columns</code> function casts selected columns into the pandas <code>category</code> data type. This optimizes memory usage and clarifies the column’s semantic meaning.</p>
-</section>
-<section id="saving-the-cleaned-dataset" class="level3">
-<h3 class="anchored" data-anchor-id="saving-the-cleaned-dataset">Saving the Cleaned Dataset</h3>
-<p>The <code>save_cleaned_dataset</code> function writes the cleaned DataFrame to disk as a CSV file, prints final dataset characteristics, and returns the cleaned DataFrame for further use.</p>
+<h1>3. Data Cleaning</h1>
+<p>Clean the dataset by: - Removing irrelevant columns - Handling columns with high missing values - Imputing remaining missing values - Converting datetime columns</p>
 <div id="cell-9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="9d5fefe3-60b2-4ccd-b222-e93ff5764376" data-execution_count="184">
 <div class="cell-output cell-output-stdout">
 <pre><code>Removed 0 duplicate rows
@@ -783,41 +755,11 @@ delivery_delay_minutes           float64
 dtype: object</code></pre>
 </div>
 </div>
-</section>
+<hr>
 </section>
 <section id="exploratory-data-analysis" class="level1">
-<h1>Exploratory Data Analysis</h1>
-<section id="numerical-column-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="numerical-column-analysis">Numerical Column Analysis</h3>
-<p>The <code>print_numerical_columns</code> function provides descriptive statistics for key numerical fields. It displays summary statistics for <code>order_total</code> and <code>delivery_delay_minutes</code>, along with distribution quantiles for spending. This helps assess central tendency, variability, and skewness in customer spending and delivery performance.</p>
-</section>
-<section id="correlation-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="correlation-analysis">Correlation Analysis</h3>
-<p>The <code>print_correlation</code> function computes and prints the correlation matrix between <code>order_total</code> and <code>delivery_delay_minutes</code>. This indicates whether higher spending correlates with delivery delays, offering insight into operational or customer-behavior patterns.</p>
-</section>
-<section id="categorical-column-overview" class="level3">
-<h3 class="anchored" data-anchor-id="categorical-column-overview">Categorical Column Overview</h3>
-<p>The <code>print_categorical_columns</code> function outputs distribution summaries for key categorical fields. It reports counts for payment methods and normalized percentages for delivery status categories, enabling an understanding of categorical balance and operational trends.</p>
-</section>
-<section id="filtering-significant-delivery-delays" class="level3">
-<h3 class="anchored" data-anchor-id="filtering-significant-delivery-delays">Filtering Significant Delivery Delays</h3>
-<p>The <code>filter_significantly_delayed_orders</code> function isolates orders labeled as “Significantly Delayed” and displays the first few examples along with a total count. This aids in identifying patterns or clusters that may require operational review.</p>
-</section>
-<section id="customer-level-summary" class="level3">
-<h3 class="anchored" data-anchor-id="customer-level-summary">Customer-Level Summary</h3>
-<p>The <code>generate_customer_summary</code> function constructs an aggregate table of customer activity, including total spending, number of orders, and average delivery delay. This enables segmentation, customer value analysis, and service-level evaluation.</p>
-</section>
-<section id="payment-method-summary" class="level3">
-<h3 class="anchored" data-anchor-id="payment-method-summary">Payment Method Summary</h3>
-<p>The <code>generate_payment_method_summary</code> function summarizes performance by payment method, computing the average order value and number of orders per method. This supports understanding of payment preference patterns and financial behavior.</p>
-</section>
-<section id="store-level-delivery-status-summary" class="level3">
-<h3 class="anchored" data-anchor-id="store-level-delivery-status-summary">Store-Level Delivery Status Summary</h3>
-<p>The <code>store_wise_order_total_by_delivery_status</code> function builds a pivot table summarizing total order values per store across different delivery status categories. This highlights store-level operational patterns and relative performance.</p>
-</section>
-<section id="daily-sales-patterns" class="level3">
-<h3 class="anchored" data-anchor-id="daily-sales-patterns">Daily Sales Patterns</h3>
-<p>The <code>daily_sales_patterns</code> function aggregates sales and order counts by day, producing a time-indexed summary table. This supports trend analysis, seasonality detection, and operational planning based on daily volume patterns.</p>
+<h1>4. Exploratory Data Analysis</h1>
+<p>Analyze the cleaned data to understand: - Distribution of numerical features - Correlation between variables - Categorical variable breakdown</p>
 <div id="cell-13" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}}" data-outputid="9c0c8a16-cb80-43ce-f946-b6266a60e791" data-execution_count="186">
 <div class="cell-output cell-output-stdout">
 <pre><code>Numerical Columns
@@ -1264,45 +1206,9 @@ Significantly delayed orders:</code></pre>
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="visualisation" class="level1">
-<h1>Visualisation</h1>
-<section id="univariate-analysis-of-numerical-features" class="level3">
-<h3 class="anchored" data-anchor-id="univariate-analysis-of-numerical-features">Univariate Analysis of Numerical Features</h3>
-<p>The <code>univariate_numeric_features</code> function visualises distributions of key numerical fields. It produces histograms for <code>order_total</code> and <code>delivery_delay_minutes</code>, allowing quick identification of skewness, spread, and dominant value ranges.</p>
-</section>
-<section id="univariate-analysis-of-categorical-features" class="level3">
-<h3 class="anchored" data-anchor-id="univariate-analysis-of-categorical-features">Univariate Analysis of Categorical Features</h3>
-<p>The <code>univariate_categorical_features</code> function visualises frequency distributions for categorical fields. It generates a pie chart for <code>delivery_status</code> and a count plot for <code>payment_method</code>, helping assess category balance and operational patterns.</p>
-</section>
-<section id="univariate-customer-metrics" class="level3">
-<h3 class="anchored" data-anchor-id="univariate-customer-metrics">Univariate Customer Metrics</h3>
-<p>The <code>univariate_customer_metrics</code> function analyses customer-level behaviour by computing order frequencies per customer and visualising their distribution. This highlights patterns such as how many customers place few orders versus many.</p>
-</section>
-<section id="one-time-vs-repeat-customers" class="level3">
-<h3 class="anchored" data-anchor-id="one-time-vs-repeat-customers">One-Time vs Repeat Customers</h3>
-<p>The <code>univariate_one_time_vs_repeat_customers</code> function reports counts of customers who have placed exactly one order versus those who have placed multiple orders. This provides a clear segmentation of customer loyalty behaviour.</p>
-</section>
-<section id="bivariate-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="bivariate-analysis">Bivariate Analysis</h3>
-<p>The <code>bivariate_analysis</code> function explores relationships between pairs of variables. It compares order totals across delivery statuses, examines the relationship between total orders and average order value, and visualises total customer spending through boxplots and histograms.</p>
-</section>
-<section id="multivariate-analysis" class="level3">
-<h3 class="anchored" data-anchor-id="multivariate-analysis">Multivariate Analysis</h3>
-<p>The <code>multivariate_analysis</code> function investigates relationships among three or more variables. It plots order totals against delivery delay while colouring points by payment method, highlighting interaction effects and potential payment-method-driven behavioural differences.</p>
-</section>
-<section id="delivery-delay-boxplot" class="level3">
-<h3 class="anchored" data-anchor-id="delivery-delay-boxplot">Delivery Delay Boxplot</h3>
-<p>The <code>boxplot_delivery_delays</code> function provides a boxplot of <code>delivery_delay_minutes</code>, offering a clear view of central tendency and variability, including potential outliers.</p>
-</section>
-<section id="delivery-delay-violin-plot" class="level3">
-<h3 class="anchored" data-anchor-id="delivery-delay-violin-plot">Delivery Delay Violin Plot</h3>
-<p>The <code>violin_plot_delivery_delays</code> function produces a violin plot to visualise the full distribution shape of delivery delays, indicating density across value ranges.</p>
-</section>
-<section id="removing-outliers-from-delivery-delays" class="level3">
-<h3 class="anchored" data-anchor-id="removing-outliers-from-delivery-delays">Removing Outliers from Delivery Delays</h3>
-<p>The <code>remove_outliers_delivery_delays</code> function filters out extreme delivery delays using the IQR method, then visualises the cleaned distribution with a boxplot. It returns the filtered dataset for further use.</p>
+<section id="visualizations" class="level2">
+<h2 class="anchored" data-anchor-id="visualizations">4.1 Visualizations</h2>
+<p>Visual exploration of key features and relationships.</p>
 <div id="cell-16" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}}" data-outputid="5e227591-150c-40a5-ffc5-13fe4b62ce0d" data-execution_count="188">
 <div class="cell-output cell-output-display">
 <div>
@@ -1542,41 +1448,12 @@ max        21.000000
 Name: delivery_delay_minutes, dtype: float64</code></pre>
 </div>
 </div>
+<hr>
 </section>
 </section>
 <section id="feature-engineering" class="level1">
-<h1>Feature Engineering</h1>
-<section id="aggregating-customer-data" class="level3">
-<h3 class="anchored" data-anchor-id="aggregating-customer-data">Aggregating Customer Data</h3>
-<p>The <code>aggregate_customer_data</code> function generates a customer-level dataset by aggregating order and delivery information. It computes mean order value, total spend, order count, average delivery delay, and identifies the most frequently used payment method and most common delivery status. This transforms transactional data into customer-centric metrics suitable for modelling.</p>
-</section>
-<section id="one-hot-encoding-categorical-features" class="level3">
-<h3 class="anchored" data-anchor-id="one-hot-encoding-categorical-features">One-Hot Encoding Categorical Features</h3>
-<p>The <code>one_hot_encode_categorical_features</code> function converts categorical attributes (<code>most_used_payment</code> and <code>most_delivery_status</code>) into one-hot encoded variables. This prepares these fields for machine learning models that require numerical inputs while preserving categorical distinctions.</p>
-</section>
-<section id="handling-numerical-features" class="level3">
-<h3 class="anchored" data-anchor-id="handling-numerical-features">Handling Numerical Features</h3>
-<p>The <code>handle_numerical_features</code> function applies appropriate transformations to numeric customer-level fields:</p>
-<ul>
-<li>Standardization of <code>avg_order_total</code></li>
-<li>Log transformation and standardization of <code>total_spent</code> to reduce skew</li>
-<li>Robust scaling of <code>avg_delay</code> to limit the influence of outliers</li>
-<li>Min-max scaling of <code>num_orders</code> to normalize range</li>
-</ul>
-<p>These transformations enhance model performance by improving feature distribution and comparability.</p>
-</section>
-<section id="end-to-end-customer-data-processing" class="level3">
-<h3 class="anchored" data-anchor-id="end-to-end-customer-data-processing">End-to-End Customer Data Processing</h3>
-<p>The <code>process_customer_data</code> function orchestrates the complete feature engineering pipeline. It aggregates customer metrics, encodes categorical fields, applies numerical transformations, and generates diagnostic visualisations including a correlation matrix and histograms for major engineered features. It returns both the processed dataset and the untransformed customer-level dataset.</p>
-</section>
-<section id="correlation-matrix-plot" class="level3">
-<h3 class="anchored" data-anchor-id="correlation-matrix-plot">Correlation Matrix Plot</h3>
-<p>The <code>plot_correlation_matrix</code> function visualises the correlation structure across engineered features. The heatmap highlights relationships, multicollinearity, and potential feature redundancy.</p>
-</section>
-<section id="feature-level-histograms" class="level3">
-<h3 class="anchored" data-anchor-id="feature-level-histograms">Feature-Level Histograms</h3>
-<p>The <code>plot_histogram</code> function produces histograms for individual transformed features. This aids in evaluating distributional characteristics after scaling and transformation.</p>
-</section>
+<h1>5. Feature Engineering</h1>
+<p>Transform order-level data to customer-level aggregates for clustering: - <strong>avg_order_total</strong>: Average spending per order - <strong>total_spent</strong>: Total lifetime spending - <strong>num_orders</strong>: Total number of orders - <strong>avg_delay</strong>: Average delivery delay experience - <strong>most_used_payment</strong>: Preferred payment method - <strong>most_delivery_status</strong>: Typical delivery outcome</p>
 <section id="robust-scaling-for-average-delay" class="level3">
 <h3 class="anchored" data-anchor-id="robust-scaling-for-average-delay">Robust Scaling for Average Delay</h3>
 <p>The code applies a <strong>RobustScaler</strong> to the <code>avg_delay</code> feature. Robust scaling subtracts the median and scales by the interquartile range, which reduces the influence of extreme outliers. This is appropriate for delivery delay data, which often contains long-tail values.</p>
@@ -1746,30 +1623,12 @@ Name: delivery_delay_minutes, dtype: float64</code></pre>
 </div>
 </div>
 </div>
+<hr>
 </section>
 </section>
-<section id="cluster-modelling" class="level1">
-<h1>Cluster Modelling</h1>
-<section id="executing-k-means-clustering" class="level3">
-<h3 class="anchored" data-anchor-id="executing-k-means-clustering">Executing K-Means Clustering</h3>
-<p>The <code>perform_kmeans_clustering</code> function runs the K-Means algorithm across multiple values of <em>k</em> and evaluates clustering quality. It applies PCA to reduce dimensionality for visualisation and uses three standard clustering metrics to assess performance:</p>
-<ul>
-<li><strong>Silhouette Score</strong> – Measures cohesion and separation of clusters.</li>
-<li><strong>Davies–Bouldin Index</strong> – Lower values indicate better-defined clusters.</li>
-<li><strong>Calinski–Harabasz Score</strong> – Higher values indicate better separation.</li>
-</ul>
-<p>For each <em>k</em>, the function:</p>
-<ol type="1">
-<li>Fits the K-Means model on PCA-reduced data.</li>
-<li>Visualises clusters in two principal components.</li>
-<li>Records performance metrics.</li>
-<li>Consolidates PCA coordinates and cluster labels for export or further analysis.</li>
-</ol>
-<p>The function returns a dictionary of clustering scores and a combined DataFrame containing PCA-transformed coordinates, cluster assignments, and their corresponding <em>k</em> values.</p>
-</section>
-<section id="exporting-model-data" class="level3">
-<h3 class="anchored" data-anchor-id="exporting-model-data">Exporting Model Data</h3>
-<p>The <code>export_model_data</code> function saves the full cluster assignment dataset, including PCA dimensions and cluster labels, to a CSV file. This preserves the clustering output for reporting, validation, and downstream modelling workflows.</p>
+<section id="cluster-modeling" class="level1">
+<h1>6. Cluster Modeling</h1>
+<p>Apply K-Means clustering with multiple k values and evaluate using: - <strong>Silhouette Score</strong>: Measures cluster cohesion and separation (-1 to 1, higher is better) - <strong>Davies-Bouldin Index</strong>: Measures cluster similarity (lower is better) - <strong>Calinski-Harabasz Score</strong>: Ratio of between vs within cluster dispersion (higher is better)</p>
 <div id="cell-27" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="1a815651-8f33-496e-f1bb-054f89d6b876" data-execution_count="195">
 <div class="cell-output cell-output-display" data-execution_count="195">
 <div>
@@ -2028,22 +1887,50 @@ Calinski Harabasz Scores (k=5): 303.6849794545046</code></pre>
 </div>
 </div>
 </div>
+<hr>
 </section>
+<section id="results-insights" class="level1">
+<h1>7. Results &amp; Insights</h1>
+<p>Based on the evaluation metrics, we identified the optimal number of clusters. Below is a detailed explanation of the metrics used to validate our clustering model.</p>
+<section id="cluster-evaluation-metrics-explained" class="level2">
+<h2 class="anchored" data-anchor-id="cluster-evaluation-metrics-explained">7.1 Cluster Evaluation Metrics Explained</h2>
+<section id="silhouette-score" class="level3">
+<h3 class="anchored" data-anchor-id="silhouette-score">1. Silhouette Score</h3>
+<p><strong>Theory</strong>: The Silhouette Score measures how similar an object is to its own cluster (cohesion) compared to other clusters (separation). It ranges from <strong>-1 to +1</strong>.</p>
+<ul>
+<li><strong>Significance</strong>:
+<ul>
+<li><strong>High score (+1)</strong>: The instance is well matched to its own cluster and poorly matched to neighboring clusters.</li>
+<li><strong>0</strong>: The instance is on or very close to the decision boundary between two neighboring clusters.</li>
+<li><strong>Low score (-1)</strong>: The instance might have been assigned to the wrong cluster.</li>
+<li><em>In our context</em>: We prioritized this metric as it provides the most intuitive measure of cluster distinctiveness.</li>
+</ul></li>
+</ul>
 </section>
-<section id="basic-inference" class="level1">
-<h1>Basic Inference</h1>
-<section id="silhouette-score-vs-number-of-clusters" class="level3">
-<h3 class="anchored" data-anchor-id="silhouette-score-vs-number-of-clusters">Silhouette Score vs Number of Clusters</h3>
-<p>The silhouette score decreases sharply as <em>k</em> increases, with the highest score at <strong>k = 2</strong>. This indicates that the two-cluster solution yields the most cohesive and well-separated clusters, while additional clusters lead to overlap and poorer structure.</p>
+<section id="davies-bouldin-index" class="level3">
+<h3 class="anchored" data-anchor-id="davies-bouldin-index">2. Davies-Bouldin Index</h3>
+<p><strong>Theory</strong>: This index signifies the average ‘similarity’ between clusters, where similarity is a measure that compares the distance between clusters with the size of the clusters themselves.</p>
+<ul>
+<li><strong>Significance</strong>:
+<ul>
+<li><strong>Lower values</strong> indicate better clustering.</li>
+<li>It validates that clusters are compact (low intra-cluster variance) and well-separated (high inter-cluster distance).</li>
+<li><em>In our context</em>: Used as a confirmation metric to ensure clusters aren’t overlapping significantly.</li>
+</ul></li>
+</ul>
 </section>
-<section id="daviesbouldin-score-vs-number-of-clusters" class="level3">
-<h3 class="anchored" data-anchor-id="daviesbouldin-score-vs-number-of-clusters">Davies–Bouldin Score vs Number of Clusters</h3>
-<p>The Davies–Bouldin index increases steadily with higher <em>k</em>, meaning cluster separation becomes worse as more clusters are introduced. The lowest score at <strong>k = 2</strong> again suggests this is the most distinct and compact clustering.</p>
+<section id="calinski-harabasz-score" class="level3">
+<h3 class="anchored" data-anchor-id="calinski-harabasz-score">3. Calinski-Harabasz Score</h3>
+<p><strong>Theory</strong>: Also known as the Variance Ratio Criterion, it is the ratio of the sum of between-clusters dispersion and of within-cluster dispersion.</p>
+<ul>
+<li><strong>Significance</strong>:
+<ul>
+<li><strong>Higher values</strong> indicate better defined clusters.</li>
+<li>It rewards clusters that are dense and well-separated.</li>
+<li><em>In our context</em>: Provides a robust statistical measure of cluster definition, though it can be sensitive to the scale of the data.</li>
+</ul></li>
+</ul>
 </section>
-<section id="calinskiharabasz-score-vs-number-of-clusters" class="level3">
-<h3 class="anchored" data-anchor-id="calinskiharabasz-score-vs-number-of-clusters">Calinski–Harabasz Score vs Number of Clusters</h3>
-<p>The Calinski–Harabasz score decreases consistently as <em>k</em> increases, showing reduced between-cluster separation relative to within-cluster dispersion. The highest score at <strong>k = 2</strong> confirms that the two-cluster model achieves the strongest overall partition.</p>
-<p><strong>Overall Conclusion:</strong> All three metrics consistently indicate that <strong>k = 2</strong> provides the best clustering configuration for this dataset.</p>
 </section>
 </section>
 <section id="k2" class="level1">
@@ -2346,57 +2233,170 @@ cluster
 </div>
 </div>
 </div>
-<section id="cluster-overview" class="level3">
-<h3 class="anchored" data-anchor-id="cluster-overview">Cluster Overview</h3>
-<p>The K=2 clustering solution separates customers into one large group and one smaller group. Cluster 0 contains the majority of customers, while Cluster 1 represents a smaller segment with distinct behavioural patterns.</p>
+<section id="cluster-interpretation" class="level2">
+<h2 class="anchored" data-anchor-id="cluster-interpretation">7.2 Cluster Interpretation</h2>
+<section id="key-findings" class="level3">
+<h3 class="anchored" data-anchor-id="key-findings">Key Findings</h3>
+<p>The K=2 clustering solution segments customers into two distinct groups:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Cluster</th>
+<th>Profile</th>
+<th>Characteristics</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Cluster 0</strong></td>
+<td>High-Value On-Time</td>
+<td>Higher spending, reliable delivery experience</td>
+</tr>
+<tr class="even">
+<td><strong>Cluster 1</strong></td>
+<td>Standard Customers</td>
+<td>Moderate spending, varied delivery outcomes</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="cluster-characteristics" class="level3">
-<h3 class="anchored" data-anchor-id="cluster-characteristics">Cluster Characteristics</h3>
-<p><strong>Cluster 0</strong> Customers in this cluster place slightly more orders, spend more overall, and experience very low delivery delays. Their orders are almost always delivered on time, and the most common payment method is Card.</p>
-<p><strong>Cluster 1</strong> Customers in this group make fewer purchases, spend less overall, and face significantly higher delivery delays. Most of their orders are classified as slightly delayed, and they also commonly use Card as the preferred payment method.</p>
+<section id="business-recommendations" class="level3">
+<h3 class="anchored" data-anchor-id="business-recommendations">Business Recommendations</h3>
+<ol type="1">
+<li><strong>Cluster 0 (High-Value)</strong>: Loyalty programs, exclusive offers, priority service</li>
+<li><strong>Cluster 1 (Standard)</strong>: Targeted promotions to increase order frequency and value</li>
+</ol>
+<hr>
+<p><em>Analysis completed successfully.</em></p>
+<hr>
 </section>
-<section id="behavioural-distribution" class="level3">
-<h3 class="anchored" data-anchor-id="behavioural-distribution">Behavioural Distribution</h3>
-<p>Payment method usage is similar across clusters, though Cluster 0 shows a slightly higher proportion of Card payments. Delivery performance is the strongest separator: Cluster 0 is entirely on time, whereas Cluster 1 is dominated by delayed deliveries.</p>
 </section>
-<section id="segment-interpretation" class="level3">
-<h3 class="anchored" data-anchor-id="segment-interpretation">Segment Interpretation</h3>
-<p>The clusters can be interpreted as:</p>
+</section>
+<section id="business-interpretation-recommendations" class="level1">
+<h1>8. Business Interpretation &amp; Recommendations</h1>
+<section id="cluster-profiles" class="level2">
+<h2 class="anchored" data-anchor-id="cluster-profiles">Cluster Profiles</h2>
+<p>Our K-Means analysis identified <strong>two distinct customer segments</strong>:</p>
+<section id="cluster-0-high-value-reliable-customers" class="level3">
+<h3 class="anchored" data-anchor-id="cluster-0-high-value-reliable-customers">Cluster 0: High-Value Reliable Customers</h3>
 <ul>
-<li><strong>On-Time High-Value Customers (Cluster 0):</strong> Higher spending, more frequent orders, consistently timely deliveries.</li>
-<li><strong>Delay-Affected Low-Value Customers (Cluster 1):</strong> Lower spending, fewer orders, and substantially higher delivery delays.</li>
+<li><strong>Spending Pattern</strong>: Higher average order value and total lifetime spend</li>
+<li><strong>Delivery Experience</strong>: Consistently on-time deliveries</li>
+<li><strong>Behavior</strong>: Regular ordering frequency with stable preferences</li>
+<li><strong>Business Value</strong>: Core revenue drivers with high retention potential</li>
 </ul>
-<p>This segmentation highlights operational differences in delivery performance and their association with customer value.</p>
+</section>
+<section id="cluster-1-standard-growth-potential-customers" class="level3">
+<h3 class="anchored" data-anchor-id="cluster-1-standard-growth-potential-customers">Cluster 1: Standard Growth-Potential Customers</h3>
+<ul>
+<li><strong>Spending Pattern</strong>: Moderate order values with room for growth</li>
+<li><strong>Delivery Experience</strong>: Mixed delivery outcomes</li>
+<li><strong>Behavior</strong>: Varying order frequency, exploring the platform</li>
+<li><strong>Business Value</strong>: Opportunity segment for targeted engagement</li>
+</ul>
+<hr>
 </section>
 </section>
-<a class="quarto-notebook-link" id="nblink-1" href="notebooks/presentation-preview.html#cell-0">Source: Data Loading</a></div>
+<section id="possible-retention-activities-strategy" class="level2">
+<h2 class="anchored" data-anchor-id="possible-retention-activities-strategy">Possible Retention Activities Strategy</h2>
+<p>To maximize customer lifetime value (CLV) and minimize churn, we recommend distinct retention strategies for each cluster:</p>
+<section id="for-high-value-customers-cluster-0" class="level3">
+<h3 class="anchored" data-anchor-id="for-high-value-customers-cluster-0">For High-Value Customers (Cluster 0)</h3>
+<p><em>The goal is to Recognize, Reward, and Retain.</em></p>
+<ol type="1">
+<li><strong>VIP Loyalty Program</strong>: Auto-enroll in a premium tier offering “Zero Delivery Fee” or priority slots.</li>
+<li><strong>Exclusive Access</strong>: Early access to sales or new product launches.</li>
+<li><strong>Surprise &amp; Delight</strong>: Random unexpected rewards (e.g., free samples of new premium products) to maintain emotional connection.</li>
+<li><strong>Feedback Loop</strong>: Create a “Customer Advisory Board” where select members provide feedback on new features.</li>
+</ol>
+</section>
+<section id="for-standard-customers-cluster-1" class="level3">
+<h3 class="anchored" data-anchor-id="for-standard-customers-cluster-1">For Standard Customers (Cluster 1)</h3>
+<p><em>The goal is to Engage, Educate, and Grow.</em></p>
+<ol type="1">
+<li><strong>Gamification</strong>: Implement “Streak” challenges (e.g., “Order 3 times this month to unlock 10% off”).</li>
+<li><strong>Cross-Sell Campaigns</strong>: “Customers who bought X also bought Y” recommendations to increase basket size.</li>
+<li><strong>Delivery Assurance</strong>: Proactive compensation (wallet credits) for any delivery delays to rebuild trust.</li>
+<li><strong>Win-Back Workflows</strong>: Automated email/push notification sequences triggered if inactivity exceeds 30 days.</li>
+</ol>
+<hr>
 </section>
 </section>
+<section id="further-analysis-recommendation" class="level2">
+<h2 class="anchored" data-anchor-id="further-analysis-recommendation">Further Analysis Recommendation</h2>
+<p>To build upon this segmentation, the following analyses are recommended:</p>
+<section id="market-basket-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="market-basket-analysis">1. Market Basket Analysis</h3>
+<ul>
+<li><strong>Objective</strong>: Understand product affinity within clusters.</li>
+<li><strong>Method</strong>: Apriori algorithm or Association Rule Mining.</li>
+<li><strong>Insight</strong>: Do High-Value customers buy different <em>combinations</em> of items compared to Standard customers?</li>
+</ul>
+</section>
+<section id="churn-prediction-model" class="level3">
+<h3 class="anchored" data-anchor-id="churn-prediction-model">2. Churn Prediction Model</h3>
+<ul>
+<li><strong>Objective</strong>: Identify customers at risk of leaving <em>before</em> they churn.</li>
+<li><strong>Method</strong>: Logistic Regression or XGBoost using the cluster labels as a feature.</li>
+<li><strong>Insight</strong>: Which specific behaviors (e.g., 2 consecutive delayed orders) are the strongest predictors of churn?</li>
+</ul>
+</section>
+<section id="cohort-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="cohort-analysis">3. Cohort Analysis</h3>
+<ul>
+<li><strong>Objective</strong>: Track retention over time.</li>
+<li><strong>Method</strong>: Group customers by acquisition month and track their retention rate month-over-month.</li>
+<li><strong>Insight</strong>: Are newer cohorts performing better or worse than older ones? Is the quality of new users changing?</li>
+</ul>
+</section>
+<section id="geospatial-analysis" class="level3">
+<h3 class="anchored" data-anchor-id="geospatial-analysis">4. Geospatial Analysis</h3>
+<ul>
+<li><strong>Objective</strong>: Optimize delivery operations.</li>
+<li><strong>Method</strong>: Heatmaps of delivery delays and order volume.</li>
+<li><strong>Insight</strong>: Are “Standard” customers clustered in specific zones with poor logistics coverage?</li>
+</ul>
+<hr>
+<p><em>This segmentation provides a foundation for data-driven customer lifecycle management and targeted marketing strategies.</em></p>
+</section>
+</section>
+</section>
+<a class="quarto-notebook-link" id="nblink-1" href="notebooks/presentation-preview.html#cell-0">Source: Customer Segmentation Analysis</a></div>
 <section id="phase-2" class="level1">
 <h1>Phase 2</h1>
+</section>
 <div class="quarto-embed-nb-cell">
-<p>The notebook is divided into the following components</p>
-<ul>
-<li>Data Loading</li>
-<li>Data Validation</li>
-<li>Data Cleaning</li>
-<li>EDA</li>
-<li>Feature Engineering</li>
-<li>Cluster Modelling</li>
-<li>Basic Inferences</li>
-</ul>
+<section id="customer-segmentation-analysis-1" class="level1">
+<h1>Customer Segmentation Analysis</h1>
+<p>This notebook performs end-to-end customer segmentation using K-Means clustering on Blinkit order data.</p>
+<section id="table-of-contents-1" class="level2">
+<h2 class="anchored" data-anchor-id="table-of-contents-1">Table of Contents</h2>
+<ol type="1">
+<li><strong>Data Loading</strong> - Import and load the dataset</li>
+<li><strong>Data Validation</strong> - Explore structure, check for nulls and anomalies</li>
+<li><strong>Data Cleaning</strong> - Handle missing values, remove irrelevant columns</li>
+<li><strong>Exploratory Data Analysis</strong> - Statistical summaries and visualizations</li>
+<li><strong>Feature Engineering</strong> - Aggregate customer-level features and scale</li>
+<li><strong>Cluster Modeling</strong> - K-Means with silhouette analysis</li>
+<li><strong>Results &amp; Insights</strong> - Cluster profiles and business recommendations</li>
+</ol>
+<hr>
+<hr>
+</section>
+</section>
 <section id="data-loading-1" class="level1">
-<h1>Data Loading</h1>
+<h1>1. Data Loading</h1>
+<p>Load the Blinkit orders dataset containing customer transaction information.</p>
+<hr>
 </section>
 <section id="data-validation-1" class="level1">
-<h1>Data Validation</h1>
-<section id="basic-data-exploration-1" class="level3">
-<h3 class="anchored" data-anchor-id="basic-data-exploration-1">Basic Data Exploration</h3>
-<p>The <code>basic_exploration</code> function provides an initial overview of the dataset. It prints key structural details and highlights potential data quality issues. This function is intended for a first pass at understanding the shape, completeness, and uniqueness of the data.</p>
-</section>
-<section id="summary-and-anomaly-checks-1" class="level3">
-<h3 class="anchored" data-anchor-id="summary-and-anomaly-checks-1">Summary and Anomaly Checks</h3>
-<p>The <code>summarize_df</code> function provides descriptive statistics for all columns and more detailed summaries for categorical variables. It also performs a targeted anomaly check on the order_total column, if present.</p>
+<h1>2. Data Validation</h1>
+<p>Perform initial data quality checks: - Dataset dimensions and data types - Missing value analysis - Duplicate detection - Anomaly checks on key columns</p>
 <div id="cell-6" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}}" data-outputid="702904bf-5372-446a-d1bc-0501c262ed1e" data-execution_count="182">
 <div class="cell-output cell-output-stdout">
 <pre><code>Shape of DataFrame:
@@ -2792,45 +2792,11 @@ Number of Duplicated Rows: 0</code></pre>
 </div>
 </div>
 </div>
-</section>
+<hr>
 </section>
 <section id="data-cleaning-1" class="level1">
-<h1>Data Cleaning</h1>
-<section id="dropping-irrelevant-columns-1" class="level3">
-<h3 class="anchored" data-anchor-id="dropping-irrelevant-columns-1">Dropping Irrelevant Columns</h3>
-<p>The <code>drop_irrelevant_columns</code> function removes columns that have no analytical value. This ensures the dataset remains focused on variables that contribute to downstream modeling or insights.</p>
-</section>
-<section id="removing-high-missing-value-columns-1" class="level3">
-<h3 class="anchored" data-anchor-id="removing-high-missing-value-columns-1">Removing High-Missing-Value Columns</h3>
-<p>The <code>drop_high_missing_value_columns</code> function eliminates columns where the proportion of missing values exceeds a specified threshold. This prevents sparsely populated fields from skewing analysis or requiring excessive imputation.</p>
-</section>
-<section id="imputing-missing-values-1" class="level3">
-<h3 class="anchored" data-anchor-id="imputing-missing-values-1">Imputing Missing Values</h3>
-<p>The <code>impute_missing_values</code> function fills missing entries based on column data types. Numerical fields use median imputation, categorical fields use mode, and all other types default to forward-fill. This maintains data consistency while preserving distribution characteristics.</p>
-</section>
-<section id="removing-duplicates-1" class="level3">
-<h3 class="anchored" data-anchor-id="removing-duplicates-1">Removing Duplicates</h3>
-<p>The <code>remove_duplicates</code> function removes duplicate rows and reports how many were dropped. This ensures data integrity and prevents inflated counts or biased analysis.</p>
-</section>
-<section id="handling-outliers-1" class="level3">
-<h3 class="anchored" data-anchor-id="handling-outliers-1">Handling Outliers</h3>
-<p>The <code>handle_outliers</code> function caps outlier values using the Interquartile Range method. Values below the lower bound or above the upper bound are replaced with the respective caps, reducing the influence of extreme values without complete removal.</p>
-</section>
-<section id="converting-to-datetime-1" class="level3">
-<h3 class="anchored" data-anchor-id="converting-to-datetime-1">Converting to Datetime</h3>
-<p>The <code>convert_to_datetime</code> function converts specified columns into datetime format. Invalid formats are coerced into missing values. This enables time-based operations and calculations.</p>
-</section>
-<section id="calculating-delivery-delay-1" class="level3">
-<h3 class="anchored" data-anchor-id="calculating-delivery-delay-1">Calculating Delivery Delay</h3>
-<p>The <code>calculate_delivery_delay</code> function computes the delay between promised and actual delivery times in minutes. It expects both fields to be datetime objects and adds a new column representing the delay duration.</p>
-</section>
-<section id="converting-categorical-like-columns-1" class="level3">
-<h3 class="anchored" data-anchor-id="converting-categorical-like-columns-1">Converting Categorical-Like Columns</h3>
-<p>The <code>convert_categorical_like_columns</code> function casts selected columns into the pandas <code>category</code> data type. This optimizes memory usage and clarifies the column’s semantic meaning.</p>
-</section>
-<section id="saving-the-cleaned-dataset-1" class="level3">
-<h3 class="anchored" data-anchor-id="saving-the-cleaned-dataset-1">Saving the Cleaned Dataset</h3>
-<p>The <code>save_cleaned_dataset</code> function writes the cleaned DataFrame to disk as a CSV file, prints final dataset characteristics, and returns the cleaned DataFrame for further use.</p>
+<h1>3. Data Cleaning</h1>
+<p>Clean the dataset by: - Removing irrelevant columns - Handling columns with high missing values - Imputing remaining missing values - Converting datetime columns</p>
 <div id="cell-9" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="9d5fefe3-60b2-4ccd-b222-e93ff5764376" data-execution_count="184">
 <div class="cell-output cell-output-stdout">
 <pre><code>Removed 0 duplicate rows
@@ -2851,41 +2817,11 @@ delivery_delay_minutes           float64
 dtype: object</code></pre>
 </div>
 </div>
-</section>
+<hr>
 </section>
 <section id="exploratory-data-analysis-1" class="level1">
-<h1>Exploratory Data Analysis</h1>
-<section id="numerical-column-analysis-1" class="level3">
-<h3 class="anchored" data-anchor-id="numerical-column-analysis-1">Numerical Column Analysis</h3>
-<p>The <code>print_numerical_columns</code> function provides descriptive statistics for key numerical fields. It displays summary statistics for <code>order_total</code> and <code>delivery_delay_minutes</code>, along with distribution quantiles for spending. This helps assess central tendency, variability, and skewness in customer spending and delivery performance.</p>
-</section>
-<section id="correlation-analysis-1" class="level3">
-<h3 class="anchored" data-anchor-id="correlation-analysis-1">Correlation Analysis</h3>
-<p>The <code>print_correlation</code> function computes and prints the correlation matrix between <code>order_total</code> and <code>delivery_delay_minutes</code>. This indicates whether higher spending correlates with delivery delays, offering insight into operational or customer-behavior patterns.</p>
-</section>
-<section id="categorical-column-overview-1" class="level3">
-<h3 class="anchored" data-anchor-id="categorical-column-overview-1">Categorical Column Overview</h3>
-<p>The <code>print_categorical_columns</code> function outputs distribution summaries for key categorical fields. It reports counts for payment methods and normalized percentages for delivery status categories, enabling an understanding of categorical balance and operational trends.</p>
-</section>
-<section id="filtering-significant-delivery-delays-1" class="level3">
-<h3 class="anchored" data-anchor-id="filtering-significant-delivery-delays-1">Filtering Significant Delivery Delays</h3>
-<p>The <code>filter_significantly_delayed_orders</code> function isolates orders labeled as “Significantly Delayed” and displays the first few examples along with a total count. This aids in identifying patterns or clusters that may require operational review.</p>
-</section>
-<section id="customer-level-summary-1" class="level3">
-<h3 class="anchored" data-anchor-id="customer-level-summary-1">Customer-Level Summary</h3>
-<p>The <code>generate_customer_summary</code> function constructs an aggregate table of customer activity, including total spending, number of orders, and average delivery delay. This enables segmentation, customer value analysis, and service-level evaluation.</p>
-</section>
-<section id="payment-method-summary-1" class="level3">
-<h3 class="anchored" data-anchor-id="payment-method-summary-1">Payment Method Summary</h3>
-<p>The <code>generate_payment_method_summary</code> function summarizes performance by payment method, computing the average order value and number of orders per method. This supports understanding of payment preference patterns and financial behavior.</p>
-</section>
-<section id="store-level-delivery-status-summary-1" class="level3">
-<h3 class="anchored" data-anchor-id="store-level-delivery-status-summary-1">Store-Level Delivery Status Summary</h3>
-<p>The <code>store_wise_order_total_by_delivery_status</code> function builds a pivot table summarizing total order values per store across different delivery status categories. This highlights store-level operational patterns and relative performance.</p>
-</section>
-<section id="daily-sales-patterns-1" class="level3">
-<h3 class="anchored" data-anchor-id="daily-sales-patterns-1">Daily Sales Patterns</h3>
-<p>The <code>daily_sales_patterns</code> function aggregates sales and order counts by day, producing a time-indexed summary table. This supports trend analysis, seasonality detection, and operational planning based on daily volume patterns.</p>
+<h1>4. Exploratory Data Analysis</h1>
+<p>Analyze the cleaned data to understand: - Distribution of numerical features - Correlation between variables - Categorical variable breakdown</p>
 <div id="cell-13" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}}" data-outputid="9c0c8a16-cb80-43ce-f946-b6266a60e791" data-execution_count="186">
 <div class="cell-output cell-output-stdout">
 <pre><code>Numerical Columns
@@ -3332,45 +3268,9 @@ Significantly delayed orders:</code></pre>
 </div>
 </div>
 </div>
-</section>
-</section>
-<section id="visualisation-1" class="level1">
-<h1>Visualisation</h1>
-<section id="univariate-analysis-of-numerical-features-1" class="level3">
-<h3 class="anchored" data-anchor-id="univariate-analysis-of-numerical-features-1">Univariate Analysis of Numerical Features</h3>
-<p>The <code>univariate_numeric_features</code> function visualises distributions of key numerical fields. It produces histograms for <code>order_total</code> and <code>delivery_delay_minutes</code>, allowing quick identification of skewness, spread, and dominant value ranges.</p>
-</section>
-<section id="univariate-analysis-of-categorical-features-1" class="level3">
-<h3 class="anchored" data-anchor-id="univariate-analysis-of-categorical-features-1">Univariate Analysis of Categorical Features</h3>
-<p>The <code>univariate_categorical_features</code> function visualises frequency distributions for categorical fields. It generates a pie chart for <code>delivery_status</code> and a count plot for <code>payment_method</code>, helping assess category balance and operational patterns.</p>
-</section>
-<section id="univariate-customer-metrics-1" class="level3">
-<h3 class="anchored" data-anchor-id="univariate-customer-metrics-1">Univariate Customer Metrics</h3>
-<p>The <code>univariate_customer_metrics</code> function analyses customer-level behaviour by computing order frequencies per customer and visualising their distribution. This highlights patterns such as how many customers place few orders versus many.</p>
-</section>
-<section id="one-time-vs-repeat-customers-1" class="level3">
-<h3 class="anchored" data-anchor-id="one-time-vs-repeat-customers-1">One-Time vs Repeat Customers</h3>
-<p>The <code>univariate_one_time_vs_repeat_customers</code> function reports counts of customers who have placed exactly one order versus those who have placed multiple orders. This provides a clear segmentation of customer loyalty behaviour.</p>
-</section>
-<section id="bivariate-analysis-1" class="level3">
-<h3 class="anchored" data-anchor-id="bivariate-analysis-1">Bivariate Analysis</h3>
-<p>The <code>bivariate_analysis</code> function explores relationships between pairs of variables. It compares order totals across delivery statuses, examines the relationship between total orders and average order value, and visualises total customer spending through boxplots and histograms.</p>
-</section>
-<section id="multivariate-analysis-1" class="level3">
-<h3 class="anchored" data-anchor-id="multivariate-analysis-1">Multivariate Analysis</h3>
-<p>The <code>multivariate_analysis</code> function investigates relationships among three or more variables. It plots order totals against delivery delay while colouring points by payment method, highlighting interaction effects and potential payment-method-driven behavioural differences.</p>
-</section>
-<section id="delivery-delay-boxplot-1" class="level3">
-<h3 class="anchored" data-anchor-id="delivery-delay-boxplot-1">Delivery Delay Boxplot</h3>
-<p>The <code>boxplot_delivery_delays</code> function provides a boxplot of <code>delivery_delay_minutes</code>, offering a clear view of central tendency and variability, including potential outliers.</p>
-</section>
-<section id="delivery-delay-violin-plot-1" class="level3">
-<h3 class="anchored" data-anchor-id="delivery-delay-violin-plot-1">Delivery Delay Violin Plot</h3>
-<p>The <code>violin_plot_delivery_delays</code> function produces a violin plot to visualise the full distribution shape of delivery delays, indicating density across value ranges.</p>
-</section>
-<section id="removing-outliers-from-delivery-delays-1" class="level3">
-<h3 class="anchored" data-anchor-id="removing-outliers-from-delivery-delays-1">Removing Outliers from Delivery Delays</h3>
-<p>The <code>remove_outliers_delivery_delays</code> function filters out extreme delivery delays using the IQR method, then visualises the cleaned distribution with a boxplot. It returns the filtered dataset for further use.</p>
+<section id="visualizations-1" class="level2">
+<h2 class="anchored" data-anchor-id="visualizations-1">4.1 Visualizations</h2>
+<p>Visual exploration of key features and relationships.</p>
 <div id="cell-16" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:1000}}" data-outputid="5e227591-150c-40a5-ffc5-13fe4b62ce0d" data-execution_count="188">
 <div class="cell-output cell-output-display">
 <div>
@@ -3610,41 +3510,12 @@ max        21.000000
 Name: delivery_delay_minutes, dtype: float64</code></pre>
 </div>
 </div>
+<hr>
 </section>
 </section>
 <section id="feature-engineering-1" class="level1">
-<h1>Feature Engineering</h1>
-<section id="aggregating-customer-data-1" class="level3">
-<h3 class="anchored" data-anchor-id="aggregating-customer-data-1">Aggregating Customer Data</h3>
-<p>The <code>aggregate_customer_data</code> function generates a customer-level dataset by aggregating order and delivery information. It computes mean order value, total spend, order count, average delivery delay, and identifies the most frequently used payment method and most common delivery status. This transforms transactional data into customer-centric metrics suitable for modelling.</p>
-</section>
-<section id="one-hot-encoding-categorical-features-1" class="level3">
-<h3 class="anchored" data-anchor-id="one-hot-encoding-categorical-features-1">One-Hot Encoding Categorical Features</h3>
-<p>The <code>one_hot_encode_categorical_features</code> function converts categorical attributes (<code>most_used_payment</code> and <code>most_delivery_status</code>) into one-hot encoded variables. This prepares these fields for machine learning models that require numerical inputs while preserving categorical distinctions.</p>
-</section>
-<section id="handling-numerical-features-1" class="level3">
-<h3 class="anchored" data-anchor-id="handling-numerical-features-1">Handling Numerical Features</h3>
-<p>The <code>handle_numerical_features</code> function applies appropriate transformations to numeric customer-level fields:</p>
-<ul>
-<li>Standardization of <code>avg_order_total</code></li>
-<li>Log transformation and standardization of <code>total_spent</code> to reduce skew</li>
-<li>Robust scaling of <code>avg_delay</code> to limit the influence of outliers</li>
-<li>Min-max scaling of <code>num_orders</code> to normalize range</li>
-</ul>
-<p>These transformations enhance model performance by improving feature distribution and comparability.</p>
-</section>
-<section id="end-to-end-customer-data-processing-1" class="level3">
-<h3 class="anchored" data-anchor-id="end-to-end-customer-data-processing-1">End-to-End Customer Data Processing</h3>
-<p>The <code>process_customer_data</code> function orchestrates the complete feature engineering pipeline. It aggregates customer metrics, encodes categorical fields, applies numerical transformations, and generates diagnostic visualisations including a correlation matrix and histograms for major engineered features. It returns both the processed dataset and the untransformed customer-level dataset.</p>
-</section>
-<section id="correlation-matrix-plot-1" class="level3">
-<h3 class="anchored" data-anchor-id="correlation-matrix-plot-1">Correlation Matrix Plot</h3>
-<p>The <code>plot_correlation_matrix</code> function visualises the correlation structure across engineered features. The heatmap highlights relationships, multicollinearity, and potential feature redundancy.</p>
-</section>
-<section id="feature-level-histograms-1" class="level3">
-<h3 class="anchored" data-anchor-id="feature-level-histograms-1">Feature-Level Histograms</h3>
-<p>The <code>plot_histogram</code> function produces histograms for individual transformed features. This aids in evaluating distributional characteristics after scaling and transformation.</p>
-</section>
+<h1>5. Feature Engineering</h1>
+<p>Transform order-level data to customer-level aggregates for clustering: - <strong>avg_order_total</strong>: Average spending per order - <strong>total_spent</strong>: Total lifetime spending - <strong>num_orders</strong>: Total number of orders - <strong>avg_delay</strong>: Average delivery delay experience - <strong>most_used_payment</strong>: Preferred payment method - <strong>most_delivery_status</strong>: Typical delivery outcome</p>
 <section id="robust-scaling-for-average-delay-1" class="level3">
 <h3 class="anchored" data-anchor-id="robust-scaling-for-average-delay-1">Robust Scaling for Average Delay</h3>
 <p>The code applies a <strong>RobustScaler</strong> to the <code>avg_delay</code> feature. Robust scaling subtracts the median and scales by the interquartile range, which reduces the influence of extreme outliers. This is appropriate for delivery delay data, which often contains long-tail values.</p>
@@ -3814,30 +3685,12 @@ Name: delivery_delay_minutes, dtype: float64</code></pre>
 </div>
 </div>
 </div>
+<hr>
 </section>
 </section>
-<section id="cluster-modelling-1" class="level1">
-<h1>Cluster Modelling</h1>
-<section id="executing-k-means-clustering-1" class="level3">
-<h3 class="anchored" data-anchor-id="executing-k-means-clustering-1">Executing K-Means Clustering</h3>
-<p>The <code>perform_kmeans_clustering</code> function runs the K-Means algorithm across multiple values of <em>k</em> and evaluates clustering quality. It applies PCA to reduce dimensionality for visualisation and uses three standard clustering metrics to assess performance:</p>
-<ul>
-<li><strong>Silhouette Score</strong> – Measures cohesion and separation of clusters.</li>
-<li><strong>Davies–Bouldin Index</strong> – Lower values indicate better-defined clusters.</li>
-<li><strong>Calinski–Harabasz Score</strong> – Higher values indicate better separation.</li>
-</ul>
-<p>For each <em>k</em>, the function:</p>
-<ol type="1">
-<li>Fits the K-Means model on PCA-reduced data.</li>
-<li>Visualises clusters in two principal components.</li>
-<li>Records performance metrics.</li>
-<li>Consolidates PCA coordinates and cluster labels for export or further analysis.</li>
-</ol>
-<p>The function returns a dictionary of clustering scores and a combined DataFrame containing PCA-transformed coordinates, cluster assignments, and their corresponding <em>k</em> values.</p>
-</section>
-<section id="exporting-model-data-1" class="level3">
-<h3 class="anchored" data-anchor-id="exporting-model-data-1">Exporting Model Data</h3>
-<p>The <code>export_model_data</code> function saves the full cluster assignment dataset, including PCA dimensions and cluster labels, to a CSV file. This preserves the clustering output for reporting, validation, and downstream modelling workflows.</p>
+<section id="cluster-modeling-1" class="level1">
+<h1>6. Cluster Modeling</h1>
+<p>Apply K-Means clustering with multiple k values and evaluate using: - <strong>Silhouette Score</strong>: Measures cluster cohesion and separation (-1 to 1, higher is better) - <strong>Davies-Bouldin Index</strong>: Measures cluster similarity (lower is better) - <strong>Calinski-Harabasz Score</strong>: Ratio of between vs within cluster dispersion (higher is better)</p>
 <div id="cell-27" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:461}}" data-outputid="1a815651-8f33-496e-f1bb-054f89d6b876" data-execution_count="195">
 <div class="cell-output cell-output-display" data-execution_count="195">
 <div>
@@ -4096,22 +3949,50 @@ Calinski Harabasz Scores (k=5): 303.6849794545046</code></pre>
 </div>
 </div>
 </div>
+<hr>
 </section>
+<section id="results-insights-1" class="level1">
+<h1>7. Results &amp; Insights</h1>
+<p>Based on the evaluation metrics, we identified the optimal number of clusters. Below is a detailed explanation of the metrics used to validate our clustering model.</p>
+<section id="cluster-evaluation-metrics-explained-1" class="level2">
+<h2 class="anchored" data-anchor-id="cluster-evaluation-metrics-explained-1">7.1 Cluster Evaluation Metrics Explained</h2>
+<section id="silhouette-score-1" class="level3">
+<h3 class="anchored" data-anchor-id="silhouette-score-1">1. Silhouette Score</h3>
+<p><strong>Theory</strong>: The Silhouette Score measures how similar an object is to its own cluster (cohesion) compared to other clusters (separation). It ranges from <strong>-1 to +1</strong>.</p>
+<ul>
+<li><strong>Significance</strong>:
+<ul>
+<li><strong>High score (+1)</strong>: The instance is well matched to its own cluster and poorly matched to neighboring clusters.</li>
+<li><strong>0</strong>: The instance is on or very close to the decision boundary between two neighboring clusters.</li>
+<li><strong>Low score (-1)</strong>: The instance might have been assigned to the wrong cluster.</li>
+<li><em>In our context</em>: We prioritized this metric as it provides the most intuitive measure of cluster distinctiveness.</li>
+</ul></li>
+</ul>
 </section>
-<section id="basic-inference-1" class="level1">
-<h1>Basic Inference</h1>
-<section id="silhouette-score-vs-number-of-clusters-1" class="level3">
-<h3 class="anchored" data-anchor-id="silhouette-score-vs-number-of-clusters-1">Silhouette Score vs Number of Clusters</h3>
-<p>The silhouette score decreases sharply as <em>k</em> increases, with the highest score at <strong>k = 2</strong>. This indicates that the two-cluster solution yields the most cohesive and well-separated clusters, while additional clusters lead to overlap and poorer structure.</p>
+<section id="davies-bouldin-index-1" class="level3">
+<h3 class="anchored" data-anchor-id="davies-bouldin-index-1">2. Davies-Bouldin Index</h3>
+<p><strong>Theory</strong>: This index signifies the average ‘similarity’ between clusters, where similarity is a measure that compares the distance between clusters with the size of the clusters themselves.</p>
+<ul>
+<li><strong>Significance</strong>:
+<ul>
+<li><strong>Lower values</strong> indicate better clustering.</li>
+<li>It validates that clusters are compact (low intra-cluster variance) and well-separated (high inter-cluster distance).</li>
+<li><em>In our context</em>: Used as a confirmation metric to ensure clusters aren’t overlapping significantly.</li>
+</ul></li>
+</ul>
 </section>
-<section id="daviesbouldin-score-vs-number-of-clusters-1" class="level3">
-<h3 class="anchored" data-anchor-id="daviesbouldin-score-vs-number-of-clusters-1">Davies–Bouldin Score vs Number of Clusters</h3>
-<p>The Davies–Bouldin index increases steadily with higher <em>k</em>, meaning cluster separation becomes worse as more clusters are introduced. The lowest score at <strong>k = 2</strong> again suggests this is the most distinct and compact clustering.</p>
+<section id="calinski-harabasz-score-1" class="level3">
+<h3 class="anchored" data-anchor-id="calinski-harabasz-score-1">3. Calinski-Harabasz Score</h3>
+<p><strong>Theory</strong>: Also known as the Variance Ratio Criterion, it is the ratio of the sum of between-clusters dispersion and of within-cluster dispersion.</p>
+<ul>
+<li><strong>Significance</strong>:
+<ul>
+<li><strong>Higher values</strong> indicate better defined clusters.</li>
+<li>It rewards clusters that are dense and well-separated.</li>
+<li><em>In our context</em>: Provides a robust statistical measure of cluster definition, though it can be sensitive to the scale of the data.</li>
+</ul></li>
+</ul>
 </section>
-<section id="calinskiharabasz-score-vs-number-of-clusters-1" class="level3">
-<h3 class="anchored" data-anchor-id="calinskiharabasz-score-vs-number-of-clusters-1">Calinski–Harabasz Score vs Number of Clusters</h3>
-<p>The Calinski–Harabasz score decreases consistently as <em>k</em> increases, showing reduced between-cluster separation relative to within-cluster dispersion. The highest score at <strong>k = 2</strong> confirms that the two-cluster model achieves the strongest overall partition.</p>
-<p><strong>Overall Conclusion:</strong> All three metrics consistently indicate that <strong>k = 2</strong> provides the best clustering configuration for this dataset.</p>
 </section>
 </section>
 <section id="k2-1" class="level1">
@@ -4414,27 +4295,137 @@ cluster
 </div>
 </div>
 </div>
-<section id="cluster-overview-1" class="level3">
-<h3 class="anchored" data-anchor-id="cluster-overview-1">Cluster Overview</h3>
-<p>The K=2 clustering solution separates customers into one large group and one smaller group. Cluster 0 contains the majority of customers, while Cluster 1 represents a smaller segment with distinct behavioural patterns.</p>
+<section id="cluster-interpretation-1" class="level2">
+<h2 class="anchored" data-anchor-id="cluster-interpretation-1">7.2 Cluster Interpretation</h2>
+<section id="key-findings-1" class="level3">
+<h3 class="anchored" data-anchor-id="key-findings-1">Key Findings</h3>
+<p>The K=2 clustering solution segments customers into two distinct groups:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 26%">
+<col style="width: 26%">
+<col style="width: 47%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Cluster</th>
+<th>Profile</th>
+<th>Characteristics</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Cluster 0</strong></td>
+<td>High-Value On-Time</td>
+<td>Higher spending, reliable delivery experience</td>
+</tr>
+<tr class="even">
+<td><strong>Cluster 1</strong></td>
+<td>Standard Customers</td>
+<td>Moderate spending, varied delivery outcomes</td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="cluster-characteristics-1" class="level3">
-<h3 class="anchored" data-anchor-id="cluster-characteristics-1">Cluster Characteristics</h3>
-<p><strong>Cluster 0</strong> Customers in this cluster place slightly more orders, spend more overall, and experience very low delivery delays. Their orders are almost always delivered on time, and the most common payment method is Card.</p>
-<p><strong>Cluster 1</strong> Customers in this group make fewer purchases, spend less overall, and face significantly higher delivery delays. Most of their orders are classified as slightly delayed, and they also commonly use Card as the preferred payment method.</p>
+<section id="business-recommendations-1" class="level3">
+<h3 class="anchored" data-anchor-id="business-recommendations-1">Business Recommendations</h3>
+<ol type="1">
+<li><strong>Cluster 0 (High-Value)</strong>: Loyalty programs, exclusive offers, priority service</li>
+<li><strong>Cluster 1 (Standard)</strong>: Targeted promotions to increase order frequency and value</li>
+</ol>
+<hr>
+<p><em>Analysis completed successfully.</em></p>
+<hr>
 </section>
-<section id="behavioural-distribution-1" class="level3">
-<h3 class="anchored" data-anchor-id="behavioural-distribution-1">Behavioural Distribution</h3>
-<p>Payment method usage is similar across clusters, though Cluster 0 shows a slightly higher proportion of Card payments. Delivery performance is the strongest separator: Cluster 0 is entirely on time, whereas Cluster 1 is dominated by delayed deliveries.</p>
 </section>
-<section id="segment-interpretation-1" class="level3">
-<h3 class="anchored" data-anchor-id="segment-interpretation-1">Segment Interpretation</h3>
-<p>The clusters can be interpreted as:</p>
+</section>
+<section id="business-interpretation-recommendations-1" class="level1">
+<h1>8. Business Interpretation &amp; Recommendations</h1>
+<section id="cluster-profiles-1" class="level2">
+<h2 class="anchored" data-anchor-id="cluster-profiles-1">Cluster Profiles</h2>
+<p>Our K-Means analysis identified <strong>two distinct customer segments</strong>:</p>
+<section id="cluster-0-high-value-reliable-customers-1" class="level3">
+<h3 class="anchored" data-anchor-id="cluster-0-high-value-reliable-customers-1">Cluster 0: High-Value Reliable Customers</h3>
 <ul>
-<li><strong>On-Time High-Value Customers (Cluster 0):</strong> Higher spending, more frequent orders, consistently timely deliveries.</li>
-<li><strong>Delay-Affected Low-Value Customers (Cluster 1):</strong> Lower spending, fewer orders, and substantially higher delivery delays.</li>
+<li><strong>Spending Pattern</strong>: Higher average order value and total lifetime spend</li>
+<li><strong>Delivery Experience</strong>: Consistently on-time deliveries</li>
+<li><strong>Behavior</strong>: Regular ordering frequency with stable preferences</li>
+<li><strong>Business Value</strong>: Core revenue drivers with high retention potential</li>
 </ul>
-<p>This segmentation highlights operational differences in delivery performance and their association with customer value.</p>
+</section>
+<section id="cluster-1-standard-growth-potential-customers-1" class="level3">
+<h3 class="anchored" data-anchor-id="cluster-1-standard-growth-potential-customers-1">Cluster 1: Standard Growth-Potential Customers</h3>
+<ul>
+<li><strong>Spending Pattern</strong>: Moderate order values with room for growth</li>
+<li><strong>Delivery Experience</strong>: Mixed delivery outcomes</li>
+<li><strong>Behavior</strong>: Varying order frequency, exploring the platform</li>
+<li><strong>Business Value</strong>: Opportunity segment for targeted engagement</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="possible-retention-activities-strategy-1" class="level2">
+<h2 class="anchored" data-anchor-id="possible-retention-activities-strategy-1">Possible Retention Activities Strategy</h2>
+<p>To maximize customer lifetime value (CLV) and minimize churn, we recommend distinct retention strategies for each cluster:</p>
+<section id="for-high-value-customers-cluster-0-1" class="level3">
+<h3 class="anchored" data-anchor-id="for-high-value-customers-cluster-0-1">For High-Value Customers (Cluster 0)</h3>
+<p><em>The goal is to Recognize, Reward, and Retain.</em></p>
+<ol type="1">
+<li><strong>VIP Loyalty Program</strong>: Auto-enroll in a premium tier offering “Zero Delivery Fee” or priority slots.</li>
+<li><strong>Exclusive Access</strong>: Early access to sales or new product launches.</li>
+<li><strong>Surprise &amp; Delight</strong>: Random unexpected rewards (e.g., free samples of new premium products) to maintain emotional connection.</li>
+<li><strong>Feedback Loop</strong>: Create a “Customer Advisory Board” where select members provide feedback on new features.</li>
+</ol>
+</section>
+<section id="for-standard-customers-cluster-1-1" class="level3">
+<h3 class="anchored" data-anchor-id="for-standard-customers-cluster-1-1">For Standard Customers (Cluster 1)</h3>
+<p><em>The goal is to Engage, Educate, and Grow.</em></p>
+<ol type="1">
+<li><strong>Gamification</strong>: Implement “Streak” challenges (e.g., “Order 3 times this month to unlock 10% off”).</li>
+<li><strong>Cross-Sell Campaigns</strong>: “Customers who bought X also bought Y” recommendations to increase basket size.</li>
+<li><strong>Delivery Assurance</strong>: Proactive compensation (wallet credits) for any delivery delays to rebuild trust.</li>
+<li><strong>Win-Back Workflows</strong>: Automated email/push notification sequences triggered if inactivity exceeds 30 days.</li>
+</ol>
+<hr>
+</section>
+</section>
+<section id="further-analysis-recommendation-1" class="level2">
+<h2 class="anchored" data-anchor-id="further-analysis-recommendation-1">Further Analysis Recommendation</h2>
+<p>To build upon this segmentation, the following analyses are recommended:</p>
+<section id="market-basket-analysis-1" class="level3">
+<h3 class="anchored" data-anchor-id="market-basket-analysis-1">1. Market Basket Analysis</h3>
+<ul>
+<li><strong>Objective</strong>: Understand product affinity within clusters.</li>
+<li><strong>Method</strong>: Apriori algorithm or Association Rule Mining.</li>
+<li><strong>Insight</strong>: Do High-Value customers buy different <em>combinations</em> of items compared to Standard customers?</li>
+</ul>
+</section>
+<section id="churn-prediction-model-1" class="level3">
+<h3 class="anchored" data-anchor-id="churn-prediction-model-1">2. Churn Prediction Model</h3>
+<ul>
+<li><strong>Objective</strong>: Identify customers at risk of leaving <em>before</em> they churn.</li>
+<li><strong>Method</strong>: Logistic Regression or XGBoost using the cluster labels as a feature.</li>
+<li><strong>Insight</strong>: Which specific behaviors (e.g., 2 consecutive delayed orders) are the strongest predictors of churn?</li>
+</ul>
+</section>
+<section id="cohort-analysis-1" class="level3">
+<h3 class="anchored" data-anchor-id="cohort-analysis-1">3. Cohort Analysis</h3>
+<ul>
+<li><strong>Objective</strong>: Track retention over time.</li>
+<li><strong>Method</strong>: Group customers by acquisition month and track their retention rate month-over-month.</li>
+<li><strong>Insight</strong>: Are newer cohorts performing better or worse than older ones? Is the quality of new users changing?</li>
+</ul>
+</section>
+<section id="geospatial-analysis-1" class="level3">
+<h3 class="anchored" data-anchor-id="geospatial-analysis-1">4. Geospatial Analysis</h3>
+<ul>
+<li><strong>Objective</strong>: Optimize delivery operations.</li>
+<li><strong>Method</strong>: Heatmaps of delivery delays and order volume.</li>
+<li><strong>Insight</strong>: Are “Standard” customers clustered in specific zones with poor logistics coverage?</li>
+</ul>
+<hr>
+<p><em>This segmentation provides a foundation for data-driven customer lifecycle management and targeted marketing strategies.</em></p>
+</section>
 </section>
 </section>
 </div>
@@ -4443,7 +4434,6 @@ cluster
 <!-- -->
 
 
-</section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-blinkit_2025" class="csl-entry" role="listitem">
