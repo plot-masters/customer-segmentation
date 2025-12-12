@@ -55,7 +55,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" integrity="sha384-ZvpUoO/+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn/6Z/hRTt8+pR6L4N2" crossorigin="anonymous"></script><script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -152,6 +172,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#table-of-contents" id="toc-table-of-contents" class="nav-link active" data-scroll-target="#table-of-contents">Table of Contents</a></li>
+  <li><a href="#proposal" id="toc-proposal" class="nav-link" data-scroll-target="#proposal">Proposal</a></li>
   <li><a href="#data-loading" id="toc-data-loading" class="nav-link" data-scroll-target="#data-loading">1. Data Loading</a></li>
   <li><a href="#data-validation" id="toc-data-validation" class="nav-link" data-scroll-target="#data-validation">2. Data Validation</a></li>
   <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning">3. Data Cleaning</a></li>
@@ -236,6 +257,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="table-of-contents" class="level2">
 <h2 class="anchored" data-anchor-id="table-of-contents">Table of Contents</h2>
 <ol type="1">
+<li><strong>Proposal</strong> - Project Statement, Business Goal, Data Source, Tools and Technology, Project Workflow, Data Extraction, Schema / Data Dictionary</li>
 <li><strong>Data Loading</strong> - Import and load the dataset</li>
 <li><strong>Data Validation</strong> - Explore structure, check for nulls and anomalies</li>
 <li><strong>Data Cleaning</strong> - Handle missing values, remove irrelevant columns</li>
@@ -244,7 +266,72 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><strong>Cluster Modeling</strong> - K-Means with silhouette analysis</li>
 <li><strong>Results &amp; Insights</strong> - Cluster profiles and business recommendations</li>
 </ol>
-<hr>
+</section>
+<section id="proposal" class="level2">
+<h2 class="anchored" data-anchor-id="proposal">Proposal</h2>
+<ol type="1">
+<li><p><strong>Project Statement</strong><br>
+Across customer-centric businesses, one of the major goals for the organization is being able to predict the needs of its customers and how to best cater to their needs while maintaining high profitability. However, to make the solution feasible, the way forward would be to create groups of consumers that share similar spending patterns, allowing the businesses to create targeted marketing campaigns, improve customer satisfaction, demand-oriented product development, and therefore improve <em>profitability</em>.</p></li>
+<li><p><strong>Business Goal</strong><br>
+The objective of this project is to develop a machine learning model that can create suitable and usable clusters/segments given the profile and purchases of the customer. The model should then be able to predict, within bounds of acceptable error, which segment a customer is likely to belong to. The model should allow stakeholders to make informed and data-backed decisions on product demand, campaign successes and customer retention.</p></li>
+<li><p><strong>Data Source</strong><br>
+We will use the “Blinkit Sales Dataset” for this project. This dataset provides detailed information on product sales, visibility, item types, and outlet performance, making it ideal for performing sales data analysis and gaining insights into business trends. The dataset is well-structured and suitable for data preprocessing, exploratory data analysis, and predictive modeling tasks.</p>
+<ul>
+<li><strong>Source Platform:</strong> <strong>Kaggle</strong></li>
+<li><strong>Dataset</strong>: Blinkit Sales Data <span class="citation" data-cites="blinkit_2025">(<a href="#ref-blinkit_2025" role="doc-biblioref">Vaghasiya 2025</a>)</span></li>
+</ul></li>
+<li><p><strong>Tools and Technology</strong><br>
+Following languages and libraries are planned to be used for this project. More libraries may be used and every non trivial library shall be updated.</p>
+<ul>
+<li>Python
+<ul>
+<li>Core Libraries
+<ul>
+<li>Data Manipulation: Pandas, NumPy<br>
+</li>
+<li>ML: scikit-learn<br>
+</li>
+<li>Data Visualization &amp; Storytelling: Matplotlib, Seaborn<br>
+</li>
+</ul></li>
+<li>Development Environment: VS Code, Google Colab, GitHub<br>
+</li>
+</ul></li>
+<li>Dashboard: Power BI</li>
+</ul></li>
+<li><p><strong>Project Workflow</strong><br>
+The project is to follow a standard data science development lifecycle,</p>
+<ol type="1">
+<li>Data Acquisition: Fetch the dataset from <strong>Kaggle</strong> using its API.<br>
+</li>
+<li>Preprocessing: Handle missing values (if any), encode categorical variables, and<br>
+check for data inconsistencies.<br>
+</li>
+<li>EDA: Analyze features to understand their relationship with attrition using statistical summaries and visualizations.<br>
+</li>
+<li>Feature Engineering: Create new features from existing ones if necessary to improve model performance.<br>
+</li>
+<li>Modeling: Train several clustering models (e.g., K Means Clustering, PCA, Decision Trees).<br>
+</li>
+<li>Evaluation: Assess model performance using metrics like Accuracy, Precision, Recall, and F1-Score. Select the best-performing model.<br>
+</li>
+<li>Visualization: Create an interactive dashboard in Power BI to present the key findings and predictions to stakeholders.</li>
+</ol></li>
+<li><p><strong>Data Extraction</strong><br>
+The “<em>Blinkit Sales Dataset</em>” is acquired directly from the Kaggle repository. To ensure a professional and reproducible workflow, manually downloading the files is not done.<br>
+Instead, we will perform the following steps:</p>
+<ul>
+<li>Automate the Process: We will write a Python script that utilizes the official Kaggle API to connect to the source and download the dataset.<br>
+</li>
+<li>Ensure Reproducibility: This scripted approach guarantees that the data extraction process is consistent and can be easily re-run by any team member or reviewer.<br>
+</li>
+<li>Prepare for Analysis: The script will handle the unzipping of the downloaded files and load the data directly into a Pandas DataFrame, making it immediately available for the next phase of our project.<br>
+</li>
+<li>Notebook: <a href="notebooks/presentation.ipynb">Analysis Notebook</a></li>
+</ul></li>
+<li><p><strong>Schema / Data Dictionary</strong><br>
+This data dictionary was created after inspecting the dataset.</p></li>
+</ol>
 <div id="cell-2" class="cell" data-execution_count="179">
 <details class="code-fold">
 <summary>Code</summary>
@@ -3093,11 +3180,16 @@ cluster
 <p><em>This segmentation provides a foundation for data-driven customer lifecycle management and targeted marketing strategies.</em></p>
 
 
+
 </section>
 </section>
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-blinkit_2025" class="csl-entry" role="listitem">
+Vaghasiya, Akshit. 2025. <span>“Blinkit <span>Sales</span> <span>Dataset</span>.”</span> <a href="https://www.kaggle.com/datasets/akxiit/blinkit-sales-dataset">https://www.kaggle.com/datasets/akxiit/blinkit-sales-dataset</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
