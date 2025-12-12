@@ -1,6 +1,6 @@
 ---
-title: 'Customer Segmentation Analysis'
-subtitle: 'The Cost of a Minute: How Delivery Delays Define Customer Value'
+title: 'The Cost of a Minute: How Delivery Delays Define Customer Value'
+subtitle: 'Customer Segmentation Analysis on Blinkit Sales dataset'
 author:
     - name: Utkarsh Tripathi 
       affiliation: BITS Pilani
